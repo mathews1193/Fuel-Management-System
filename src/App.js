@@ -4,7 +4,7 @@ import './App.css';
 import Home from './containers/Home/Home';
 import Login from './containers/Login/Login';
 import SignUp from './containers/SignUp/SignUp';
-import Fuel from './containers/Fuel-Quote/Fuel';
+import Fuel from './containers/Fuel';
 import Profile from './containers/Client-Profile/Profile';
 import Dashboard from './containers/Dashboard/Dashboard';
 
