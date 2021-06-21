@@ -26,6 +26,16 @@
     display:block;
     padding: 35px;
 }
+.btn-signin {
+    color:white;
+    background-color:#333;
+    border: 2px solid whitesmoke;
+    float:left;
+    display:block;
+    margin-top:20px;
+    margin-left:70px;
+    padding: 20px;
+}
 /* Change color of dropdown links on hover */
 .list .nav:hover {background-color:turquoise;}
 .list button:hover {background-color:turquoise;}
