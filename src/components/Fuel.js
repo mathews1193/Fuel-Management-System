@@ -1,20 +1,28 @@
 import React from 'react';
+import "./Fuel.css";
 
 function Fuel() {
     return (
-        <div>
+        <div className="form">
             <h1> Fuel Quote Form</h1>
-
-            <input 
-               type = "text" 
-               autofocus required 
-               />
-            <input 
-               type = "text" 
-               autofocus required 
-               />
-
-            <button>Request A Fuel Quote</button>
+            <div className="fuel-form">
+                <input 
+                type = "text" 
+                className="fuel"
+                placeholder="Gallons Requested"
+                autofocus required 
+                />
+                <input 
+                type = "text" 
+                className="fuel"
+                placeholder="Delivery Date"
+                autofocus required 
+                />
+            </div>
+            <div className="btn-container" >
+                <button className="btn-fuel">Request A Fuel Quote</button>
+            </div>
+            
         </div>
     )
 }
