@@ -1,5 +1,5 @@
 import React from 'react'
-import FuelQuote from '../../components/Fuel';
+import FuelQuote from '../components/Fuel/Fuel';
 
 function Fuel() {
     return (

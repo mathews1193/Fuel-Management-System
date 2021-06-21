@@ -2,7 +2,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  padding-top: 90px;
+}
+.img{
+  background-image: url("https://images.pexels.com/photos/1058683/pexels-photo-1058683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-Position: center center;
+  background-size:cover;
+  background-repeat: no-repeat;
 }
 .fuel-form .fuel{
     display:block;
@@ -10,7 +16,7 @@
     padding:20px; 
    
     appearance: none;
-    background:none;
+    background: white;
     border:none;
     outline:none;
     background-color: rgba(255,255,255,0.5);
@@ -24,7 +30,7 @@
     transition: 0.4s ease;
   }
   .btn-container{
-    padding-top:20px;
+    padding:40px 0px;
   }
   .btn-fuel{
     width:40%;
