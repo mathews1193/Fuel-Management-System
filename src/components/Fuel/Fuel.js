@@ -4,7 +4,6 @@ import "./Fuel.css";
 function Fuel() {
     return (
         <div>
-            <h1> Fuel Quote Form</h1>
             <div className="form">
             <div className="img">
                 <div className="fuel-form">
