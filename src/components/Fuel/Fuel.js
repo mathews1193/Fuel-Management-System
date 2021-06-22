@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./Fuel.css";
 
 function Fuel() {
+    const [deliveryDate, setDeliveryDate] = useState(new Date());
     return (
         <div>
             <div className="form">
@@ -14,11 +17,11 @@ function Fuel() {
                     placeholder="Gallons Requested"
                     autofocus required 
                     />
-                    <input 
-                    type = "text" 
-                    className="fuel"
+                    <DatePicker 
+                    className="date"
                     placeholder="Delivery Date"
-                    autofocus required 
+                    selected={deliveryDate} 
+                    onChange={(date) => setDeliveryDate(date)} 
                     />
                 </div>
                 <div className="btn-container" >
