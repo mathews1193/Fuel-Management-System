@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 150px;
+  padding-top: 130px;
 }
 .img{
   background-image: url("https://images.pexels.com/photos/1058683/pexels-photo-1058683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
@@ -10,6 +10,11 @@
   height:100vh;
   background-size:cover;
   background-repeat: no-repeat;
+}
+.title{
+  background-color: #313131;
+  border: 2px solid whitesmoke;
+  color:white;
 }
 .fuel-form .fuel{
     display:block;

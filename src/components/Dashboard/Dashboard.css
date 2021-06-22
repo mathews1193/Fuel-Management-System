@@ -1,0 +1,27 @@
+ .img2{
+    background-image: url("https://images.pexels.com/photos/373893/pexels-photo-373893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-Position: center center;
+    height:100vh;
+    background-size:cover;
+    background-repeat: no-repeat;
+  }
+.title{
+    background-color: #313131;
+    border: 2px solid whitesmoke;
+    color:white;
+  }
+  .sub-title{
+    margin:auto;
+    width:50%;
+    background-color: #313131;
+    border: 2px solid whitesmoke;
+    color:white;
+  }
+  .fuel-history{
+      margin:auto;
+      margin-top: 10px;
+      width:50%;
+      background-color:#313131;
+      border: 2px solid whitesmoke;
+      color:white;
+  }

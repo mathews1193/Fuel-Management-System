@@ -1,12 +1,10 @@
 import React from 'react'
+import Dashboard1 from '../components/Dashboard/Dashboard'
 
 function Dashboard() {
-    const name = "James"
     return (
         <div>
-            <h1>Welcome, {name}!</h1>
-            <h2>Fuel History</h2>
-            
+            <Dashboard1 />
         </div>
     )
 }
