@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import Logo from "../../assets/img/logo.png";
 
-function NavBar({title}) {
+function NavBar(props) {
     return (
         <div>
             <nav className='navbar'>
@@ -16,7 +16,7 @@ function NavBar({title}) {
                         <Link to ="about"className="nav">About Us</Link>
                         <Link to ="/login"> <button className="btn-signin">Sign Out</button> </Link>
                 </ul>
-                <h1>{title}</h1>
+                <h1>Fuel Quote</h1>
             </nav>
         </div>
     )

@@ -8,6 +8,7 @@ import Fuel from './containers/Fuel';
 import Profile from './containers/Client-Profile/Profile';
 import Dashboard from './containers/Dashboard/Dashboard';
 import NavBar from './components/NavBar/NavBar';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const title = "";
@@ -15,14 +16,15 @@ function App() {
     <div className="App">
       <Router>
         <NavBar title={title}/>
-      <div className='container'>
-              <Route exact path="/" title={"Home"} component={Home} />
-              <Route path="/signup"component={SignUp} title={"Sign Up"}/>
-              <Route path="/login"component={Login} />
-              <Route path="/fuel-quote" title={"Fuel Quote Form"} component={Fuel} />
-              <Route path="/client-profile"component={Profile} />
-              <Route path="/dashboard"component={Dashboard} />
+        <div className='container'>
+          <Route exact path="/" component={Home} title={"Home"}/>
+          <Route path="/signup"component={SignUp} title={"Sign Up"}/>
+          <Route path="/login"component={Login} />
+          <Route path="/fuel-quote"component={Fuel} title={"Fuel"} />
+          <Route path="/client-profile"component={Profile} />
+          <Route path="/dashboard"component={Dashboard} />
         </div>
+        <Footer />
       </Router>
     </div>
   );
