@@ -1,10 +1,19 @@
  .img2{
     background-image: url("https://images.pexels.com/photos/373893/pexels-photo-373893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-Position: center center;
-    height:100vh;
+    height:100%;
     background-size:cover;
     background-repeat: no-repeat;
   }
+.order{
+  
+}
+.graph{
+  margin:auto;
+  padding-bottom: 50px;
+  width:26%;
+  height:26%;
+}
 .title{
     background-color: #313131;
     border: 2px solid whitesmoke;
@@ -12,6 +21,7 @@
   }
   .sub-title{
     margin:auto;
+    margin-top:20px;
     width:50%;
     background-color: #313131;
     border: 2px solid whitesmoke;
@@ -19,6 +29,7 @@
   }
   .fuel-history{
       margin:auto;
+      text-align: left;
       margin-top: 10px;
       width:50%;
       background-color:#313131;
