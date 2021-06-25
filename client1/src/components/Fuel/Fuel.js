@@ -3,20 +3,40 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+import Axios from 'axios';
 import "./Fuel.css";
 
 toast.configure();
 
 function Fuel(props) {
-    const [gallons, setGallons] = useState("");
+    const [userId, setUserId] = useState(1);
+    const [gallonsRequested, setGallonsRequested] = useState("");
+    const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
+    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
+    const [totalPrice, setTotalPrice] = useState(gallonsRequested * 1.95);
+
 
     const getGallons = (e) => {
-        setGallons(e.target.value);
+        setGallonsRequested(e.target.value);
         };
 
     const requestQuote = () => {
-        console.log(gallons + " " + deliveryDate)
+
+        Axios.post('http://localhost:3001/create',{
+            userId:userId,
+            gallonsRequested:gallonsRequested,
+            deliveryAddress:deliveryAddress,
+            deliveryDate:deliveryDate,
+            suggestedPrice: suggestedPrice,
+            totalPrice: totalPrice,
+        }).then(() => {
+            console.log("success frontend to backend");
+        })
+
+        console.log(userId + " " + gallonsRequested + " " + deliveryAddress + " " 
+        + deliveryDate + " " + suggestedPrice + " " + totalPrice);
+
             toast("Fuel Quote Request Placed Successfully");
         };
 
@@ -26,13 +46,13 @@ function Fuel(props) {
             <div className="img">
                 <h1 className="title">Fuel Quote Form</h1>
                 <div className="fuel-form">
-                    <input 
+                     <input 
                     type = "text" 
                     className="fuel"
                     placeholder="Gallons Requested"
                     onChange={getGallons}
-                    value={gallons}
-                    autofocus required 
+                    value={gallonsRequested}
+                    autoFocus required 
                     />
                     <DatePicker 
                     className="date"
