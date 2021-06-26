@@ -13,7 +13,7 @@ function NavBar() {
                         <Link to ="/" className="nav">Home</Link>
                         <Link to = "/dashboard" className="nav">Dashboard</Link>
                         <Link to ="/fuel-quote" className="nav">Fuel Quotes</Link>
-                        <Link to = "/profile" className="nav">Profile</Link>
+                        <Link to = "/client-profile" className="nav">Profile</Link>
                         <Link to ="about"className="nav">About Us</Link>
                         <Link to ="/login"> <button className="btn-signin">Sign Out</button> </Link>
                 </ul>
