@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SelectUSState from 'react-select-us-states'
 
 import {
   Button,
@@ -183,6 +184,14 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
+                      </Col>
+                      <Col lg="6">
+                        <p>
+                             Select a state: <SelectUSState 
+                             id="myId" 
+                             className="myClassName" 
+                             onChange/>
+                        </p>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
