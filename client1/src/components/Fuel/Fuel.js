@@ -13,8 +13,8 @@ function Fuel(props) {
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
-    const [totalPrice, setTotalPrice] = useState(gallonsRequested * 1.95);
+    const [suggestedPrice, setSuggestedPrice] = useState("1.95");
+    const [totalAmount, setTotalAmount] = useState("2800");
 
 
     const getGallons = (e) => {
@@ -29,13 +29,13 @@ function Fuel(props) {
             deliveryAddress:deliveryAddress,
             deliveryDate:deliveryDate,
             suggestedPrice: suggestedPrice,
-            totalPrice: totalPrice,
+            totalAmount: totalAmount,
         }).then(() => {
             console.log("success frontend to backend");
         })
 
         console.log(userId + " " + gallonsRequested + " " + deliveryAddress + " " 
-        + deliveryDate + " " + suggestedPrice + " " + totalPrice);
+        + deliveryDate + " " + suggestedPrice + " " + totalAmount);
 
             toast("Fuel Quote Request Placed Successfully");
         };
