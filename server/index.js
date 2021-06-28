@@ -24,7 +24,7 @@ app.post('/create', (req, res) => {
     const totalAmount = req.body.totalAmount;
 
 
-    // insert new data into the table // 
+    // insert new data into the table (hint:table name needs to be one word!!!!!) // 
     db.query("INSERT INTO fuelquotes (userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)", 
     [userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
     (err, result) => {
