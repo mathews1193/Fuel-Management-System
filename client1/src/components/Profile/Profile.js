@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-import SelectUSState from 'react-select-us-states'
+import SelectUSState from '../USstatePicker/USstatePicker'
+import './Profile.css';
+import {FormGroup,Input,Col} from 'reactstrap';
 
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Container,
-  Row,
-  Col
-} from 'reactstrap';
+const Profile = () => {
 
-function Profile() {
+    
+    
+    let [USState, setUSState] = useState('');
+
+    const handleUSStateChange = (e) => {
+        setUSState(e.target.value);
+        };
+
     const initialInfoState = {
         id: null,
         FullName: '',
@@ -35,25 +33,29 @@ function Profile() {
         //set edit to false when save is clicked
         setEdit(false);
       };
+      
     
       const handleEdit = (e) => {
         e.preventDefault();
         //set edit to true when edit is clicked
         setEdit(true);
       };
-    
+      
+
       const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInfo({ ...info, [name]: value });
       };
-    
+     
+      
+
       const saveInfo = () => {
         var data = {
             FullName: info.FullName,    
             Address1: info.Address1,
             Address2: info.Address2,
             City: info.City,
-            State: info.State,
+            USState: USState,
             ZipCode: info.State
         };
     
@@ -61,44 +63,36 @@ function Profile() {
                     info.Address1 + " " +
                     info.Address2 + " " +
                     info.City + " " +
-                    info.State + " " +
+                    USState + " " +
                     info.ZipCode)
             
-        
+                    
       };
 
     return (
         <div>
-             <Container className="mt--7" fluid>
-        <Row>
-          {/* PRINCIPAL BODY */}
-
-          <Col className="order-xl-1" xl="8">
-            <Card className="bg-secondary shadow">
-              <CardHeader className="bg-white border-0">
-                <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">User Profile</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    {edit === true ? (
-                      <Button color="primary" onClick={handleSave} size="sm">
-                        Save
-                      </Button>
-                    ) : (
-                      <Button color="primary" onClick={handleEdit} size="sm">
-                        Edit
-                      </Button>
-                    )}
-                  </Col>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                <Form>
+             
+        <div className="form"> 
+             <div className = "img3">
+                <h1 className="title">Client Profile</h1>
                   
-                  <div className="pl-lg-4">
-                    <Row>
-                      <Col lg="6">
+                
+                    {edit === true ? (
+                      <div className="btn-container" >
+                      <button onClick={handleSave} className="btn-save">Save Profile</button>
+                  </div>
+                    ) : (
+                        <div className="btn-container" >
+                        <button onClick={handleEdit} className="btn-edit">Edit Profile</button>
+                    </div>
+                    )}
+                  
+                
+              
+               
+                  
+                  <div className="client-form">
+                    
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -118,11 +112,9 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
-                      </Col>
-                    </Row>
+                     
 
-                    <Row>
-                      <Col lg="6">
+                   
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -142,8 +134,7 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
-                      </Col>
-                      <Col lg="6">
+                      
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -163,8 +154,7 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
-                      </Col>
-                      <Col lg="6">
+                     
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -184,16 +174,23 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
-                      </Col>
+                      
                       <Col lg="6">
-                        <p>
-                             Select a state: <SelectUSState 
-                             id="myId" 
-                             className="myClassName" 
-                             onChange/>
-                        </p>
+                        
+                             State: <SelectUSState
+                             className= "form-control-label"
+                             id="State" 
+                             required   
+                             value={info.State}
+                             onChange={(State) =>handleUSStateChange(State)}
+                             type="text"
+                             name="state"
+                             placeholder="select state"
+                             disabled={!edit}
+                             />
+                        
                       </Col>
-                      <Col lg="6">
+                      
                         <FormGroup>
                           <label
                             className="form-control-label"
@@ -213,15 +210,12 @@ function Profile() {
                             disabled={!edit}
                           />
                         </FormGroup>
-                      </Col>
-                    </Row>
+                      
+                   
                   </div>
-                </Form>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                
+                </div>
+                </div>
         </div>
     )
                     }
