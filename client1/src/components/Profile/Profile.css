@@ -7,9 +7,11 @@
   }
   .client-form{
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     padding-top: 90px;
+    
   }
   .title{
     background-color: #313131;
@@ -37,3 +39,48 @@
     border-radius: 20%;
     padding:20px 5px;
   }
+
+  .client-form .form1{
+    display:block;
+    width: 30%;
+    padding:20px; 
+    margin-bottom: 20px;
+    text-align: left;
+   
+    appearance: none;
+    background: white;
+    border:none;
+    outline:none;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 0px 0px 16px 16px;
+   
+    box-shadow: 0px 5px rgba(0,0,0,0.2);
+  
+    color:#080808;
+    font-size:20px;
+  
+    transition: 0.4s ease;
+  }
+ 
+  .client-form .form2{
+    display:block;
+    width: 10%;
+    padding:20px; 
+    margin-bottom: 20px;
+    text-align: left;
+   
+    appearance: none;
+    background: white;
+    border:none;
+    outline:none;
+    background-color: rgba(255,255,255,0.5);
+    border-radius: 0px 0px 16px 16px;
+   
+    box-shadow: 0px 5px rgba(0,0,0,0.2);
+  
+    color:#313131;
+    font-size:20px;
+  
+    transition: 0.4s ease; 
+  }
+  

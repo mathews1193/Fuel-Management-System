@@ -92,16 +92,13 @@ const Profile = () => {
                
                   
                   <div className="client-form">
+
+                      
                     
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            Full Name
-                          </label>
+                        
+                          
                           <Input
-                            className="form-control-alternative"
+                            className="form1"
                             id="FullName"
                             required
                             value={info.FullName}
@@ -111,19 +108,14 @@ const Profile = () => {
                             placeholder="Full Name"
                             disabled={!edit}
                           />
-                        </FormGroup>
+                        
                      
 
                    
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            Address
-                          </label>
+                        
+                          
                           <Input
-                            className="form-control-alternative"
+                            className="form1"
                             id="Address1"
                             required
                             value={info.Address1}
@@ -133,17 +125,12 @@ const Profile = () => {
                             placeholder="Address line 1"
                             disabled={!edit}
                           />
-                        </FormGroup>
+                        
                       
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            Address
-                          </label>
+                        
+                         
                           <Input
-                            className="form-control-alternative"
+                            className="form1"
                             id="Address2"
                             required
                             value={info.Address2}
@@ -153,17 +140,12 @@ const Profile = () => {
                             placeholder="Address line 2"
                             disabled={!edit}
                           />
-                        </FormGroup>
+                       
                      
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            City
-                          </label>
+                        
+                          
                           <Input
-                            className="form-control-alternative"
+                            className="form1"
                             id="City"
                             required
                             value={info.City}
@@ -173,12 +155,12 @@ const Profile = () => {
                             placeholder="City"
                             disabled={!edit}
                           />
-                        </FormGroup>
-                      
-                      <Col lg="6">
                         
-                             State: <SelectUSState
-                             className= "form-control-label"
+                      
+                      
+                            
+                             <SelectUSState
+                             className= "form2"
                              id="State" 
                              required   
                              value={info.State}
@@ -188,18 +170,14 @@ const Profile = () => {
                              placeholder="select state"
                              disabled={!edit}
                              />
+                             
                         
-                      </Col>
                       
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                            ZipCode
-                          </label>
+                      
+                       
+                          
                           <Input
-                            className="form-control-alternative"
+                            className="form1"
                             id="ZipCode"
                             required
                             value={info.ZipCode}
@@ -209,8 +187,8 @@ const Profile = () => {
                             placeholder="ZipCode"
                             disabled={!edit}
                           />
-                        </FormGroup>
-                      
+                        
+                        
                    
                   </div>
                 
