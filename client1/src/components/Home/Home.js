@@ -13,14 +13,22 @@ function Home() {
             <div className="img4">
                 <div className="img-set1">
                     <img className="img1"src={img[0]} alt="Logo" width="350" height="300"/>
-                    <h1 className="sub-title1">Taking Your Fuel Managment Need to The Next Level!</h1>
+                    <div className="title-background">
+                        <h1 className="sub-title1">Taking Your Fuel Managment Need</h1>
+                        <h1 className="sub-title1">To</h1>
+                        <h1 className="sub-title1">The Next Level!</h1>
+                    </div>                    
                 </div>
                 <div className="img-set2">
-                    <h1 className="sub-title1">Making Orders Easier For companies Around The World </h1>
-                    <img className="img1"src={img[1]} alt="Logo" width="350" height="300"/>
                     <div className="btn-containter1">
+                        <div className="title-background">
+                            <h1 className="sub-title1">Making Orders Easier</h1>
+                            <h1 className="sub-title1">For</h1>
+                            <h1 className="sub-title1">Companies Around The World </h1>
+                        </div>
                         <Link to ="/login"> <button className="btn-signup">Sign Up Here</button> </Link>
                     </div>
+                    <img className="img1"src={img[1]} alt="Logo" width="350" height="300"/>
                 </div>
             </div>
         </div>
