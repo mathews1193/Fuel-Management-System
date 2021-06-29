@@ -1,0 +1,35 @@
+.img4{
+    background-image: url("https://images.pexels.com/photos/2341830/pexels-photo-2341830.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+    background-Position: center center;
+    height:100%;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+.sub-title1{
+    color:white;
+}
+.img1{
+    border: 5px solid whitesmoke;
+}
+.img-set1{
+    display: flex;
+    flex-direction:row;
+    padding: 50px 40px;
+}
+.img-set2{
+    display: flex;
+    flex-direction:row;
+}
+.btn-container1{
+    display: flex;
+    flex-direction: column;
+  }
+.btn-signup{
+    color:white;
+    background-color:#333;
+    border: 2px solid whitesmoke;
+    border-radius: 20%;
+    float:left;
+    display:block;
+    padding: 20px;
+}
