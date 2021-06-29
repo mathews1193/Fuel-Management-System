@@ -43,28 +43,28 @@ function Fuel(props) {
     return (
         <div>
             <div className="form">
-            <div className="img">
-                <h1 className="title">Fuel Quote Form</h1>
-                <div className="fuel-form">
-                     <input 
-                    type = "text" 
-                    className="fuel"
-                    placeholder="Gallons Requested"
-                    onChange={getGallons}
-                    value={gallonsRequested}
-                    autoFocus required 
-                    />
-                    <DatePicker 
-                    className="date"
-                    placeholder="Delivery Date"
-                    selected={deliveryDate} 
-                    onChange={(date) => setDeliveryDate(date)} 
-                    />
+                <div className="img">
+                    <h1 className="title">Fuel Quote Form</h1>
+                    <div className="fuel-form">
+                        <input 
+                        type = "text" 
+                        className="fuel"
+                        placeholder="Gallons Requested"
+                        onChange={getGallons}
+                        value={gallonsRequested}
+                        autoFocus required 
+                        />
+                        <DatePicker 
+                        className="date"
+                        placeholder="Delivery Date"
+                        selected={deliveryDate} 
+                        onChange={(date) => setDeliveryDate(date)} 
+                        />
+                    </div>
+                    <div className="btn-container" >
+                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
+                    </div>
                 </div>
-                <div className="btn-container" >
-                    <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
-                </div>
-            </div>
             </div> 
         </div>
         
