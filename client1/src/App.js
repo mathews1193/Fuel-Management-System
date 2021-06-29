@@ -5,7 +5,7 @@ import Home from './containers/Home';
 import Login from './containers/Login/Login';
 import SignUp from './containers/SignUp/SignUp';
 import Fuel from './containers/Fuel';
-import Profile from './containers/Client-Profile/Profile';
+import Profile from './containers/Profile';
 import Dashboard from './containers/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
