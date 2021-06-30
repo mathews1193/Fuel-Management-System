@@ -3,7 +3,7 @@ import SelectUSState from '../USstatePicker/USstatePicker'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
-import {FormGroup,Input,Col} from 'reactstrap';
+
 
 toast.configure();
 
@@ -16,7 +16,7 @@ const Profile = () => {
         };
 
     const initialInfoState = {
-        id: null,
+        UserID: null,
         FullName: '',
         Address1: '',
         Address2: '',
@@ -53,7 +53,7 @@ const Profile = () => {
             Address1: info.Address1,
             Address2: info.Address2,
             City: info.City,
-            USState: USState,
+            USState: info.USState,
             ZipCode: info.State
         };
     
@@ -61,7 +61,7 @@ const Profile = () => {
                     info.Address1 + " " +
                     info.Address2 + " " +
                     info.City + " " +
-                    USState + " " +
+                    info.USState + " " +
                     info.ZipCode)
 
         toast("Client Profile Created Successfully!");
@@ -76,7 +76,7 @@ const Profile = () => {
                   
                   <div className="client-form">
 
-                    <Input
+                    <input
                       className="form1"
                       id="FullName"
                       required
@@ -88,7 +88,7 @@ const Profile = () => {
                       disabled={!edit}
                     />        
                       
-                    <Input
+                    <input
                       className="form1"
                       id="Address1"
                       required
@@ -100,7 +100,7 @@ const Profile = () => {
                       disabled={!edit}
                     />
               
-                    <Input
+                    <input
                       className="form1"
                       id="Address2"
                       required
@@ -112,7 +112,7 @@ const Profile = () => {
                       disabled={!edit}
                     />
                           
-                    <Input
+                    <input
                       className="form1"
                       id="City"
                       required
@@ -136,7 +136,7 @@ const Profile = () => {
                       disabled={!edit}
                     />
                                                     
-                    <Input
+                    <input
                       className="form1"
                       id="ZipCode"
                       required
@@ -150,7 +150,10 @@ const Profile = () => {
  
                   </div>
 
+                  
+
                   {edit === true ? (
+                    
                     <div className="btn-container" >
                       <button onClick={handleSave} className="btn-save">Create Profile</button>
                     </div>
