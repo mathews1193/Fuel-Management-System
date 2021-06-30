@@ -6,15 +6,15 @@ class SelectUSState extends React.Component {
   
 
   render() {
-    const { id, className } = this.props;
+    const {className } = this.props;
     return (
-      <select id={id}
+      <select 
         className={className}
         onChange={this.handleChange}
         disabled={false}>
         {states.map(item => (
-          <option key={item.abbreviation} value={item.abbreviation}>
-            {item.abbreviation}
+          <option key={item.name} value={item.abbreviation}>
+            {item.abbreviation} - {item.name}
           </option>
         ))}
       </select>

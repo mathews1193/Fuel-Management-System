@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , Component} from 'react';
 import SelectUSState from '../USstatePicker/USstatePicker'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -7,12 +7,15 @@ import './Profile.css';
 
 toast.configure();
 
+
 const Profile = () => {
 
-    let [USState, setUSState] = useState('');
+    const [USState, setUSState] = useState('');
 
-    const handleUSStateChange = (e) => {
-        setUSState(e.target.value);
+    const handleUSStateChange = (event) => {
+        setUSState(event.target.value);
+        console.log(USState)
+        setInfo({ ...info, USState });
         };
 
     const initialInfoState = {
@@ -57,7 +60,8 @@ const Profile = () => {
             ZipCode: info.State
         };
     
-        console.log(info.FullName + " " +
+        console.log(info.UserID + " " +
+                    info.FullName + " " +
                     info.Address1 + " " +
                     info.Address2 + " " +
                     info.City + " " +
@@ -129,7 +133,7 @@ const Profile = () => {
                       id="State" 
                       required   
                       value={info.State}
-                      onChange={(State) =>handleUSStateChange(State)}
+                      onChange={handleUSStateChange}
                       type="text"
                       name="state"
                       placeholder="select state"
