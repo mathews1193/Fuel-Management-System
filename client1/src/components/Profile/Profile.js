@@ -3,7 +3,7 @@ import SelectUSState from '../USstatePicker/USstatePicker'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
-import {FormGroup,Input,Col} from 'reactstrap';
+import {Input} from 'reactstrap';
 
 toast.configure();
 

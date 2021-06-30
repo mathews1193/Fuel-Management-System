@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router,Route} from "react-router-dom";
 import './App.css';
 import Home from './containers/Home';
-import Login from './containers/Login/Login';
+import Login from './containers/Login';
 import SignUp from './containers/SignUp/SignUp';
 import Fuel from './containers/Fuel';
 import Profile from './containers/Profile';
