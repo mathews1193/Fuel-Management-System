@@ -1,4 +1,4 @@
-import React, { useState , Component} from 'react';
+import React, { useState } from 'react';
 import SelectUSState from '../USstatePicker/USstatePicker.js'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -18,7 +18,7 @@ const Profile = () => {
     const handleUSStateChange = (e) => {
       setUSState(e.target.value);
 
-      
+
       const value = e.target.value
       console.log(value)
       };
