@@ -3,18 +3,18 @@ import states from "./states.json";
 import PropTypes from "prop-types";
 
 class SelectUSState extends React.Component {
-  
+  handleChange = event => {
+    const { onChange } = this.props;
+    onChange(event.target.value);
+  };
 
   render() {
-    const {className } = this.props;
+    const { id, className } = this.props;
     return (
-      <select 
-        className={className}
-        onChange={this.handleChange}
-        disabled={false}>
+      <select id={id} className={className} onChange={this.handleChange}>
         {states.map(item => (
-          <option key={item.name} value={item.abbreviation}>
-            {item.abbreviation} - {item.name}
+          <option value={item.abbreviation}>
+            {item.name} - {item.abbreviation}
           </option>
         ))}
       </select>
@@ -25,8 +25,7 @@ class SelectUSState extends React.Component {
 const propTypes = {
   id: PropTypes.string,
   onChange: PropTypes.func,
-  className: PropTypes.string,
-  disabled: PropTypes.bool
+  className: PropTypes.string
 };
 
 SelectUSState.propTypes = propTypes;
