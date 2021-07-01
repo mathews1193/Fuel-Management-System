@@ -7,10 +7,10 @@
 }
 .title-background{
     padding: 0px 120px;
-    
 }
 .sub-title1{
     background-color: rgba(255,255,255,0.5);
+    border-radius: 10px;
 }
 .img1{
     border: 5px solid whitesmoke;
