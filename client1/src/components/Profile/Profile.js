@@ -41,8 +41,9 @@ const Profile = () => {
 
       const handleCreate = (e) => {
         console.log(info.UserID)//test
+        const currentID = '10000'
         e.preventDefault();
-        info.UserID = 1;//test
+        info.UserID = currentID + 1;//test
         saveInfo();
         //set edit to false when save is clicked
         setEdit(false);
