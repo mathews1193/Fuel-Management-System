@@ -1,8 +1,11 @@
 import React, { useState , Component} from 'react';
-import SelectUSState from '../USstatePicker/USstatePicker'
+import SelectUSState from '../USstatePicker/USstatePicker.js'
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+
 
 
 toast.configure();
@@ -12,12 +15,16 @@ const Profile = () => {
 
     const [USState, setUSState] = useState('');
 
-    const handleUSStateChange = (event) => {
-        setUSState(event.target.value);
-        console.log(USState)
-        setInfo({ ...info, USState });
-        };
+    const handleUSStateChange = (e) => {
+      setUSState(e.target.value);
 
+      
+      const value = e.target.value
+      console.log(value)
+      };
+
+   
+        
     const initialInfoState = {
         UserID: null,
         FullName: '',
@@ -141,12 +148,12 @@ const Profile = () => {
                       disabled={!edit}
                     />
                             
-                    <SelectUSState
+                      <SelectUSState
                       className= "form2"
                       id="State" 
                       required   
-                      value={info.State}
-                      onChange={handleUSStateChange}
+                      value={info.USState}
+                      onChange={(handleUSStateChange)}
                       type="text"
                       name="state"
                       placeholder="select state"
