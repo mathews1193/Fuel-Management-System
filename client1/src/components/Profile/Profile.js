@@ -38,6 +38,15 @@ const Profile = () => {
         //set edit to false when save is clicked
         setEdit(false);
       };
+
+      const handleCreate = (e) => {
+        console.log(info.UserID)//test
+        e.preventDefault();
+        info.UserID = 1;//test
+        saveInfo();
+        //set edit to false when save is clicked
+        setEdit(false);
+      };
       
       const handleEdit = (e) => {
         e.preventDefault();
@@ -57,7 +66,7 @@ const Profile = () => {
             Address2: info.Address2,
             City: info.City,
             USState: info.USState,
-            ZipCode: info.State
+            ZipCode: info.ZipCode
         };
     
         console.log(info.UserID + " " +
@@ -67,6 +76,9 @@ const Profile = () => {
                     info.City + " " +
                     info.USState + " " +
                     info.ZipCode)
+
+        
+
 
         toast("Client Profile Created Successfully!");
       };
@@ -155,17 +167,19 @@ const Profile = () => {
                   </div>
 
                   
-
-                  {edit === true ? (
+                  
+                  {info.UserID === null ? (
                     
                     <div className="btn-container" >
-                      <button onClick={handleSave} className="btn-save">Create Profile</button>
+                      <button onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
-                      ) : (
+                      ) : edit === true ? (<div className="btn-container" >
+                      <button onClick={handleSave} className="btn-save">Save Profile</button>
+                    </div>) : (
                     <div className="btn-container" >
                       <button onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                  )}
+                    )}
 
             </div>
           </div>
