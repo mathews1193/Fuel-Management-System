@@ -30,7 +30,7 @@ export default function Login({ setToken }) {
         <div className="login-wrapper">
             <h1 className="head">Welcome, Please Log In!</h1>
             <form className="login-stuff" onSubmit={handleSubmit}>
-
+                <div className="input-form">
                     <input 
                     className="input-style" 
                     placeholder ="Username"
@@ -44,7 +44,7 @@ export default function Login({ setToken }) {
                     type="password" 
                     onChange={e => setPassword(e.target.value)} 
                     />
-                    
+                </div>
                 <div className="btn-button">
                     <button className="btn-login" type="submit">Login</button>
                 </div>
