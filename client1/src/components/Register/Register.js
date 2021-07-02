@@ -3,7 +3,7 @@ import './Register.css';
 
 function Register(props) {
     return (
-        <div className="card">
+        <div className="register">
             <form>
                 <div className="form-group text-left">
                     <label htmlFor="exampleInputEmail1">Email address</label>
