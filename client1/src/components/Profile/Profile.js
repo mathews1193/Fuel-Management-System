@@ -18,14 +18,7 @@ const Profile = () => {
 
     
 
-    const handleUSStateChange = (event, result) => {
-      const {name,value} = result || event.target;
-      setInfo({ ...info, [name]: value });
-
-
-      
-      console.log(result)
-      };
+    
 
    
         
@@ -71,6 +64,12 @@ const Profile = () => {
         const { name, value } = event.target;
         setInfo({ ...info, [name]: value });
       };
+
+      const handleUSStateChange = (event, {result}) => {
+        const {name,value} = event.target;
+        setInfo({ ...info, [name]: value });
+      console.log(value, name)
+        };
      
       const saveInfo = () => {
         var data = {
@@ -158,12 +157,13 @@ const Profile = () => {
                               
                               className="form2"
                               placeholder='Select State'
+                              search
                               value={info.USState}
                               options={states}
                               
                               type="text"
                               
-                              onChange={handleInputChange}
+                              onChange={handleUSStateChange}
                               disabled={!edit}
                             />
                     
