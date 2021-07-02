@@ -13,21 +13,21 @@ function aboutUs() {
         return (
             <div>
                 <div className="img10">
-                    <div className="img-set1">
-                        <img className="img1"src={img[0]} alt="Logo" width="350" height="300"/>
-                        <div className="title-background">
-                            <h1 className="sub-title2"> About US </h1>
+                    <div className="img-set10">
+                        <img className="img11"src={img[0]} alt="Logo" width="350" height="300"/>
+                        <div className="title-background10">
+                            <h1 className="sub-title11"> About US </h1>
                             
                            
                         </div>    
-                        <img className="img1"src={img[1]} alt="Logo" width="350" height="300"/>                
+                        <img className="img11"src={img[1]} alt="Logo" width="350" height="300"/>                
                    
                     </div>
-                    <div classname="img-set2">
-                    <h2 className="sub-title3" > We have all your bulk fuel needs covered, after all, it’s what we have done for over 30 years. As one of the largest fuel distributors, we have the personnel, equipment, and knowledge necessary to take care of any fuel needs your business is facing</h2>
+                    <div classname="img-set11">
+                    <h2 className="sub-title12" > We have all your bulk fuel needs covered, after all, it’s what we have done for over 30 years. As one of the largest fuel distributors, we have the personnel, equipment, and knowledge necessary to take care of any fuel needs your business is facing</h2>
                     
-                    <h2 className="sub-title3"> Call us at 1-800-FUELNOW, or Sign up below!</h2>
-                    <Link to ="/login"> <button className="btn-signup">Sign Up Here</button> </Link>
+                    <h2 className="sub-title12"> Call us at 1-800-FUELNOW, or Sign up below!</h2>
+                    <Link to ="/login"> <button className="btn-signup10">Sign Up Here</button> </Link>
                     </div>
                     
                     </div>
