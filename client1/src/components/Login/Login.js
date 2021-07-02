@@ -1,77 +1,56 @@
-import React, { Component } from "react";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './Login.css';
 
-import axios from "axios";
+async function loginUser(credentials) {
+    return fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(data => data.json())
+}
 
-export default class Login extends Component {
-    constructor(props) {
-        super(props);
+export default function Login({ setToken }) {
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
 
-        this.state = {
-            email: "",
-            password: "",
-            loginErrors: ""
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const token = await loginUser({
+            username,
+            password
         });
+        setToken(token);
     }
 
-    handleSubmit(event) {
-        const { email, password } = this.state;
+    return (
+        <div className="login-wrapper">
+            <h1>Please Log In </h1>
+            <form className="login-stuff" onSubmit={handleSubmit}>
 
-        axios
-            .post(
-                "http://localhost:3001/sessions",
-                {
-                    user: {
-                        email: email,
-                        password: password
-                    }
-                },
-                { withCredentials: true }
-            )
-            .then(response => {
-                if (response.data.logged_in) {
-                    this.props.handleSuccessfulAuth(response.data);
-                }
-            })
-            .catch(error => {
-                console.log("login error", error);
-            });
-        event.preventDefault();
-    }
+                <label className="credentials">
+                    <p>Username</p>
+                    <input className="input-style" type="text" onChange={e => setUserName(e.target.value)} />
+                </label>
 
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        required
-                    />
 
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        required
-                    />
+                <label className="credentials">
+                    <p>Password</p>
+                    <input className="input-style" type="password" onChange={e => setPassword(e.target.value)} />
+                </label>
 
-                    <button type="submit">Login</button>
-                </form>
-            </div>
-        );
-    }
+                <div className="btn-button">
+                    <button className="btn-submit" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    )
+}
+
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
 }
