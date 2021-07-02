@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import SelectUSState from '../USstatePicker/USstatePicker.js'
+
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+import states from "./states.json";
+import 'semantic-ui-css/semantic.min.css'
+
+import { Dropdown } from 'semantic-ui-react'
+
 
 
 
@@ -13,14 +16,15 @@ toast.configure();
 
 const Profile = () => {
 
-    const [USState, setUSState] = useState('');
+    
 
-    const handleUSStateChange = (e) => {
-      setUSState(e.target.value);
+    const handleUSStateChange = (event, result) => {
+      const {name,value} = result || event.target;
+      setInfo({ ...info, [name]: value });
 
 
-      const value = e.target.value
-      console.log(value)
+      
+      console.log(result)
       };
 
    
@@ -34,6 +38,7 @@ const Profile = () => {
         State:'',
         ZipCode:''
       };
+      
       const [info, setInfo] = useState(initialInfoState);
     
       //we will use edit state to determine which button to show
@@ -148,17 +153,20 @@ const Profile = () => {
                       disabled={!edit}
                     />
                             
-                      <SelectUSState
-                      className= "form2"
-                      id="State" 
-                      required   
-                      value={info.USState}
-                      onChange={(handleUSStateChange)}
-                      type="text"
-                      name="state"
-                      placeholder="select state"
-                      disabled={!edit}
-                    />
+                            <Dropdown
+                              
+                              
+                              className="form2"
+                              placeholder='Select State'
+                              value={info.USState}
+                              options={states}
+                              
+                              type="text"
+                              
+                              onChange={handleInputChange}
+                              disabled={!edit}
+                            />
+                    
                                                     
                     <input
                       className="form1"
