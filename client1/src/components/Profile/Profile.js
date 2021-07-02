@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
-import states from "./states.json";
 import 'semantic-ui-css/semantic.min.css'
 
+
 import { Dropdown } from 'semantic-ui-react'
+import options from './states.js'
 
 
 
@@ -14,7 +15,7 @@ import { Dropdown } from 'semantic-ui-react'
 toast.configure();
 
 
-const Profile = () => {
+const Profile = (props) => {
 
     
 
@@ -63,12 +64,14 @@ const Profile = () => {
       const handleInputChange = (event) => {
         const { name, value } = event.target;
         setInfo({ ...info, [name]: value });
+        console.log(info.City)
       };
-
-      const handleUSStateChange = (event, {result}) => {
-        const {name,value} = event.target;
-        setInfo({ ...info, [name]: value });
-      console.log(value, name)
+      const [USState, setUSState] = useState(' ');
+     
+      const handleUSStateChange = (e, data) => {
+        
+        const test1 = setUSState(e.target.value)
+      console.log( USState, data.value)
         };
      
       const saveInfo = () => {
@@ -86,7 +89,7 @@ const Profile = () => {
                     info.Address1 + " " +
                     info.Address2 + " " +
                     info.City + " " +
-                    info.USState + " " +
+                    USState + " " +
                     info.ZipCode)
 
         
@@ -158,10 +161,10 @@ const Profile = () => {
                               className="form2"
                               placeholder='Select State'
                               search
-                              value={info.USState}
-                              options={states}
+                              value={USState}
+                              options={options}
                               
-                              type="text"
+                              
                               
                               onChange={handleUSStateChange}
                               disabled={!edit}
