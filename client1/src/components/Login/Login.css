@@ -1,6 +1,7 @@
 .login-wrapper {
   padding-top:80px;
-  font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
+  font-size: 13px/20px;
+  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
   color: #404040;
   height:100vh;
   display: flex;
@@ -151,16 +152,6 @@
 
 .login-help a:hover {
   text-decoration: underline;
-}
-
-:-moz-placeholder {
-  color: #c9c9c9 !important;
-  font-size: 13px;
-}
-
-::-webkit-input-placeholder {
-  color: #ccc;
-  font-size: 13px;
 }
 
 
