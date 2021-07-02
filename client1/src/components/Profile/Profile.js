@@ -1,71 +1,85 @@
 import React, { useState } from 'react';
-import SelectUSState from '../USstatePicker/USstatePicker'
+
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
-import {Input} from 'reactstrap';
+import 'semantic-ui-css/semantic.min.css'
+
+
+import { Dropdown } from 'semantic-ui-react'
+import options from './states.js'
+
+
+
 
 toast.configure();
 
+
 const Profile = () => {
+ 
+  // example for variables 
+  const [UserID, setuserId] = useState(null);
+  const [FullName, setFullName] = useState('');
+  const [Address1, setAddress1] = useState('');
+  const [Address2, setAddress2] = useState('');
+  const [City, setCity] = useState('');
+  const [USState, setUSState] = useState('');
+  const [ZipCode, setZipCode] = useState('');  
 
-    let [USState, setUSState] = useState('');
+    
 
-    const handleUSStateChange = (e) => {
-        setUSState(e.target.value);
-        };
-
-    const initialInfoState = {
-        id: null,
-        FullName: '',
-        Address1: '',
-        Address2: '',
-        City:'',
-        State:'',
-        ZipCode:''
-      };
-      const [info, setInfo] = useState(initialInfoState);
+   
+  
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(true);
     
       const handleSave = (e) => {
-        e.preventDefault();
-        saveInfo();
+       
+        toast("Client Profile Saved Successfully!");
+        //set edit to false when save is clicked
+        setEdit(false);
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+      };
+
+      const handleCreate = (e) => {
+        toast("Client Profile Created Successfully!");
+        const currentID = '10000'
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        setuserId(currentID + 1);//test
+        
         //set edit to false when save is clicked
         setEdit(false);
       };
       
       const handleEdit = (e) => {
-        e.preventDefault();
+       
         //set edit to true when edit is clicked
         setEdit(true);
       };
       
-      const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setInfo({ ...info, [name]: value });
-      };
-     
-      const saveInfo = () => {
-        var data = {
-            FullName: info.FullName,    
-            Address1: info.Address1,
-            Address2: info.Address2,
-            City: info.City,
-            USState: USState,
-            ZipCode: info.State
+      
+        const handleChange = (e, result) => {
+          setUSState(result.value)
         };
+        
+      
+      
+     
+        
+       
+       
+      
+        
+     
+     
     
-        console.log(info.FullName + " " +
-                    info.Address1 + " " +
-                    info.Address2 + " " +
-                    info.City + " " +
-                    USState + " " +
-                    info.ZipCode)
+        
+        
 
-        toast("Client Profile Created Successfully!");
-      };
+
+        
+      
 
     return (
         <div>
@@ -76,72 +90,73 @@ const Profile = () => {
                   
                   <div className="client-form">
 
-                    <Input
+                    <input
                       className="form1"
                       id="FullName"
                       required
-                      value={info.FullName}
-                      onChange={handleInputChange}
+                      value={FullName}
+                      onChange={(e) => setFullName(e.target.value)}
                       type="text"
                       name="FullName"
                       placeholder="Full Name"
                       disabled={!edit}
                     />        
                       
-                    <Input
+                    <input
                       className="form1"
                       id="Address1"
                       required
-                      value={info.Address1}
-                      onChange={handleInputChange}
+                      value={Address1}
+                      onChange={(e) => setAddress1(e.target.value)}
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
                       disabled={!edit}
                     />
               
-                    <Input
+                    <input
                       className="form1"
                       id="Address2"
                       required
-                      value={info.Address2}
-                      onChange={handleInputChange}
+                      value={Address2}
+                      onChange={(e) => setAddress2(e.target.value)}
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
                       disabled={!edit}
                     />
                           
-                    <Input
+                    <input
                       className="form1"
                       id="City"
                       required
-                      value={info.City}
-                      onChange={handleInputChange}
+                      value={City}
+                      onChange={(e) => setCity(e.target.value)}
                       type="text"
                       name="City"
                       placeholder="City"
                       disabled={!edit}
                     />
                             
-                    <SelectUSState
-                      className= "form2"
-                      id="State" 
-                      required   
-                      value={info.State}
-                      onChange={(State) =>handleUSStateChange(State)}
-                      type="text"
-                      name="state"
-                      placeholder="select state"
-                      disabled={!edit}
-                    />
+                            <Dropdown
+                              className="form2"
+                              placeholder='Select State'
+                              search
+                              
+                              options={options}
+                              
+                              
+                              onChange={handleChange}
+                              disabled={!edit}
+                            />
+                    
                                                     
-                    <Input
+                    <input
                       className="form1"
                       id="ZipCode"
                       required
-                      value={info.ZipCode}
-                      onChange={handleInputChange}
+                      value={ZipCode}
+                      onChange={(e) => setZipCode(e.target.value)}
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
@@ -150,19 +165,25 @@ const Profile = () => {
  
                   </div>
 
-                  {edit === true ? (
+                  
+                  
+                  {UserID === null ? (
+                    
                     <div className="btn-container" >
-                      <button onClick={handleSave} className="btn-save">Create Profile</button>
+                      <button onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
-                      ) : (
+                      ) : edit === true ? (<div className="btn-container" >
+                      <button onClick={handleSave} className="btn-save">Save Profile</button>
+                    </div>) : (
                     <div className="btn-container" >
                       <button onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                  )}
+                    )}
 
             </div>
           </div>
         </div>
     )
-}
+                    
+                    }                     
 export default Profile
