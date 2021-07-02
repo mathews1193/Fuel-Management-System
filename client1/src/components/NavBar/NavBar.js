@@ -16,6 +16,7 @@ function NavBar() {
                     <Link to="/client-profile" className="nav">Profile</Link>
                     <Link to="about" className="nav">About Us</Link>
                     <Link to="/login"> <button className="btn-signin">Sign In</button> </Link>
+                    <Link to="/register"> <button className="btn-register">Registration</button> </Link>
                 </ul>
             </nav>
         </div>
