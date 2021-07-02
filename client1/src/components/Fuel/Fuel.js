@@ -8,7 +8,9 @@ import "./Fuel.css";
 
 toast.configure();
 
-function Fuel(props) {
+function Fuel() {
+
+
     const [userId, setUserId] = useState(1);
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
@@ -21,6 +23,7 @@ function Fuel(props) {
         setGallonsRequested(e.target.value);
         };
 
+    // function to create a new fuel quote
     const requestQuote = () => {
 
         Axios.post('http://localhost:3001/create',{
