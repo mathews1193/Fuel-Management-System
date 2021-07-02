@@ -28,7 +28,7 @@ export default function Login({ setToken }) {
 
     return (
         <div className="login-wrapper">
-            <h1>Please Log In </h1>
+            <h1 className="head">Welcome, Please Log In!</h1>
             <form className="login-stuff" onSubmit={handleSubmit}>
 
                     <input 
@@ -46,7 +46,7 @@ export default function Login({ setToken }) {
                     />
                     
                 <div className="btn-button">
-                    <button className="btn-submit" type="submit">Submit</button>
+                    <button className="btn-login" type="submit">Login</button>
                 </div>
             </form>
         </div>
