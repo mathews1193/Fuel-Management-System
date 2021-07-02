@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import {toast} from 'react-toastify';
 import './Register.css';
 
-
 export default class SignUp extends Component {
+    
     render() {
         return (
 
