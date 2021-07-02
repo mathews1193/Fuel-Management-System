@@ -3,7 +3,7 @@ import './Register.css';
 
 function Register(props) {
     return (
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+        <div className="card">
             <form>
                 <div className="form-group text-left">
                     <label htmlFor="exampleInputEmail1">Email address</label>
