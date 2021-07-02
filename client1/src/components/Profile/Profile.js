@@ -39,12 +39,13 @@ const Profile = () => {
         toast("Client Profile Saved Successfully!");
         //set edit to false when save is clicked
         setEdit(false);
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
       };
 
       const handleCreate = (e) => {
         toast("Client Profile Created Successfully!");
         const currentID = '10000'
-       
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         setuserId(currentID + 1);//test
         
         //set edit to false when save is clicked
@@ -65,7 +66,7 @@ const Profile = () => {
       
       
      
-        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        
        
        
       
