@@ -16,13 +16,15 @@ toast.configure();
 
 
 const Profile = (props) => {
-
+ 
+  // example for variables 
+  const [userId, setUserId] = useState(1);
     
 
     
 
    
-        
+  // remove this 
     const initialInfoState = {
         UserID: null,
         FullName: '',
@@ -33,6 +35,7 @@ const Profile = (props) => {
         ZipCode:''
       };
       
+      // remove this 
       const [info, setInfo] = useState(initialInfoState);
     
       //we will use edit state to determine which button to show
@@ -68,10 +71,9 @@ const Profile = (props) => {
       };
       const [USState, setUSState] = useState(' ');
      
-      const handleUSStateChange = (e, data) => {
+      const handleUSStateChange = (e) => {
         
-        const test1 = setUSState(e.target.value)
-      console.log( USState, data.value)
+       console.log(setUSState(e.target.value));
         };
      
       const saveInfo = () => {
@@ -156,14 +158,11 @@ const Profile = (props) => {
                     />
                             
                             <Dropdown
-                              
-                              
                               className="form2"
                               placeholder='Select State'
                               search
                               value={USState}
                               options={options}
-                              
                               
                               
                               onChange={handleUSStateChange}
