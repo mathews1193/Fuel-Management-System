@@ -15,90 +15,70 @@ import options from './states.js'
 toast.configure();
 
 
-const Profile = (props) => {
+const Profile = () => {
  
   // example for variables 
-  const [userId, setUserId] = useState(1);
-    
+  const [UserID, setuserId] = useState(null);
+  const [FullName, setFullName] = useState('');
+  const [Address1, setAddress1] = useState('');
+  const [Address2, setAddress2] = useState('');
+  const [City, setCity] = useState('');
+  const [USState, setUSState] = useState('');
+  const [ZipCode, setZipCode] = useState('');  
 
     
 
    
-  // remove this 
-    const initialInfoState = {
-        UserID: null,
-        FullName: '',
-        Address1: '',
-        Address2: '',
-        City:'',
-        State:'',
-        ZipCode:''
-      };
-      
-      // remove this 
-      const [info, setInfo] = useState(initialInfoState);
+  
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(true);
     
       const handleSave = (e) => {
-        e.preventDefault();
-        saveInfo();
+       
+        toast("Client Profile Saved Successfully!");
         //set edit to false when save is clicked
         setEdit(false);
       };
 
       const handleCreate = (e) => {
-        console.log(info.UserID)//test
+        toast("Client Profile Created Successfully!");
         const currentID = '10000'
-        e.preventDefault();
-        info.UserID = currentID + 1;//test
-        saveInfo();
+       
+        setuserId(currentID + 1);//test
+        
         //set edit to false when save is clicked
         setEdit(false);
       };
       
       const handleEdit = (e) => {
-        e.preventDefault();
+       
         //set edit to true when edit is clicked
         setEdit(true);
       };
       
-      const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setInfo({ ...info, [name]: value });
-        console.log(info.City)
-      };
-      const [USState, setUSState] = useState(' ');
-     
-      const handleUSStateChange = (e) => {
+      
+        const handleChange = (e, result) => {
+          setUSState(result.value)
+        };
         
-       console.log(setUSState(e.target.value));
-        };
+      
+      
      
-      const saveInfo = () => {
-        var data = {
-            FullName: info.FullName,    
-            Address1: info.Address1,
-            Address2: info.Address2,
-            City: info.City,
-            USState: info.USState,
-            ZipCode: info.ZipCode
-        };
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+       
+       
+      
+        
+     
+     
     
-        console.log(info.UserID + " " +
-                    info.FullName + " " +
-                    info.Address1 + " " +
-                    info.Address2 + " " +
-                    info.City + " " +
-                    USState + " " +
-                    info.ZipCode)
-
+        
         
 
 
-        toast("Client Profile Created Successfully!");
-      };
+        
+      
 
     return (
         <div>
@@ -113,8 +93,8 @@ const Profile = (props) => {
                       className="form1"
                       id="FullName"
                       required
-                      value={info.FullName}
-                      onChange={handleInputChange}
+                      value={FullName}
+                      onChange={(e) => setFullName(e.target.value)}
                       type="text"
                       name="FullName"
                       placeholder="Full Name"
@@ -125,8 +105,8 @@ const Profile = (props) => {
                       className="form1"
                       id="Address1"
                       required
-                      value={info.Address1}
-                      onChange={handleInputChange}
+                      value={Address1}
+                      onChange={(e) => setAddress1(e.target.value)}
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
@@ -137,8 +117,8 @@ const Profile = (props) => {
                       className="form1"
                       id="Address2"
                       required
-                      value={info.Address2}
-                      onChange={handleInputChange}
+                      value={Address2}
+                      onChange={(e) => setAddress2(e.target.value)}
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
@@ -149,8 +129,8 @@ const Profile = (props) => {
                       className="form1"
                       id="City"
                       required
-                      value={info.City}
-                      onChange={handleInputChange}
+                      value={City}
+                      onChange={(e) => setCity(e.target.value)}
                       type="text"
                       name="City"
                       placeholder="City"
@@ -161,11 +141,11 @@ const Profile = (props) => {
                               className="form2"
                               placeholder='Select State'
                               search
-                              value={USState}
+                              
                               options={options}
                               
                               
-                              onChange={handleUSStateChange}
+                              onChange={handleChange}
                               disabled={!edit}
                             />
                     
@@ -174,8 +154,8 @@ const Profile = (props) => {
                       className="form1"
                       id="ZipCode"
                       required
-                      value={info.ZipCode}
-                      onChange={handleInputChange}
+                      value={ZipCode}
+                      onChange={(e) => setZipCode(e.target.value)}
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
@@ -186,7 +166,7 @@ const Profile = (props) => {
 
                   
                   
-                  {info.UserID === null ? (
+                  {UserID === null ? (
                     
                     <div className="btn-container" >
                       <button onClick={handleCreate} className="btn-save">Create Profile</button>
@@ -203,5 +183,6 @@ const Profile = (props) => {
           </div>
         </div>
     )
-}
+                    
+                    }                     
 export default Profile
