@@ -28,7 +28,7 @@ export default function Login({ setToken }) {
 
     return (
         <div className="login-wrapper">
-            <h1>Please Log In to Fuel Managment Profile</h1>
+            <h1>Please Log In </h1>
             <form className="login-stuff" onSubmit={handleSubmit}>
 
                 <label className="credentials">
