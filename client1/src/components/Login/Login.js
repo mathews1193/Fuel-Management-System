@@ -29,17 +29,21 @@ export default function Login({ setToken }) {
     return (
         <div className="login-wrapper">
             <h1>Please Log In to Fuel Managment Profile</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
+            <form className="login-stuff" onSubmit={handleSubmit}>
+
+                <label className="credentials">
                     <p>Username</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
+                    <input className="input-style" type="text" onChange={e => setUserName(e.target.value)} />
                 </label>
-                <label>
+
+
+                <label className="credentials">
                     <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
+                    <input className="input-style" type="password" onChange={e => setPassword(e.target.value)} />
                 </label>
-                <div>
-                    <button type="submit">Submit</button>
+
+                <div className="btn-button">
+                    <button className="btn-submit" type="submit">Submit</button>
                 </div>
             </form>
         </div>
