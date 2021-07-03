@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.css';
 
 export default function Login() {
@@ -18,7 +18,7 @@ export default function Login() {
 
     return (
         <div className="login-wrapper">
-            <h1 className="head">Welcome!</h1>
+
             <form className="login-stuff" onSubmit={handleSubmit}>
                 <h1 className="head">Sign In</h1>
                 <div className="input-form">

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import './Register.css';
 
 export default class SignUp extends Component {
-    
+
     render() {
         return (
 
             <div className="login-wrapper2">
-                <h1 className="title">Account Creation</h1>
+
                 <form className="login-stuff">
                     <h1 className="title">Create an Account</h1>
                     <div className="register-form">
