@@ -1,12 +1,17 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import './Register.css';
 
-export default class SignUp extends Component {
-    
-    render() {
-        return (
+export default function SignUp() {
+
+    toast.configure();
+
+    const signUp = () => {
+        toast("Account Created Successfully");
+    };
+
+    return (
 
             <div className="login-wrapper2">
                 <h1 className="title">Account Creation</h1>
@@ -49,12 +54,10 @@ export default class SignUp extends Component {
 
                         />
                         <div className="register-loc">
-                            <button className="register-btn" type="submit">Register</button>
+                            <button onClick={signUp} className="register-btn" type="submit">Register</button>
                         </div>
                     </div>
                 </form>
             </div>
-
-        );
-    }
+    )
 }
