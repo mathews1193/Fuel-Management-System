@@ -9,15 +9,12 @@ import "./Fuel.css";
 toast.configure();
 
 function Fuel() {
-
-
     const [userId, setUserId] = useState(1);
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState("1.95");
     const [totalAmount, setTotalAmount] = useState("2800");
-
 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);

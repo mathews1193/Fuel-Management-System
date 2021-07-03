@@ -1,45 +1,63 @@
-import React, { useState } from 'react';
+import React from "react";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import './Register.css';
 
-function Register(props) {
+export default function SignUp() {
+
+    toast.configure();
+
+    const signUp = () => {
+        toast("Account Created Successfully");
+    };
+
     return (
-        <div className="card">
-            <form>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email"
-                        className="form-control"
-                        id="email"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter email"
-                    />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Password"
-                    />
-                </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Confirm Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                >
-                    Register
-                </button>
-            </form>
-        </div>
+
+            <div className="login-wrapper2">
+                <h1 className="title">Account Creation</h1>
+                <form className="login-stuff">
+                    <h1 className="title">Create an Account</h1>
+                    <div className="register-form">
+                        <h1 className="register">First Name</h1>
+                        <input
+                            className="input-style2"
+                            placeholder="Enter First Name"
+                            type="text"
+
+                        />
+                        <h1 className="register">Last Name</h1>
+                        <input
+                            className="input-style2"
+                            placeholder="Enter Last Name"
+                            type="text"
+
+                        />
+                        <h1 className="register">Email Address</h1>
+                        <input
+                            className="input-style2"
+                            placeholder="Enter Email Address"
+                            type="text"
+
+                        />
+                        <h1 className="register">Username</h1>
+                        <input
+                            className="input-style2"
+                            placeholder="Enter Username"
+                            type="text"
+
+                        />
+                        <h1 className="register">Password</h1>
+                        <input
+                            className="input-style2"
+                            placeholder="Enter Password"
+                            type="text"
+
+                        />
+                        <div className="register-loc">
+                            <button onClick={signUp} className="register-btn" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
     )
 }
-
-export default Register
