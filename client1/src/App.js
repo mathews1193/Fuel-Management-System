@@ -6,7 +6,7 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import Fuel from './containers/Fuel';
 import Profile from './containers/Profile';
-import AboutUs from './containers/aboutUs';
+import AboutUs from './containers/AboutUs';
 import Dashboard from './containers/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
@@ -24,7 +24,6 @@ function App() {
           <Route path="/login" component={Login} />
           <Route path="/fuel-quote" component={Fuel} />
           <Route path="/client-profile" component={Profile} />
-          
           <Route path="/about-us" component={AboutUs} />
           <Route path="/dashboard" component={Dashboard} />
         </div>
