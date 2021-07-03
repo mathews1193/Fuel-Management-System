@@ -1,57 +1,63 @@
+
+
 .login-wrapper {
-  padding-top:80px;
   font-size: 13px/20px;
-  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+
   color: #404040;
-  height:100vh;
+  height:100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("https://images.pexels.com/photos/356286/pexels-photo-356286.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+
+  background-image: url("https://images.pexels.com/photos/129830/pexels-photo-129830.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
   background-Position: center center;
-  height:100vh;
   background-size:cover;
   background-repeat: no-repeat;
+}
+.head{
+  background-color: #313131;
+  border: 2px solid whitesmoke;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  color:white;
+  width:100%;
+ 
+}
+.p1{
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  position: relative; 
+	top: 45px;
+	right: 330px;
+  font-size: 25px;
+  font-weight:200;
   
 }
 
 .login-stuff {
-  background-color: white;
+  background-color:whitesmoke;
+  border: 4px solid black;
   height:75%;
   width:50%;
   margin:auto;
- 
 }
-
-
-
-.btn-button {
-    padding:40px 0px;
-    margin-top: 20px;
-}
-
-.btn-submit {
-    width:40%;
-    color:whitesmoke;
-    font-size:17px;
-    font-weight:600;
-    background-color:#333;
-    border-radius: 20%;
-    padding:20px 5px;
+.input-form{
+  margin:auto;
+  padding-top:60px;
+  padding-left: 140px;
 }
 
 .input-style{
   display:block;
-  width:60%;
+  width:82%;
   padding:20px; 
   margin-top:40px;
-  margin-left: 120px;
+  
   appearance: none;
   background: white;
   border:none;
   outline:none;
   background-color: #e0e0da;
-  border-radius: 0px 0px 16px 16px;
+  border-radius: 10px 10px 12px 12px;
   box-shadow: 0px 5px rgba(0,0,0,0.2);
 
   color:#313131;
@@ -59,18 +65,38 @@
 
   transition: 0.4s ease;
 }
+.btn-button {
+    padding:40px 0px;
+    margin-top: 20px;
+}
+.btn-button2 {
+  padding:10px 30px;
+  margin-top: 10px;
+  margin-left: 100px;
+}
 
-
-
-.login {
-  position: relative;
-  margin: 30px auto;
-  padding: 20px 20px 20px;
-  width: 310px;
-  background: white;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+.btn-login {
+    width:70%;
+    color:whitesmoke;
+    font-size:30px;
+    font-weight:600;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    background-color:#12a4cc;
+    border-radius: 10px 10px 12px 12px;
+    box-shadow: 0px 5px rgba(0,0,0,0.2);
+    padding:10px 10px;
+    align-content:start;
+}
+.btn-create {
+  width:40%;
+  color:whitesmoke;
+  font-size:15px;
+  font-weight:600;
+  background-color:#12a4cc;
+  border-radius: 5px 5px 6px 6px;
+  padding:10px 10px;
+ 
+  margin-left: 240px;
 }
 
 .login:before {
@@ -103,11 +129,6 @@
   -webkit-box-shadow: 0 1px whitesmoke;
   box-shadow: 0 1px whitesmoke;
 }
-
-.login p {
-  margin: 20px 0 0;
-}
-
 .login p:first-child {
   margin-top: 0;
 }
