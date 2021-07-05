@@ -1,5 +1,6 @@
 import React from 'react'
 import DoughnutChart from '../DoughnutChart'
+import Fuel from '../Fuel/Fuel';
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -40,6 +41,8 @@ function Dashboard() {
           totalAmount:400,
         },
       ];
+      Fuel().getOrders()
+
       const quoteItems = quotes.map(quote => 
         <div className="fuel-history">
             <p>Order Number: {quote.id}</p>

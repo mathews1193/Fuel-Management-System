@@ -16,6 +16,8 @@ function Fuel() {
     const [suggestedPrice, setSuggestedPrice] = useState("1.95");
     const [totalAmount, setTotalAmount] = useState("2800");
 
+    const [orderList, setOrderList] = useState([]);
+
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
@@ -31,15 +33,20 @@ function Fuel() {
             suggestedPrice: suggestedPrice,
             totalAmount: totalAmount,
         }).then(() => {
-            console.log("success frontend to backend");
-        })
-
-        console.log(userId + " " + gallonsRequested + " " + deliveryAddress + " " 
-        + deliveryDate + " " + suggestedPrice + " " + totalAmount);
-
-            toast("Fuel Quote Request Placed Successfully");
-        };
-
+            setOrderList([
+                ...orderList,
+                {
+                    userId:userId,
+                    gallonsRequested:gallonsRequested,
+                    deliveryAddress:deliveryAddress,
+                    deliveryDate:deliveryDate,
+                    suggestedPrice: suggestedPrice,
+                    totalAmount: totalAmount,
+                },
+              ]);
+            });
+          };
+        
     return (
         <div>
             <div className="form">

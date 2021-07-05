@@ -38,6 +38,16 @@ app.post('/create', (req, res) => {
     );
 });
 
+app.get("/fuelquotes", (req, res) => {
+    db.query("SELECT * FROM fuelquotes", (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    });
+  });
+
 // check to see if the server is currently running on the port // 
 app.listen(3001, () => {
     console.log("Cool, Your server is running on port 3001")
