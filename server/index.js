@@ -17,6 +17,7 @@ const db = mysql.createConnection({
 // create data from require and response of data // 
 app.post('/create', (req, res) => {
     const userId = req.body.userId;
+    const orderId = req.body.orderId;
     const gallonsRequested = req.body.gallonsRequested;
     const deliveryDate = req.body.deliveryDate;
     const deliveryAddress = req.body.deliveryAddress;
@@ -25,8 +26,9 @@ app.post('/create', (req, res) => {
 
 
     // insert new data into the table (hint:table name needs to be one word!!!!!) // 
-    db.query("INSERT INTO fuelquotes (userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)", 
-    [userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
+    // update table with orderID in mysql before running // 
+    db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)", 
+    [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
     (err, result) => {
         if (err) {
             console.log(err);
@@ -40,6 +42,33 @@ app.post('/create', (req, res) => {
 
 app.get("/fuelquotes", (req, res) => {
     db.query("SELECT * FROM fuelquotes", (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    });
+  });
+
+  app.put("/update", (req, res) => {
+    const orderId = req.body.orderId;
+    const gallonsRequested = req.body.gallonsRequested;
+    db.query(
+      "UPDATE fuelquotes SET gallonsRequested = ? WHERE orderId = ?",
+      [gallonsRequested, orderId],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  });
+
+  app.delete("/delete/:orderId", (req, res) => {
+    const orderId = req.params.orderId;
+    db.query("DELETE FROM fuelquotes WHERE orderId = ?", id, (err, result) => {
       if (err) {
         console.log(err);
       } else {

@@ -10,6 +10,7 @@ toast.configure();
 
 function Fuel() {
     const [userId, setUserId] = useState(1);
+    const [orderId, setOrderId] = useState("");
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
@@ -17,6 +18,7 @@ function Fuel() {
     const [totalAmount, setTotalAmount] = useState("2800");
 
     const [orderList, setOrderList] = useState([]);
+    const [newGallonsRequested, setNewGallonsRequested] = useState(1400);
 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
@@ -27,6 +29,7 @@ function Fuel() {
 
         Axios.post('http://localhost:3001/create',{
             userId:userId,
+            orderList:orderId,
             gallonsRequested:gallonsRequested,
             deliveryAddress:deliveryAddress,
             deliveryDate:deliveryDate,
@@ -37,6 +40,7 @@ function Fuel() {
                 ...orderList,
                 {
                     userId:userId,
+                    orderList:orderId,
                     gallonsRequested:gallonsRequested,
                     deliveryAddress:deliveryAddress,
                     deliveryDate:deliveryDate,
@@ -45,8 +49,45 @@ function Fuel() {
                 },
               ]);
             });
+            toast("Fuel Order Placed Successfully!");
+
+            Axios.get("http://localhost:3001/fuelquotes").then((response) => {
+              setOrderList(response.data);
+            });
           };
-        
+
+        const updateOrder = (orderId) => {
+            Axios.put("http://localhost:3001/update", { gallonsRequested: newGallonsRequested, orderId: orderId }).then(
+              (response) => {
+                setOrderList(
+                  orderList.map((quote) => {
+                    return quote.orderId == orderId
+                      ? {
+                        userId:userId,
+                        orderList:orderId,
+                        gallonsRequested:gallonsRequested,
+                        deliveryAddress:deliveryAddress,
+                        deliveryDate:deliveryDate,
+                        suggestedPrice: suggestedPrice,
+                        totalAmount: totalAmount,
+                        }
+                      : quote;
+                  })
+                );
+              }
+            );
+          };
+
+        const deleteOrder = (orderId) => {
+            Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
+              setOrderList(
+                orderList.filter((quote) => {
+                  return quote.orderId != orderId;
+                })
+              );
+            });
+          };
+
     return (
         <div>
             <div className="form">
@@ -69,12 +110,27 @@ function Fuel() {
                         />
                     </div>
                     <div className="btn-container" >
-                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
+                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button> 
                     </div>
+                    {orderList.map((quote, key) => {
+                        return (
+                        <div className="fuel-form">
+                                <h3>Order Number: {quote.orderId}</h3>
+                                <h3>Gallons Requested: {quote.gallonsRequested}</h3>
+                                <h3>Delivery Address: {quote.deliveryAddress}</h3>
+                                <h3>Delivery Date: {quote.deliveryDate}</h3>
+                                <h3>Suggested Price: ${quote.suggestedPrice} per gallon</h3>
+                                <h3>Total Amout Due: ${quote.totalAmount}</h3>
+                            <div>
+                                <button onClick={() => {updateOrder(quote.gallonsRequested)}}>{" "} Update</button>
+                                <button onClick={() => {deleteOrder(quote.orderId)}}>Delete</button>
+                            </div>
+                        </div>
+                        );
+                    })}
                 </div>
             </div> 
         </div>
-        
     )
 }
 

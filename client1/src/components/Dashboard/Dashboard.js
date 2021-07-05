@@ -3,7 +3,7 @@ import DoughnutChart from '../DoughnutChart'
 import Fuel from '../Fuel/Fuel';
 import "./Dashboard.css";
 
-function Dashboard() {
+function Dashboard( {}) {
     const name = "Tony Stark";
 
     const quotes = [
@@ -41,7 +41,6 @@ function Dashboard() {
           totalAmount:400,
         },
       ];
-      Fuel().getOrders()
 
       const quoteItems = quotes.map(quote => 
         <div className="fuel-history">
