@@ -26,7 +26,6 @@ app.post('/create', (req, res) => {
 
 
     // insert new data into the table (hint:table name needs to be one word!!!!!) // 
-    // update table with orderID in mysql before running // 
     db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)", 
     [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
     (err, result) => {
@@ -53,8 +52,7 @@ app.get("/fuelquotes", (req, res) => {
   app.put("/update", (req, res) => {
     const orderId = req.body.orderId;
     const gallonsRequested = req.body.gallonsRequested;
-    db.query(
-      "UPDATE fuelquotes SET gallonsRequested = ? WHERE orderId = ?",
+    db.query("UPDATE fuelquotes SET gallonsRequested = ? WHERE orderId = ?",
       [gallonsRequested, orderId],
       (err, result) => {
         if (err) {
@@ -68,7 +66,7 @@ app.get("/fuelquotes", (req, res) => {
 
   app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;
-    db.query("DELETE FROM fuelquotes WHERE orderId = ?", id, (err, result) => {
+    db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
       if (err) {
         console.log(err);
       } else {
