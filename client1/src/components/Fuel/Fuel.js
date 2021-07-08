@@ -15,7 +15,7 @@ function Fuel() {
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState("1.95");
-    const [totalAmount, setTotalAmount] = useState((gallonsRequested*suggestedPrice));
+    const [totalAmount, setTotalAmount] = useState("");
 
     const [orderList, setOrderList] = useState([]);
     const [newGallonsRequested, setNewGallonsRequested] = useState(1400);
@@ -24,11 +24,6 @@ function Fuel() {
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
-
-    // API call to fetch fuel history and store the orderlist array 
-    Axios.get("http://localhost:3001/fuelquotes").then((response) => {
-        setOrderList(response.data);
-      });
 
     // API call to create a fuel quote and store it into the orderlist array
     const requestQuote = () => {
@@ -80,19 +75,6 @@ function Fuel() {
           );
         };
 
-    // API call to delete an fuel quote by finding the orderID 
-    const deleteOrder = (orderId) => {
-        Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
-          setOrderList(
-            orderList.filter((quote) => {
-              return quote.orderId != orderId;
-                
-            }) 
-          );
-        });
-        toast("Fuel Order: " + orderId + " Deleted successfully!");
-      };
-
     return (
         <div>
             <div className="form">
@@ -116,25 +98,8 @@ function Fuel() {
                         />
                     </div>
                     <div className="btn-container" >
-
                         <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button> 
                     </div>
-                    {orderList.map((quote, key) => {
-                        return (
-                        <div className="fuel-history">
-                                <p>Order Number: {quote.orderId}</p>
-                                <p>Gallons Requested: {quote.gallonsRequested}</p>
-                                <p>Delivery Address: {quote.deliveryAddress}</p>
-                                <p>Delivery Date: {quote.deliveryDate}</p>
-                                <p>Suggested Price: ${quote.suggestedPrice} per gallon</p>
-                                <p>Total Amout Due: ${quote.totalAmount}</p>
-                            <div>
-                                <button onClick={() => {updateOrder(quote.gallonsRequested)}}>{" "} Update</button>
-                                <button onClick={() => {deleteOrder(quote.orderId)}}>Delete</button>
-                            </div>
-                        </div>
-                        );
-                    })}
                 </div>
             </div> 
         </div>

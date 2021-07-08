@@ -1,6 +1,3 @@
-.form{
-  height:100%;
-}
 .fuel-form{
   display: flex;
   flex-direction: column;
@@ -10,7 +7,7 @@
 .img{
   background-image: url("https://images.pexels.com/photos/1058683/pexels-photo-1058683.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-Position: center center;
-  height:100%;
+  height:100vh;
   background-size:cover;
   background-repeat: no-repeat;
 }
