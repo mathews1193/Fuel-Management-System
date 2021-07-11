@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import './Profile.css';
 import 'semantic-ui-css/semantic.min.css'
-
+import Axios from 'axios'
 
 import { Dropdown } from 'semantic-ui-react'
 import options from './states.js'
