@@ -35,6 +35,8 @@ const Profile = () => {
       const [edit, setEdit] = useState(true);
     
       const handleSave = (e) => {
+
+        
        
         toast("Client Profile Saved Successfully!");
         //set edit to false when save is clicked
