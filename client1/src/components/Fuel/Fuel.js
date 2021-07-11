@@ -84,6 +84,7 @@ function Fuel() {
                         <input 
                         type = "text" 
                         className="fuel"
+                        data-testid="fuel"
                         placeholder="Gallons Requested"
                         onChange={getGallons}
                         value={gallonsRequested}
@@ -91,6 +92,7 @@ function Fuel() {
                         />
                         <DatePicker 
                         className="date"
+                        data-testid="picker"
                         placeholder="Delivery Date"
                         selected={deliveryDate}
                         onChange={(date) => setDeliveryDate(date)} 
