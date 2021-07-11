@@ -36,7 +36,17 @@ const Profile = () => {
     
       const handleSave = (e) => {
 
-        
+        Axios.post('http://localhost:3001/api/edit',{
+            userId:UserID,
+            fullName:FullName,
+            address1:Address1,
+            address2:Address2,
+            city:City,
+            USstate:USState,
+            zipCode:ZipCode,
+        }).then(() => {
+            alert("success frontend to backend");
+        })
        
         toast("Client Profile Saved Successfully!");
         //set edit to false when save is clicked
@@ -45,11 +55,22 @@ const Profile = () => {
       };
 
       const handleCreate = (e) => {
+       
         toast("Client Profile Created Successfully!");
         const currentID = '10000'
         console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         setuserId(currentID + 1);//test
-        
+        Axios.post('http://localhost:3001/api/insert',{
+            userId:UserID,
+            fullName:FullName,
+            address1:Address1,
+            address2:Address2,
+            city:City,
+            USstate:USState,
+            zipCode:ZipCode,
+        }).then(() => {
+            alert("success frontend to backend");
+        })
         //set edit to false when save is clicked
         setEdit(false);
       };
