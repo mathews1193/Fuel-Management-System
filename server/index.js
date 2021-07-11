@@ -53,9 +53,10 @@ app.post('/api/insert', (req,res) => {
     const city = req.body.city;
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
-
-    db.query("INSERT INTO profile (userId, fullName, address1, address2, city, USstate, zipCode) VALUES (?,?,?,?,?,?,?)",
-    [userId, fullName, address1, address2, city, USstate, zipCode],
+    const sqlInsert = 
+    "INSERT INTO profile (userId, fullName, address1, address2, city, USstate, zipCode) VALUES (?,?,?,?,?,?,?)"
+    db.query(sqlInsert,
+        [userId, fullName, address1, address2, city, USstate, zipCode],
     (err, result) => {
         if (err) {
             console.log(err);
@@ -67,7 +68,7 @@ app.post('/api/insert', (req,res) => {
     )
 })
 
-app.post('/api/edit', (req,res) => {
+app.put('/api/edit', (req,res) => {
     const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
@@ -75,10 +76,10 @@ app.post('/api/edit', (req,res) => {
     const city = req.body.city;
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
+    const sqlUpdate =
+    "UPDATE profile SET  fullName = ? WHERE userID = ?"
 
-    db.query("UPDATE profile SET fullName ='fullName', address1 = 'address1', address2 = 'address2', city = 'city', USstate = 'USstate', zipCode = 'zipCode' WHERE userId = userId",
-    [userId, fullName, address1, address2, city, USstate, zipCode],
-    (err, result) => {
+    db.query(sqlUpdate, [fullName, userId],(err, result) => {
         if (err) {
             console.log(err);
         } else {

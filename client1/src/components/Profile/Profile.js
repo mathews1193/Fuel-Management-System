@@ -36,7 +36,7 @@ const Profile = () => {
     
       const handleSave = (e) => {
 
-        Axios.post('http://localhost:3001/api/edit',{
+        Axios.put('http://localhost:3001/api/edit',{
             userId:UserID,
             fullName:FullName,
             address1:Address1,
@@ -58,8 +58,9 @@ const Profile = () => {
        
         toast("Client Profile Created Successfully!");
         const currentID = '10000'
-        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         setuserId(currentID + 1);//test
+        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        
         Axios.post('http://localhost:3001/api/insert',{
             userId:UserID,
             fullName:FullName,
