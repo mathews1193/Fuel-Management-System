@@ -20,11 +20,12 @@ function Fuel() {
     const [orderList, setOrderList] = useState([]);
     const [newGallonsRequested, setNewGallonsRequested] = useState(1400);
     
-
+ // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
 
+    // add a test case to test if a instance is created for fuel quote 
     // API call to create a fuel quote and store it into the orderlist array
     const requestQuote = () => {
 
@@ -52,28 +53,6 @@ function Fuel() {
             });
             toast("Fuel Order Placed Successfully!");
           };
-
-    const updateOrder = (orderId) => {
-        Axios.put("http://localhost:3001/update", { gallonsRequested: newGallonsRequested, orderId: orderId }).then(
-          (response) => {
-              setOrderList(
-                orderList.map((quote) => {
-                  return quote.orderId == orderId
-                    ? {
-                      userId:userId,
-                      orderList:orderId,
-                      gallonsRequested:gallonsRequested,
-                      deliveryAddress:deliveryAddress,
-                      deliveryDate:deliveryDate,
-                      suggestedPrice: suggestedPrice,
-                      totalAmount: totalAmount,
-                      }
-                    : quote;
-                })
-              );
-            }
-          );
-        };
 
     return (
         <div>
