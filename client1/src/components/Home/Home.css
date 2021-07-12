@@ -15,10 +15,12 @@
 .sub-title1{
     color:white;
     background-color: rgba(255,255,255,0.5);
+    border: 7px solid orange;
     border-radius: 10px;
 }
 .img1{
-    border: 5px solid whitesmoke;
+    margin: auto;
+    border: 7px solid orange;
 }
 .img-set1{
     display: flex;

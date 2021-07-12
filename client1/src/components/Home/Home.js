@@ -12,7 +12,7 @@ function Home() {
         <div>
             <div className="img4">
                 <div className="img-set1">
-                    <img className="img1"src={img[0]} alt="Logo" width="35%" height="35%"/>
+                    <img className="img1"src={img[0]} alt="Logo" width="35%" height="15%"/>
                     <div className="title-background">
                         <h1 className="sub-title1">Taking Your Fuel Management Needs</h1>
                         <h1 className="sub-title1">To</h1>

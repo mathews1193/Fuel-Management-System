@@ -14,11 +14,11 @@ function Fuel() {
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState("1.95");
+    const [suggestedPrice, setSuggestedPrice] = useState();
     const [totalAmount, setTotalAmount] = useState("");
 
     const [orderList, setOrderList] = useState([]);
-    const [newGallonsRequested, setNewGallonsRequested] = useState(1400);
+
     
  // add a test case to test this function 
     const getGallons = (e) => {

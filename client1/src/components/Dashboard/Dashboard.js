@@ -33,6 +33,7 @@ function Dashboard() {
     return (
         <div>
             <div className="img2">
+              <div className="form1">
                 <h1 className="title">Welcome, {name}!</h1>
                 <div className="order">
                     <h2>Orders</h2>
@@ -59,6 +60,7 @@ function Dashboard() {
           );
         })};
                 </div>
+              </div>
             </div>
         </div>
     )
