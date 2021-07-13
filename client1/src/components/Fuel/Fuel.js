@@ -44,7 +44,7 @@ function Fuel(props) {
         <div>
             <div className="form">
             <div className="img">
-                <h1 className="title">Fuel Quote Form</h1>
+                <h1 className="title">Fuel Qote Form</h1>
                 <div className="fuel-form">
                      <input 
                     type = "text" 
