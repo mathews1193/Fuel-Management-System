@@ -53,8 +53,8 @@ function Dashboard() {
                     <p>Delivery Date: {quote.deliveryDate}</p>
                     <p>Suggested Price: ${quote.suggestedPrice} per gallon</p>
                     <p>Total Amout Due: ${quote.totalAmount}</p>
-                    <div>
-                      <button onClick={() => {deleteOrder(quote.orderId)}}>Delete</button>
+                    <div className="btn-container">
+                      <button className="btn-del" onClick={() => {deleteOrder(quote.orderId)}}>Delete</button>
                     </div>
                   </div>
           );

@@ -14,8 +14,8 @@ function Fuel() {
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState();
-    const [totalAmount, setTotalAmount] = useState("");
+    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
+    const [totalAmount, setTotalAmount] = useState(2800);
 
     const [orderList, setOrderList] = useState([]);
 

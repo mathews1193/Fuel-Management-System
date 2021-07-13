@@ -18,13 +18,14 @@
 }
 .img-container{
     padding-top:20px;
+    padding-bottom: 30px;
 }
 .img11{
     border: 5px solid black;
     margin-left: 50px;
 }
 .msg{
-    margin-top:80px;
+    padding-top: 30px;
     width: 60%;
 }
 .sub-title12{
