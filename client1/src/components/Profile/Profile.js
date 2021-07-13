@@ -46,12 +46,14 @@ const Profile = () => {
             zipCode:ZipCode,
         }).then(() => {
             alert("success frontend to backend");
+            //set edit to false when save is clicked
+            setEdit(false);
+            console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         })
        
         toast("Client Profile Saved Successfully!");
-        //set edit to false when save is clicked
-        setEdit(false);
-        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        
+        
       };
 
       const handleCreate = (e) => {
@@ -71,9 +73,10 @@ const Profile = () => {
             zipCode:ZipCode,
         }).then(() => {
             alert("success frontend to backend");
+            //set edit to false when save is clicked
+            setEdit(false);
         })
-        //set edit to false when save is clicked
-        setEdit(false);
+        
       };
       
       const handleEdit = (e) => {
