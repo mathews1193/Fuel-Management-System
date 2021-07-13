@@ -1,0 +1,80 @@
+.login-wrapper2 {
+  font-size: 13px/20px;
+  font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
+  color: #404040;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-image: url("https://images.pexels.com/photos/129830/pexels-photo-129830.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-Position: center center;
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+.title{
+  background-color: #313131;
+  border: 2px solid whitesmoke;
+  color:white;
+  width:100%;
+}
+.register{
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  position: relative; 
+	top: 50px;
+	right: 325px;
+  font-size: 15px;
+  font-weight:800;
+  
+}
+
+
+.login-stuff {
+  background-color:whitesmoke;
+  border: 4px solid black;
+  height:90%;
+  width: 56%;
+  margin:auto;
+}
+
+.register-form{
+  margin:auto;
+  padding-top:auto;
+  padding-left: 25px;
+}
+
+.input-style2{
+  display:inline;
+  width:82%;
+  padding:10px; 
+  margin-top:40px;
+  appearance:none;
+  border:black;
+  outline:none;
+  background-color: #e0e0da;
+  border-radius: 10px 10px 12px 12px;
+  box-shadow: 0px 5px rgba(0,0,0,0.2);
+
+  color:#313131;
+  font-size:20px;
+
+  transition: 0.4s ease;
+  align-content:center;
+}
+
+.register-btn {
+  width:85%;
+  color:whitesmoke;
+  font-size:30px;
+  font-weight:600;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  background-color:#12a4cc;
+  border-radius: 5px 5px 6px 6px;
+  box-shadow: 0px 5px rgba(0,0,0,0.2);
+  padding:10px 10px;
+
+}
+.register-loc{
+  padding:30px 10px;
+ 
+}

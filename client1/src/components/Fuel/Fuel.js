@@ -8,7 +8,7 @@ import "./Fuel.css";
 
 toast.configure();
 
-function Fuel(props) {
+function Fuel() {
     const [userId, setUserId] = useState(1);
     const [gallonsRequested, setGallonsRequested] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
@@ -16,11 +16,11 @@ function Fuel(props) {
     const [suggestedPrice, setSuggestedPrice] = useState("1.95");
     const [totalAmount, setTotalAmount] = useState("2800");
 
-
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
 
+    // function to create a new fuel quote
     const requestQuote = () => {
 
         Axios.post('http://localhost:3001/create',{
@@ -43,28 +43,28 @@ function Fuel(props) {
     return (
         <div>
             <div className="form">
-            <div className="img">
-                <h1 className="title">Fuel Qote Form</h1>
-                <div className="fuel-form">
-                     <input 
-                    type = "text" 
-                    className="fuel"
-                    placeholder="Gallons Requested"
-                    onChange={getGallons}
-                    value={gallonsRequested}
-                    autoFocus required 
-                    />
-                    <DatePicker 
-                    className="date"
-                    placeholder="Delivery Date"
-                    selected={deliveryDate} 
-                    onChange={(date) => setDeliveryDate(date)} 
-                    />
+                <div className="img">
+                    <h1 className="title">Fuel Quote Form</h1>
+                    <div className="fuel-form">
+                        <input 
+                        type = "text" 
+                        className="fuel"
+                        placeholder="Gallons Requested"
+                        onChange={getGallons}
+                        value={gallonsRequested}
+                        autoFocus required 
+                        />
+                        <DatePicker 
+                        className="date"
+                        placeholder="Delivery Date"
+                        selected={deliveryDate} 
+                        onChange={(date) => setDeliveryDate(date)} 
+                        />
+                    </div>
+                    <div className="btn-container" >
+                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
+                    </div>
                 </div>
-                <div className="btn-container" >
-                    <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
-                </div>
-            </div>
             </div> 
         </div>
         
