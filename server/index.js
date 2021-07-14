@@ -45,7 +45,19 @@ app.post('/create', (req, res) => {
 });
 
 // create data for Profile //
-app.post('/api/insert', (req,res) => {
+
+app.get('/profile', (req,res) => {
+    db.query("SELECT * FROM profile WHERE userId=100002 ", (err, result) =>{
+        if(err) {
+            console.log(err)
+        }else{
+            res.send(result)
+        }
+    })}
+)
+
+
+app.post('/insert', (req,res) => {
     const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
@@ -68,7 +80,7 @@ app.post('/api/insert', (req,res) => {
     )
 })
 
-app.put('/api/edit', (req,res) => {
+app.put('/edit', (req,res) => {
     const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
@@ -77,9 +89,9 @@ app.put('/api/edit', (req,res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-    "UPDATE profile SET  fullName = ? WHERE userID = ?"
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100002'"
 
-    db.query(sqlUpdate, [fullName, userId],(err, result) => {
+    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode],(err, result) => {
         if (err) {
             console.log(err);
         } else {

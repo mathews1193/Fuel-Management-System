@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -33,10 +33,16 @@ const Profile = () => {
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(true);
+
+      const getProfile = () => {
+        Axios.get("http://localhost:3001/profile").then((response) => {
+          console.log(response);
+        })
+      }
     
       const handleSave = (e) => {
 
-        Axios.put('http://localhost:3001/api/edit',{
+        Axios.put('http://localhost:3001/edit',{
             userId:UserID,
             fullName:FullName,
             address1:Address1,
@@ -63,7 +69,7 @@ const Profile = () => {
         setuserId(currentID + 1);//test
         console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         
-        Axios.post('http://localhost:3001/api/insert',{
+        Axios.post('http://localhost:3001/insert',{
             userId:UserID,
             fullName:FullName,
             address1:Address1,
@@ -110,9 +116,11 @@ const Profile = () => {
 
     return (
         <div>
-             
+         
+             {getProfile()}
           <div className="form"> 
              <div className = "img3">
+              
                 <h1 className="title">Client Profile</h1>
                   
                   <div className="client-form">
@@ -194,7 +202,7 @@ const Profile = () => {
 
                   
                   
-                  {UserID === null ? (
+                  {FullName === null ? (
                     
                     <div className="btn-container" >
                       <button onClick={handleCreate} className="btn-save">Create Profile</button>
