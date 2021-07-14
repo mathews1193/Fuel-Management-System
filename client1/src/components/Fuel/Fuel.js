@@ -11,7 +11,7 @@ toast.configure();
 function Fuel() {
     const [userId, setUserId] = useState(1);
     const [orderId, setOrderId] = useState();
-    const [gallonsRequested, setGallonsRequested] = useState("");
+    const [gallonsRequested, setGallonsRequested] = useState();
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState(1.95);
