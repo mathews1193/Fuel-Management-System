@@ -28,18 +28,38 @@ const Profile = () => {
 
     
 
-   
+const [custProfile, setCustProfile] = useState([]);   
   
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(true);
 
-      const getProfile = () => {
+      const getProfile = (e) => {
         Axios.get("http://localhost:3001/profile").then((response) => {
-          console.log(response);
+          setCustProfile(response.data);
+          setProfile();
         })
       }
-    
+      const setProfile =(e) => {
+        custProfile.map((val,key)=>{
+          
+          return <div>
+            {setFullName(val.fullName)}
+            {setuserId(val.userId)}
+            {setAddress1(val.address1)}
+            {setAddress2(val.address2)}
+            {setCity(val.city)}
+            {setUSState(val.USstate)}
+            {setZipCode(val.zipCode)}
+            {console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)}
+          </div>
+        })
+        
+        
+        
+        console.log(FullName)
+
+      }
       const handleSave = (e) => {
 
         Axios.put('http://localhost:3001/edit',{
@@ -117,7 +137,10 @@ const Profile = () => {
     return (
         <div>
          
-             {getProfile()}
+            {useEffect(()=> getProfile(),[])}
+              {useEffect(()=> setProfile())}
+             
+            
           <div className="form"> 
              <div className = "img3">
               
@@ -177,7 +200,7 @@ const Profile = () => {
                               className="form2"
                               placeholder='Select State'
                               search
-                              
+                              value={USState}
                               options={options}
                               
                               
