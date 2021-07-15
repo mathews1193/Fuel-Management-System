@@ -10,8 +10,43 @@ app.use(express.json());
 const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
-    password:'password',
-    database:'fuel-managment-system'
+    password: 'password',
+    database: 'fuel-managment-system'
+})
+
+app.post('/register', (req, res) => {
+
+    const username = req.body.username
+    const password = req.body.password
+
+
+
+    db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], (err, result) => {
+        console.log(err);
+    })
+})
+
+app.post('/login', (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+
+
+
+    db.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
+        (err, result) => {
+
+            if (err) {
+                res.send({ err: err })
+            }
+
+
+            if (result) {
+                res.send(result)
+            } else {
+                res.send({ message: "Wrong Username/Password combination!" });
+            }
+
+        })
 })
 
 // create data from require and response of data // 
@@ -25,16 +60,16 @@ app.post('/create', (req, res) => {
 
 
     // insert new data into the table (hint:table name needs to be one word!!!!!) // 
-    db.query("INSERT INTO fuelquotes (userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)", 
-    [userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
-    (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("success");
-            res.send("Values inserted successfully!")
+    db.query("INSERT INTO fuelquotes (userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)",
+        [userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("success");
+                res.send("Values inserted successfully!")
+            }
         }
-    }
     );
 });
 
