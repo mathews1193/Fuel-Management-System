@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "chart.js": "^3.3.2",
@@ -48,7 +47,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^11.2.7",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "jest-dom": "^4.0.0",
+    "react-test-renderer": "^17.0.2"
   }
 }
