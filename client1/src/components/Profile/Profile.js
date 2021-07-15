@@ -134,6 +134,7 @@ return (
                     <input
                       className="form1"
                       id="FullName"
+                      data-testid="testFullName"
                       required
                       value={FullName}
                       onChange={(e) => setFullName(e.target.value)}
@@ -146,6 +147,7 @@ return (
                     <input
                       className="form1"
                       id="Address1"
+                      data-testid="testAddress1"
                       required
                       value={Address1}
                       onChange={(e) => setAddress1(e.target.value)}
@@ -158,6 +160,7 @@ return (
                     <input
                       className="form1"
                       id="Address2"
+                      data-testid="testAddress2"
                       required
                       value={Address2}
                       onChange={(e) => setAddress2(e.target.value)}
@@ -170,6 +173,7 @@ return (
                     <input
                       className="form1"
                       id="City"
+                      data-testid="testCity"
                       required
                       value={City}
                       onChange={(e) => setCity(e.target.value)}
@@ -180,6 +184,7 @@ return (
                     />
                             
                             <Dropdown
+                              data-testid="testUSState"
                               className="form2"
                               placeholder='Select State'
                               search
@@ -195,6 +200,7 @@ return (
                     <input
                       className="form1"
                       id="ZipCode"
+                      data-testid="testZipCode"
                       required
                       value={ZipCode}
                       onChange={(e) => setZipCode(e.target.value)}
