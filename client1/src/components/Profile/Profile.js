@@ -116,25 +116,8 @@ const [custProfile, setCustProfile] = useState([]);
           setUSState(result.value)
         };
         
-      
-      
-     
         
-       
-       
-      
-        
-     
-     
-    
-        
-        
-
-
-        
-      
-
-    return (
+return (
         <div>
          
             {useEffect(()=> getProfile(),[])}
@@ -225,7 +208,7 @@ const [custProfile, setCustProfile] = useState([]);
 
                   
                   
-                  {FullName === null ? (
+                  {FullName === '' ? (
                     
                     <div className="btn-container" >
                       <button onClick={handleCreate} className="btn-save">Create Profile</button>
