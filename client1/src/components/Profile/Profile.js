@@ -138,7 +138,7 @@ const [custProfile, setCustProfile] = useState([]);
         <div>
          
             {useEffect(()=> getProfile(),[])}
-              {useEffect(()=> setProfile())}
+              {useEffect(()=> setProfile(),[custProfile])}
              
             
           <div className="form"> 
