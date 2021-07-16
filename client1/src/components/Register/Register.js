@@ -6,7 +6,7 @@ import Axios from 'axios'
 import './Register.css';
 
 export default function Register() {
-    const [userId, setUserId] = useState(1);
+    const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
