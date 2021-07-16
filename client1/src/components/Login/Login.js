@@ -63,9 +63,10 @@ export default function Login() {
                 </div>
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>
+                    <h1>{loginStatus}</h1>
                 </div>
             </div>
-            <h1>{loginStatus}</h1>
+            
         </div >
     )
 }
