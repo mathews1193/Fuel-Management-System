@@ -11,20 +11,17 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-managment-system'
+    database: 'FuelManagement'
 })
 
 app.post('/register', (req, res) => {
 
     const username = req.body.username
     const password = req.body.password
-
-
-
-    db.query("INSERT INTO users (username, password) VALUES (?,?)", [username, password], (err, result) => {
-        console.log(err);
-    })
-})
+    db.query("INSERT INTO user (username, password) VALUES (?,?)", [username, password], (err, result) => {
+        console.log("Success!");
+    });
+});
 
 app.post('/login', (req, res) => {
     const username = req.body.username
@@ -32,7 +29,7 @@ app.post('/login', (req, res) => {
 
 
 
-    db.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
+    db.query("SELECT * FROM user WHERE username = ? AND password = ?", [username, password],
         (err, result) => {
 
             if (err) {
@@ -46,8 +43,8 @@ app.post('/login', (req, res) => {
                 res.send({ message: "Wrong Username/Password combination!" });
             }
 
-        })
-})
+        });
+});
 
 // create data from require and response of data // 
 app.post('/create', (req, res) => {
