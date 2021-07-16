@@ -6,7 +6,7 @@ import Axios from 'axios'
 import './Login.css';
 
 export default function Login() {
-    const [username, setUsername] = useState("''");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
 
