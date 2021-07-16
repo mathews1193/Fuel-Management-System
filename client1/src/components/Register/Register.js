@@ -1,20 +1,29 @@
 
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Axios from 'axios'
 import './Register.css';
 
 export default function Register() {
-    const [usernameReg, setUsernameReg] = useState('');
-    const [passwordReg, setPasswordReg] = useState('');
+    const [userId, setUserId] = useState(1);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
+
+    toast.configure();
 
     const register = () => {
-        Axios.post("http://localhost:3001/register", { username: usernameReg, password: passwordReg }).then((response) => {
-            console.log(response);
+        
+        Axios.post('http://localhost:3001/register',{ 
+            userId:userId, 
+            username: username, 
+            password: password, 
+        }).then(() => {
+            console.log("Success from fronted");
         });
+        console.log(userId + " " + username + " " + password);
+        toast("User Created Successfully");
     };
 
 
@@ -22,7 +31,7 @@ export default function Register() {
 
         <div className="login-wrapper2">
 
-            <form className="login-stuff">
+            <div className="login-stuff">
                 <h1 className="title">Create an Account</h1>
                 <div className="register-form">
                     <h1 className="register">First Name</h1>
@@ -30,7 +39,6 @@ export default function Register() {
                         className="input-style2"
                         placeholder="Enter First Name"
                         type="text"
-
                     />
                     <h1 className="register">Last Name</h1>
                     <input
@@ -52,7 +60,7 @@ export default function Register() {
                         placeholder="Enter Username"
                         type="text"
                         onChange={(e) => {
-                            setUsernameReg(e.target.value);
+                            setUsername(e.target.value);
                         }}
                     />
                     <h1 className="register">Password</h1>
@@ -61,14 +69,16 @@ export default function Register() {
                         placeholder="Enter Password"
                         type="text"
                         onChange={(e) => {
-                            setPasswordReg(e.target.value);
+                            setPassword(e.target.value);
                         }}
                     />
                     <div className="register-loc">
-                        <button onClick={register} onclassName="register-btn" type="submit" >Register</button>
+                        <h1>{username}</h1>
+                        <h1>{password}</h1>
+                        <button onClick={register} className="register-btn" type="submit" >Register</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
 
     );

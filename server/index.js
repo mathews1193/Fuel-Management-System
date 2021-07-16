@@ -11,25 +11,31 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'FuelManagement'
+    database: 'fuel-managment-system'
 })
 
 app.post('/register', (req, res) => {
 
+    const userId = req.body.userId;
     const username = req.body.username
     const password = req.body.password
-    db.query("INSERT INTO user (username, password) VALUES (?,?)", [username, password], (err, result) => {
-        console.log("Success!");
+
+    db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)", 
+    [userId, username, password], (err, result) => {
+      if (err) {
+        console.log(err);
+    } else {
+        console.log("success re");
+        res.send("Values inserted successfully!")
+      }
     });
 });
 
-app.post('/login', (req, res) => {
+app.get('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
 
-
-
-    db.query("SELECT * FROM user WHERE username = ? AND password = ?", [username, password],
+    db.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
         (err, result) => {
 
             if (err) {
