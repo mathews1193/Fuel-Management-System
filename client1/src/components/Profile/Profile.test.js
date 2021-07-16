@@ -1,4 +1,4 @@
-import { getByTestId, render } from '@testing-library/react';
+import { fireEvent, getByTestId, hasInputValue, render } from '@testing-library/react';
 import Profile from './Profile';
 
 // test case for checking if a input for gallons requested is rendered
@@ -16,24 +16,26 @@ describe("Input Component", () => {
     });
     it("address2 renders", () => {
         const { getByTestId } = render(<Profile />);
-        const input2 = getByTestId("testAddress2");
-        expect(input2).toBeTruthy();
+        const input3 = getByTestId("testAddress2");
+        expect(input3).toBeTruthy();
     });
     it("city renders", () => {
         const { getByTestId } = render(<Profile />);
-        const input2 = getByTestId("testCity");
-        expect(input2).toBeTruthy();
+        const input4 = getByTestId("testCity");
+        expect(input4).toBeTruthy();
     });
     it("state renders", () => {
         const { getByTestId } = render(<Profile />);
-        const input2 = getByTestId("testUSState");
-        expect(input2).toBeTruthy();
+        const input5 = getByTestId("testUSState");
+        expect(input5).toBeTruthy();
     });
     it("zip code renders", () => {
         const { getByTestId } = render(<Profile />);
-        const input2 = getByTestId("testZipCode");
-        expect(input2).toBeTruthy();
+        const input6 = getByTestId("testZipCode");
+        expect(input6).toBeTruthy();
     });
+    
+
 });
 
 
