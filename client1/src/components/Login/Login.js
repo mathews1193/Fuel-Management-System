@@ -11,12 +11,17 @@ export default function Login() {
 
 
     const login = () => {
-        Axios.post("http://localhost:3001/login", { username: username, password: password }).then((response) => {
+        Axios.post("http://localhost:3001/login", {
+        username: username, 
+        password: password 
+        }).then((response) => {
             if (response.data.message) {
                 setLoginStatus(response.data.message)
             }
             else {
                 setLoginStatus(response.data[0].username)
+                console.log(response.data[0].username)
+                console.log("error");
             }
 
         });
