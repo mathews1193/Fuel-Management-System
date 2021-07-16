@@ -31,7 +31,7 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
 
@@ -45,6 +45,7 @@ app.get('/login', (req, res) => {
 
             if (result) {
                 res.send(result)
+                console.log("cool got it");
             } else {
                 res.send({ message: "Wrong Username/Password combination!" });
             }

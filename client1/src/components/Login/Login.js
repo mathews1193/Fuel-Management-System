@@ -28,16 +28,10 @@ export default function Login() {
 
     toast.configure();
 
-    const handleSubmit = async e => {
-        e.preventDefault();
-        toast("Login Successful!");
-        console.log(username + password);
-    }
-
     return (
         <div className="login-wrapper">
 
-            <form className="login-stuff" onSubmit={handleSubmit}>
+            <div className="login-stuff">
                 <h1 className="head">Sign In</h1>
                 <div className="input-form">
                     <p className="p1">Username</p>
@@ -65,7 +59,7 @@ export default function Login() {
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>
                 </div>
-            </form>
+            </div>
             <h1>{loginStatus}</h1>
         </div >
     )
