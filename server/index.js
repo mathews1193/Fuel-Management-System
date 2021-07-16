@@ -6,6 +6,8 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+var index = {};
+
 // configuration of the mysql database // 
 const db = mysql.createConnection({
     user: 'root',
@@ -79,3 +81,7 @@ app.get("/fuelquotes", (req, res) => {
 app.listen(3001, () => {
     console.log("Cool, Your server is running on port 3001")
 })
+
+// exports
+
+module.exports = index;

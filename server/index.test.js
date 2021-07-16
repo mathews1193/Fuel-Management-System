@@ -1,33 +1,43 @@
-const Index = require("./index");
+const { db } = require("./index");
+const supertest = require("supertest");
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
-const cors = require('cors');
-
-app.use(cors());
-app.use(express.json());
-
-// configuration of the mysql database // 
-const db = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
-    password:'password',
-    database:'fuel-managment-system'
-})
-
 
 describe("Should perform CRUD on fuel quotes", () => {
-  test("create fuel quote", async() => {
-      
+
+  test("delete a fuel quote", async () => {
+    app.delete("/delete/:orderId", (req, res) => {
+      const orderId = req.params.orderId;
+      db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      });
+    });
+  });
+
+  test("check for fuel quotes stores to db", async() => {
+    const result = [];
     app.get("/fuelquotes", (req, res) => {
-      const result = db.query("SELECT * FROM fuelquotes")
+     
+      result = db.query("SELECT * FROM fuelquotes")
       console.log(result);
     });
-    
-    expect(result).toNotBeNull();
+    expect(result).not.toBeNull();
   });
-  
-});
-   
 
- 
+  test("get fuel quotes from db", async() => {
+
+    app.get("/fuelquotes", (req, res) => {
+      db.query("SELECT * FROM fuelquotes", (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      });
+    });
+  });
+});
