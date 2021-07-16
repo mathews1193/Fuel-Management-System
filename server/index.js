@@ -20,15 +20,15 @@ app.post('/register', (req, res) => {
     const username = req.body.username
     const password = req.body.password
 
-    db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)", 
-    [userId, username, password], (err, result) => {
-      if (err) {
-        console.log(err);
-    } else {
-        console.log("success re");
-        res.send("Values inserted successfully!")
-      }
-    });
+    db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
+        [userId, username, password], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("success re");
+                res.send("Values inserted successfully!")
+            }
+        });
 });
 
 app.post('/login', (req, res) => {
@@ -45,6 +45,7 @@ app.post('/login', (req, res) => {
 
             if (result.length > 0) {
                 res.send(result)
+                console.log("cool got it");
             } else {
                 res.send({ message: "Wrong Username/Password combination!" });
             }
