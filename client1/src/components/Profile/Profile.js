@@ -190,7 +190,7 @@ return (
                               search
                               value={USState}
                               options={options}
-                              
+                              type="text"
                               
                               onChange={handleChange}
                               disabled={!edit}
@@ -217,13 +217,13 @@ return (
                   {FullName === '' ? (
                     
                     <div className="btn-container" >
-                      <button onClick={handleCreate} className="btn-save">Create Profile</button>
+                      <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
                       ) : edit === true ? (<div className="btn-container" >
-                      <button onClick={handleSave} className="btn-save">Save Profile</button>
+                      <button data-testid="save" onClick={handleSave} className="btn-save">Save Profile</button>
                     </div>) : (
                     <div className="btn-container" >
-                      <button onClick={handleEdit} className="btn-edit">Edit Profile</button>
+                      <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
                     )}
 
