@@ -12,7 +12,7 @@ export default function Register() {
 
 
     const register = () => {
-        Axios.post('http://localhost:3001/register', { username: usernameReg, password: passwordReg }).then((response) => {
+        Axios.post("http://localhost:3001/register", { username: usernameReg, password: passwordReg }).then((response) => {
             console.log(response);
         });
     };
@@ -65,7 +65,7 @@ export default function Register() {
                         }}
                     />
                     <div className="register-loc">
-                        <button onClick={register} onclassName="register-btn" type="submit" onClick >Register</button>
+                        <button onClick={register} onclassName="register-btn" type="submit" >Register</button>
                     </div>
                 </div>
             </form>
