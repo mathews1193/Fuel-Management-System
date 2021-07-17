@@ -66,7 +66,6 @@ describe("Input Component", () => {
     it("USstate calls handleChange", () => {
         const handleChange = jest.fn()
         const{getByTestId} = render(<Profile handleChange={handleChange}/>);
-        const USstateInput = getByTestId("testUSState")
         expect(screen.getByTestId("testUSState")).toBeTruthy()
         fireEvent.click(getByTestId('testUSState'))
         fireEvent.click(screen.getByText('Alaska'))

@@ -114,15 +114,15 @@ const [custProfile, setCustProfile] = useState([]);
       
         const handleChange = (e, result) => {
           setUSState(result.value)
-        };
-        
+        }
+        useEffect(()=> getProfile(),[getProfile])
+        useEffect(()=> setProfile(),[custProfile, setProfile])
         
         
 return (
         <div>
          
-            {useEffect(()=> getProfile(),[])}
-              {useEffect(()=> setProfile(),[custProfile])}
+           
              
             
           <div className="form"> 
