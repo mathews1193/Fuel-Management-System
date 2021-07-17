@@ -47,7 +47,7 @@ app.post('/create', (req, res) => {
 // create data for Profile //
 
 app.get('/profile', (req,res) => {
-    db.query("SELECT * FROM profile WHERE userId=100015 ", (err, result) =>{
+    db.query("SELECT * FROM profile WHERE userId=100010 ", (err, result) =>{
         if(err) {
             console.log(err)
         }else{
@@ -89,7 +89,7 @@ app.put('/edit', (req,res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100015'"
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100010'"
 
     db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode],(err, result) => {
         if (err) {

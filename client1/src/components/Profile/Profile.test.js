@@ -1,7 +1,10 @@
-import { fireEvent, screen, getByTestId, hasInputValue, render } from '@testing-library/react';
+import { fireEvent, screen, cleanup,  render } from '@testing-library/react';
 import Profile from './Profile';
-import * as axios from "axios";
+import React from 'react'
 
+
+
+afterEach(cleanup)
 // test case for checking if a input for gallons requested is rendered
 describe("Input Component", () => {
 
@@ -61,11 +64,14 @@ describe("Input Component", () => {
         expect(cityInput.value).toBe("test")
     })
     it("USstate calls handleChange", () => {
-        const handleChange = jest.fn();
-        const{getByTestId} = render(<Profile handleChange={handleChange} />);
-        const USstateInput = getByTestId("testUSState");
-        fireEvent.change(USstateInput)
-        expect(handleChange).not.toHaveBeenCalled()
+        const handleChange = jest.fn()
+        const{getByTestId} = render(<Profile handleChange={handleChange}/>);
+        const USstateInput = getByTestId("testUSState")
+        expect(screen.getByTestId("testUSState")).toBeTruthy()
+        fireEvent.click(getByTestId('testUSState'))
+        fireEvent.click(screen.getByText('Alaska'))
+        expect(handleChange).toBeTruthy()
+        
     })
     it("Zipcode updates on change", () => {
         const{getByTestId} = render(<Profile />);
@@ -80,11 +86,34 @@ describe("Button Component", () => {
     
     it("create triggers handleCreate", () =>{
         const handleCreate = jest.fn();
-        render(<Profile handleCreate={handleCreate}/>)
-        fireEvent.click(screen.getByTestId("create"))
-        expect(handleCreate).not.toHaveBeenCalledTimes(1)
+        const{getByTestId} = render(<Profile handleCreate={handleCreate}/>)
+        fireEvent.click(getByTestId('create'))
+        expect(handleCreate).toBeTruthy()
     })
+    it("create triggers handleEdit", () =>{
+        const handleEdit = jest.fn();
+        const{getByTestId} = render(<Profile handleEdit={handleEdit}/>)
+        const FullName = getByTestId('testFullName')
+        fireEvent.change(FullName, {target: {value: "test"}})
+        fireEvent.click(getByTestId('edit'))
+        expect(handleEdit).toBeTruthy()
+    })
+    it("create triggers handleSave", () =>{
+        const handleSave = jest.fn();
+        const{getByTestId} = render(<Profile handleEdit={handleSave}/>)
+        const FullName = getByTestId('testFullName')
+        fireEvent.change(FullName, {target: {value: "test"}})
+        fireEvent.click(getByTestId('edit'))
+        fireEvent.click(getByTestId('save'))
+        
+        expect(handleSave).toBeTruthy()
+    })
+    
+
+    
    
 
 
 });
+
+
