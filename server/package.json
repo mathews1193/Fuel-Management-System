@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
+    "test": "jest"
+=======
     "test": "jest --detectOpenHandles",
     "test:watch": "npm run test -- --watch"
+>>>>>>> 26631da4f461671738a93f9dd83aa76471a43da4
   },
   "author": "",
   "license": "ISC",
