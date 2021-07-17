@@ -2,9 +2,13 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:true}))
+
+
 
 var index = {};
 
@@ -113,6 +117,64 @@ app.get("/fuelquotes", (req, res) => {
       }
     });
   });
+// create data for Profile //
+
+app.get('/profile', (req,res) => {
+    db.query("SELECT * FROM profile WHERE userId=100010 ", (err, result) =>{
+        if(err) {
+            console.log(err)
+        }else{
+            res.send(result)
+        }
+    })}
+)
+
+
+app.post('/insert', (req,res) => {
+    const userId = req.body.userId;
+    const fullName = req.body.fullName;
+    const address1 = req.body.address1;
+    const address2 = req.body.address2;
+    const city = req.body.city;
+    const USstate = req.body.USstate;
+    const zipCode = req.body.zipCode;
+    const sqlInsert = 
+    "INSERT INTO profile (userId, fullName, address1, address2, city, USstate, zipCode) VALUES (?,?,?,?,?,?,?)"
+    db.query(sqlInsert,
+        [userId, fullName, address1, address2, city, USstate, zipCode],
+    (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("success");
+            res.send("Values inserted successfully!")
+        }
+    }
+    )
+})
+
+app.put('/edit', (req,res) => {
+    const userId = req.body.userId;
+    const fullName = req.body.fullName;
+    const address1 = req.body.address1;
+    const address2 = req.body.address2;
+    const city = req.body.city;
+    const USstate = req.body.USstate;
+    const zipCode = req.body.zipCode;
+    const sqlUpdate =
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100010'"
+
+    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode],(err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("success");
+            res.send("Values updated successfully!")
+        }
+    }
+    )
+})
+//profile//
 
 // check to see if the server is currently running on the port // 
 app.listen(3001, () => {
