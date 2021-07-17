@@ -79,7 +79,7 @@ app.post('/create', (req, res) => {
             console.log("success");
             res.send("Values inserted successfully!")
         }
-    );
+      });
 });
 
 app.get("/fuelquotes", (req, res) => {
