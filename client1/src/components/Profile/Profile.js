@@ -18,7 +18,7 @@ toast.configure();
 const Profile = () => {
  
   // example for variables 
-  const [UserID, setuserId] = useState(null);
+  const [UserID, setuserId] = useState('');
   const [FullName, setFullName] = useState('');
   const [Address1, setAddress1] = useState('');
   const [Address2, setAddress2] = useState('');
@@ -32,7 +32,7 @@ const [custProfile, setCustProfile] = useState([]);
   
     
       //we will use edit state to determine which button to show
-      const [edit, setEdit] = useState(true);
+      const [edit, setEdit] = useState(false);
 
       const getProfile = (e) => {
         Axios.get("http://localhost:3001/profile").then((response) => {
@@ -44,6 +44,7 @@ const [custProfile, setCustProfile] = useState([]);
         custProfile.map((val,key)=>{
           
           return <div>
+            
             {setFullName(val.fullName)}
             {setuserId(val.userId)}
             {setAddress1(val.address1)}
@@ -57,7 +58,7 @@ const [custProfile, setCustProfile] = useState([]);
         
         
         
-        console.log(FullName)
+       
 
       }
       const handleSave = (e) => {
@@ -85,8 +86,7 @@ const [custProfile, setCustProfile] = useState([]);
       const handleCreate = (e) => {
        
         toast("Client Profile Created Successfully!");
-        const currentID = '10000'
-        setuserId(currentID + 1);//test
+        
         console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
         
         Axios.post('http://localhost:3001/insert',{
@@ -115,6 +115,7 @@ const [custProfile, setCustProfile] = useState([]);
         const handleChange = (e, result) => {
           setUSState(result.value)
         };
+        
         
         
 return (
