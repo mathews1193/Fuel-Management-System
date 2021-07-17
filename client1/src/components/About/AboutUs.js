@@ -1,7 +1,7 @@
 import React from 'react';
 import './AboutUs.css'
 
-function aboutUs() {
+function AboutUs() {
 
         const img = [
             'https://images.freeimages.com/images/small-previews/ced/tanker-truck-reflection-1562831.jpg',
@@ -30,4 +30,4 @@ function aboutUs() {
         )              
     }
 
-export default aboutUs
+export default AboutUs
