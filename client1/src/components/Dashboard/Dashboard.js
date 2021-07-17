@@ -1,70 +1,66 @@
-import React from 'react'
-import DoughnutChart from '../DoughnutChart'
+import React , { useState } from 'react'
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
+import Axios from 'axios';
 import "./Dashboard.css";
 
-function Dashboard() {
-    const name = "Tony Stark";
+toast.configure();
 
-    const quotes = [
-        {
-          id: 1,
-          gallonsRequested:1500,
-          deliveryAddress: 'Dr. Tony Stark',
-          deliveryDate: '6/23/2021',
-          suggestedPrice:4,
-          totalAmount:400,
-          //add title
-        },
-        {
-          id: 2,
-          gallonsRequested:500,
-          deliveryAddress: 'Dr. Tony Stark',
-          deliveryDate: '8/20/2021',
-          suggestedPrice:4,
-          totalAmount:400,
-        },
-        {
-          id: 3,
-          gallonsRequested:3000,
-          deliveryAddress: 'Dr. Tony Stark',
-          deliveryDate: '7/1/2021',
-          suggestedPrice:4,
-          totalAmount:400,
-        },
-        {
-          id: 4,
-          gallonsRequested:6000,
-          deliveryAddress: 'Dr. Tony Stark',
-          deliveryDate: '12/24/2021',
-          suggestedPrice:4,
-          totalAmount:400,
-        },
-      ];
-      const quoteItems = quotes.map(quote => 
-        <div className="fuel-history">
-            <p>Order Number: {quote.id}</p>
-            <p>Gallons Requested: {quote.gallonsRequested}</p>
-            <p>Delivery Address: {quote.deliveryAddress}</p>
-            <p>Delivery Date: {quote.deliveryDate}</p>
-            <p>Suggested Price: ${quote.suggestedPrice} per gallon</p>
-            <p>Total Amout Due: ${quote.totalAmount}</p>
-        </div>
-      )
+function Dashboard() {
+  
+  const [orderList, setOrderList] = useState([]);
+
+  const name = "Tony Stark";
+
+  // API call to fetch fuel history and store the orderlist array 
+  Axios.get("http://localhost:3001/fuelquotes").then((response) => {
+    setOrderList(response.data);
+  });
+    
+    // API call to delete an fuel quote by finding the orderID 
+  const deleteOrder = (orderId) => {
+    Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
+      setOrderList(
+        orderList.filter((quote) => {
+          return quote.orderId != orderId;
+            
+        }) 
+      );
+    });
+    toast("Fuel Order: " + orderId + " Deleted successfully!");
+  };
+                        
     return (
         <div>
             <div className="img2">
+              <div className="form1">
                 <h1 className="title">Welcome, {name}!</h1>
                 <div className="order">
                     <h2>Orders</h2>
-                    <h3>{quotes.length}</h3>
+                    <h3>{orderList.length}</h3>
                 </div>
                 <div className="graph">
-                    <DoughnutChart />
+                    
                 </div>
                 <h2 className="sub-title">Fuel History</h2>
                 <div>
-                    {quoteItems}
+                {orderList.map((quote, key) => {
+                  return(
+                  <div className="fuel-history">
+                    <p>Order Number: {quote.orderId}</p>
+                    <p>Gallons Requested: {quote.gallonsRequested}</p>
+                    <p>Delivery Address: {quote.deliveryAddress}</p>
+                    <p>Delivery Date: {quote.deliveryDate}</p>
+                    <p>Suggested Price: ${quote.suggestedPrice} per gallon</p>
+                    <p>Total Amout Due: ${quote.totalAmount}</p>
+                    <div className="btn-container">
+                      <button className="btn-del" onClick={() => {deleteOrder(quote.orderId)}}>Delete</button>
+                    </div>
+                  </div>
+          );
+        })};
                 </div>
+              </div>
             </div>
         </div>
     )

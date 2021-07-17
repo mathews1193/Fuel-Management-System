@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { useState } from 'react';
 import './App.css';
 import Home from './containers/Home';
 import Login from './containers/Login';
 import Register from './containers/Register';
 import Fuel from './containers/Fuel';
 import Profile from './containers/Profile';
-import AboutUs from './containers/AboutUs';
+import AboutUs from './containers/aboutUs';
 import Dashboard from './containers/Dashboard';
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 
 function App() {
+  const [token, setToken] = useState();
   return (
     <div className="App">
       <Router>

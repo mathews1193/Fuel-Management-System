@@ -1,7 +1,7 @@
 .about{
     background-image: url("https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     background-Position: center center;
-    height:100%;
+    height:100vh;
     background-size:cover;
     background-repeat: no-repeat;
 }
@@ -18,13 +18,14 @@
 }
 .img-container{
     padding-top:20px;
+    padding-bottom: 30px;
 }
 .img11{
     border: 5px solid black;
     margin-left: 50px;
 }
 .msg{
-    margin-top:80px;
+    padding-top: 30px;
     width: 60%;
 }
 .sub-title12{

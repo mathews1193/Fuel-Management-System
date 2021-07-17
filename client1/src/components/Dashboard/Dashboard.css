@@ -5,15 +5,12 @@
     background-size:cover;
     background-repeat: no-repeat;
   }
-.order{
+  .form1{
+    display: flex;
+    flex-direction: column;
+
+  }
   
-}
-.graph{
-  margin:auto;
-  padding-bottom: 50px;
-  width:26%;
-  height:26%;
-}
 .title{
     background-color: #313131;
     border: 2px solid whitesmoke;
@@ -27,8 +24,17 @@
     border: 2px solid whitesmoke;
     color:#ffffff;
   }
+  .btn-container{
+    padding: 10px 0px;
+  }
+  .btn-del{
+    color:white;
+    background-color: red;
+  }
   .fuel-history{
       margin:auto;
+      margin-bottom: 40px;
+      padding:15px;
       text-align: left;
       margin-top: 10px;
       width:50%;
