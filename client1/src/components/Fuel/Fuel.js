@@ -10,35 +10,49 @@ toast.configure();
 
 function Fuel() {
     const [userId, setUserId] = useState(1);
-    const [gallonsRequested, setGallonsRequested] = useState("");
+    const [orderId, setOrderId] = useState();
+    const [gallonsRequested, setGallonsRequested] = useState();
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState("1.95");
-    const [totalAmount, setTotalAmount] = useState("2800");
+    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
+    const [totalAmount, setTotalAmount] = useState(2800);
 
+    const [orderList, setOrderList] = useState([]);
+
+    
+ // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
 
-    // function to create a new fuel quote
+    // add a test case to test if a instance is created for fuel quote 
+    // API call to create a fuel quote and store it into the orderlist array
     const requestQuote = () => {
 
         Axios.post('http://localhost:3001/create',{
             userId:userId,
+            orderId:orderId,
             gallonsRequested:gallonsRequested,
             deliveryAddress:deliveryAddress,
-            deliveryDate:deliveryDate,
+            deliveryDate:deliveryDate.toDateString(),
             suggestedPrice: suggestedPrice,
-            totalAmount: totalAmount,
+            totalAmount: totalAmount.toString(),
         }).then(() => {
-            console.log("success frontend to backend");
-        })
-
-        console.log(userId + " " + gallonsRequested + " " + deliveryAddress + " " 
-        + deliveryDate + " " + suggestedPrice + " " + totalAmount);
-
-            toast("Fuel Quote Request Placed Successfully");
-        };
+            setOrderList([
+                ...orderList,
+                {
+                    userId:userId,
+                    orderId:orderId,
+                    gallonsRequested:gallonsRequested,
+                    deliveryAddress:deliveryAddress,
+                    deliveryDate:deliveryDate.toDateString(),
+                    suggestedPrice: suggestedPrice,
+                    totalAmount: totalAmount.toString(),
+                },
+              ]);
+            });
+            toast("Fuel Order Placed Successfully!");
+          };
 
     return (
         <div>
@@ -49,6 +63,7 @@ function Fuel() {
                         <input 
                         type = "text" 
                         className="fuel"
+                        data-testid="fuel"
                         placeholder="Gallons Requested"
                         onChange={getGallons}
                         value={gallonsRequested}
@@ -56,18 +71,19 @@ function Fuel() {
                         />
                         <DatePicker 
                         className="date"
+                        data-testid="picker"
                         placeholder="Delivery Date"
-                        selected={deliveryDate} 
+                        selected={deliveryDate}
                         onChange={(date) => setDeliveryDate(date)} 
+                        dateFormat="MMMM d, yyyy"
                         />
                     </div>
                     <div className="btn-container" >
-                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button>
+                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button> 
                     </div>
                 </div>
             </div> 
         </div>
-        
     )
 }
 

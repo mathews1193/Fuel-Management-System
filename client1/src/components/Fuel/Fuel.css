@@ -68,3 +68,8 @@
     border-radius: 20%;
     padding:20px 5px;
   }
+
+.fuel-history{
+  display: flex;
+  flex-direction: row;
+}
