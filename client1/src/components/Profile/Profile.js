@@ -8,13 +8,8 @@ import Axios from 'axios'
 
 import { Dropdown } from 'semantic-ui-react'
 import options from './states.js'
-import Dashboard from '../Dashboard/Dashboard';
-
-
-
 
 toast.configure();
-
 
 const Profile = () => {
  
@@ -28,7 +23,6 @@ const Profile = () => {
   const [ZipCode, setZipCode] = useState('');  
 
     
-
 const [custProfile, setCustProfile] = useState([]);   
   
     
@@ -56,11 +50,6 @@ const [custProfile, setCustProfile] = useState([]);
             {console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)}
           </div>
         })
-        
-        
-        
-       
-
       }
       const handleSave = (e) => {
 
@@ -80,8 +69,6 @@ const [custProfile, setCustProfile] = useState([]);
         })
        
         toast("Client Profile Saved Successfully!");
-        
-        
       };
 
       const handleCreate = (e) => {
@@ -102,16 +89,15 @@ const [custProfile, setCustProfile] = useState([]);
             alert("success frontend to backend");
             //set edit to false when save is clicked
             setEdit(false);
+
         })
         
       };
-      
+
+      //set edit to true when edit is clicked
       const handleEdit = (e) => {
-       
-        //set edit to true when edit is clicked
         setEdit(true);
       };
-      
       
         const handleChange = (e, result) => {
           setUSState(result.value)
@@ -212,19 +198,18 @@ return (
 
                   
                   
-                  {FullName === '' ? (
+                (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
                       ) : edit === true ? (<div className="btn-container" >
                       <button data-testid="save" onClick={handleSave} className="btn-save">Save Profile</button>
-                      <Dashboard />
                     </div>) : (
                     <div className="btn-container" >
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                    )}
+                    )
 
             </div>
           </div>

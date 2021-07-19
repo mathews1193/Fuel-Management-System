@@ -20,6 +20,9 @@ const db = mysql.createConnection({
     database: 'fuel-managment-system'
 })
 
+//////////////////////////// User credentials /////////////////////////////////////////////
+
+// register 
 app.post('/register', (req, res) => {
 
     const userId = req.body.userId;
@@ -37,6 +40,7 @@ app.post('/register', (req, res) => {
     });
 });
 
+//login credentials
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -58,6 +62,8 @@ app.post('/login', (req, res) => {
         });
 });
 
+//////////////////////////// Fuel History /////////////////////////////////////////////
+
 // create data from require and response of data // 
 app.post('/create', (req, res) => {
     const userId = req.body.userId;
@@ -69,7 +75,7 @@ app.post('/create', (req, res) => {
     const totalAmount = req.body.totalAmount;
 
 
-    // insert new data into the table (hint:table name needs to be one word!!!!!) // 
+    // insert new data into the table (hint:table name needs to be one word!!!!!)
     db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)", 
     [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
     (err, result) => {
@@ -82,6 +88,7 @@ app.post('/create', (req, res) => {
       });
 });
 
+// Get all the fuel quotes stored in the db
 app.get("/fuelquotes", (req, res) => {
     db.query("SELECT * FROM fuelquotes", (err, result) => {
       if (err) {
@@ -107,6 +114,7 @@ app.get("/fuelquotes", (req, res) => {
     );
   });
 
+  // delete fuel quotes from the db 
   app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;
     db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
@@ -117,8 +125,10 @@ app.get("/fuelquotes", (req, res) => {
       }
     });
   });
-// create data for Profile //
 
+  //////////////////////////// Profile Information /////////////////////////////////////////////
+
+// create data for Profile //
 app.get('/profile', (req,res) => {
     db.query("SELECT * FROM profile", (err, result) =>{
         if(err) {
@@ -162,7 +172,7 @@ app.put('/edit', (req,res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userId = '100010'"
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userId =?"
 
     db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode],(err, result) => {
         if (err) {
@@ -174,9 +184,8 @@ app.put('/edit', (req,res) => {
     }
     )
 })
-//profile//
 
-// check to see if the server is currently running on the port // 
+// check to see if the server is currently running on the port
 app.listen(3001, () => {
     console.log("Cool, Your server is running on port 3001")
 })
