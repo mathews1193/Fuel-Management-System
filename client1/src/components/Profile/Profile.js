@@ -8,6 +8,7 @@ import Axios from 'axios'
 
 import { Dropdown } from 'semantic-ui-react'
 import options from './states.js'
+import Dashboard from '../Dashboard/Dashboard';
 
 
 
@@ -138,7 +139,7 @@ return (
                       type="text"
                       name="FullName"
                       placeholder="Full Name"
-                      disabled={!edit}
+                     
                     />        
                       
                     <input
@@ -151,7 +152,7 @@ return (
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
-                      disabled={!edit}
+                      
                     />
               
                     <input
@@ -164,7 +165,7 @@ return (
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
-                      disabled={!edit}
+                      
                     />
                           
                     <input
@@ -177,7 +178,7 @@ return (
                       type="text"
                       name="City"
                       placeholder="City"
-                      disabled={!edit}
+                     
                     />
                             
                             <Dropdown
@@ -190,7 +191,7 @@ return (
                               type="text"
                               
                               onChange={handleChange}
-                              disabled={!edit}
+                             
                             />
                     
                                                     
@@ -204,7 +205,7 @@ return (
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
-                      disabled={!edit}
+                      
                     />
  
                   </div>
@@ -218,6 +219,7 @@ return (
                     </div>
                       ) : edit === true ? (<div className="btn-container" >
                       <button data-testid="save" onClick={handleSave} className="btn-save">Save Profile</button>
+                      <Dashboard />
                     </div>) : (
                     <div className="btn-container" >
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>

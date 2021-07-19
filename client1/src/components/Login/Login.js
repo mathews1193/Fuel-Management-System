@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios'
@@ -9,27 +9,29 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const history = useHistory();
+
 
     const login = () => {
         Axios.post("http://localhost:3001/login", {
         username: username, 
         password: password 
         }).then((response) => {
+            // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
-            }
-            else {
-                setLoginStatus(response.data[0].username)
                 console.log(response.data[0].username)
                 console.log("error");
             }
-
+            else {
+                //user found redirect to client profile 
+                setLoginStatus(response.data[0].username)
+                history.push("/client-profile");
+            }
         });
     };
 
     const [loginStatus, setLoginStatus] = useState("");
-
-
 
     toast.configure();
 
