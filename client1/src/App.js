@@ -13,7 +13,6 @@ import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 
 function App() {
-  const [token, setToken] = useState();
   return (
     <div className="App">
       <Router>

@@ -121,10 +121,6 @@ const [custProfile, setCustProfile] = useState([]);
         
 return (
         <div>
-         
-           
-             
-            
           <div className="form"> 
              <div className = "img3">
               
