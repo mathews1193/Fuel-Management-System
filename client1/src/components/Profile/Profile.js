@@ -14,7 +14,7 @@ toast.configure();
 const Profile = () => {
  
   // example for variables 
-  const [UserID, setuserId] = useState('');
+  const [UserID, setuserId] = useState();
   const [FullName, setFullName] = useState('');
   const [Address1, setAddress1] = useState('');
   const [Address2, setAddress2] = useState('');
