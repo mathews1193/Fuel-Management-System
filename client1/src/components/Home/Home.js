@@ -26,7 +26,6 @@ function Home() {
                             <h1 className="sub-title1">For</h1>
                             <h1 className="sub-title1">Companies Around The World!</h1>
                         </div>
-                        <Link to ="/login"> <button className="btn-signup">Sign Up Here</button> </Link>
                     </div>
                     <img className="img1"src={img[1]} alt="Logo" width="30%" height="10%"/>
                 </div>

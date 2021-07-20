@@ -1,6 +1,5 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { useState } from 'react';
 import './App.css';
 import Home from './containers/Home';
 import Login from './containers/Login';
@@ -13,6 +12,10 @@ import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 
 function App() {
+  const[isAuth, setIsAuth] = useState(false);
+  const [userId, setUserId] = useState();
+  console.log(isAuth);
+
   return (
     <div className="App">
       <Router>
@@ -20,11 +23,13 @@ function App() {
         <div className='container'>
           <Route exact path="/" component={Home} />
           <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/fuel-quote" component={Fuel} />
-          <Route path="/client-profile" component={Profile} />
+          <Route path="/login">
+              <Login auth={isAuth} setIsAuth={setIsAuth} />
+          </Route>
+          <Route path="/fuel-quote" component={Fuel} auth={isAuth} userId={userId} />
+          <Route path="/client-profile" component={Profile} auth={isAuth} />
           <Route path="/about-us" component={AboutUs} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} auth={isAuth} />
         </div>
         <Footer />
       </Router>

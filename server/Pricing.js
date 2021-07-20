@@ -8,11 +8,14 @@ class pricing {
       this.state = state; 
     }
     
-     setAmount(){ 
-      totalAmount = (gallonsRequested * setPrice);
-      return totalAmount
+    // calculate total amount using gallons requested and setprice per gallon
+    getAmount(){ 
+      totalAmount = (gallonsRequested * getPrice());
+      return totalAmount;
     }
-    setRateHistory(){
+
+    // determine rate history based on user buying history
+    getRateHistory(){
       var rateHistory;
 
       if (customerStatus == true)
@@ -24,7 +27,8 @@ class pricing {
       return rateHistory;
     }
 
-    setLocationFactor(){ 
+    // determine location factor based on in state or out of state location
+    getLocationFactor(){ 
       var locationFactor;
 
       if (state == "TX")
@@ -36,7 +40,8 @@ class pricing {
       return locationFactor;
     }
 
-    setGallonFactor(){
+    // determine gallon factor based on the amount the user purchases
+    getGallonFactor(){
       var gallonFactor;
 
       if (gallonsRequested > 1000)
@@ -48,11 +53,12 @@ class pricing {
       return gallonFactor;
     }
 
-    setPrice(){
+    // calculate price per gallon for client 
+    getPrice(){
       var currentPrice = 1.50;
       var companyProfit = 0.10;
 
-      suggestedPrice = (currentPrice * setLocationFactor() - companyProfit + setGallonFactor() + setRateHistory());
+      suggestedPrice = (currentPrice * getLocationFactor() - companyProfit + getGallonFactor() + getRateHistory());
       return suggestedPrice;
     }
 

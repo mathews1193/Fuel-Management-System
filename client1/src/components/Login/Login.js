@@ -5,12 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios'
 import './Login.css';
 
-export default function Login() {
+export default function Login( { setIsAuth } ) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const history = useHistory();
-
 
     const login = () => {
         Axios.post("http://localhost:3001/login", {
@@ -25,6 +24,7 @@ export default function Login() {
             }
             else {
                 //user found redirect to client profile 
+                // user is authenticated
                 setLoginStatus(response.data[0].username)
                 history.push("/client-profile");
             }

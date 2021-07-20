@@ -26,7 +26,6 @@ export default function Register() {
         toast("User Created Successfully");
     };
 
-
     return (
 
         <div className="login-wrapper2">

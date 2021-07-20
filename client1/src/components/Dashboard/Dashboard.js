@@ -1,16 +1,19 @@
-import React , { useState } from 'react'
+import React , { useState } from 'react';
+import { Redirect } from "react-router-dom";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
 import "./Dashboard.css";
+import Login from '../Login/Login';
 
 toast.configure();
 
-function Dashboard() {
+const Dashboard = ({ isAuth }) => {
   
   const [orderList, setOrderList] = useState([]);
 
   const name = "Tony Stark";
+  console.log(isAuth);
 
   // API call to fetch fuel history and store the orderlist array 
   Axios.get("http://localhost:3001/fuelquotes").then((response) => {
@@ -22,7 +25,7 @@ function Dashboard() {
     Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
       setOrderList(
         orderList.filter((quote) => {
-          return quote.orderId != orderId;
+          return quote.orderId !== orderId;
             
         }) 
       );
@@ -32,15 +35,13 @@ function Dashboard() {
                         
     return (
         <div>
-            <div className="img2">
-              <div className="form1">
+            { isAuth === true ? (
+              <div className="img2">
+                <div className="form1">
                 <h1 className="title">Welcome, {name}!</h1>
                 <div className="order">
                     <h2>Orders</h2>
                     <h3>{orderList.length}</h3>
-                </div>
-                <div className="graph">
-                    
                 </div>
                 <h2 className="sub-title">Fuel History</h2>
                 <div>
@@ -60,8 +61,11 @@ function Dashboard() {
           );
         })};
                 </div>
-              </div>
+              </div> 
             </div>
+              ) : (
+                <h1>User not login</h1>
+              )}
         </div>
     )
 }

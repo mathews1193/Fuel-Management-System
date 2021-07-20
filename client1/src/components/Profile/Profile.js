@@ -11,7 +11,7 @@ import options from './states.js'
 
 toast.configure();
 
-const Profile = () => {
+const Profile = ( {isAuth} ) => {
  
   // example for variables 
   const [UserID, setuserId] = useState();
@@ -102,8 +102,8 @@ const [custProfile, setCustProfile] = useState([]);
         const handleChange = (e, result) => {
           setUSState(result.value)
         }
-        useEffect(()=> getProfile(),[getProfile])
-        useEffect(()=> setProfile(),[custProfile, setProfile])
+        useEffect(()=> getProfile(),[])
+        useEffect(()=> setProfile(),[custProfile])
         
         
 return (
@@ -125,7 +125,6 @@ return (
                       type="text"
                       name="FullName"
                       placeholder="Full Name"
-                     
                     />        
                       
                     <input
@@ -199,7 +198,7 @@ return (
                   
                   
                 (
-                    
+                  {FullName === '' ? (
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
@@ -209,7 +208,7 @@ return (
                     <div className="btn-container" >
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                    )
+                    )}
 
             </div>
           </div>

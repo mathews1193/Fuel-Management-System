@@ -8,7 +8,7 @@ import "./Fuel.css";
 
 toast.configure();
 
-function Fuel() {
+function Fuel( {isAuth} ) {
     const [userId, setUserId] = useState(1);
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState();
