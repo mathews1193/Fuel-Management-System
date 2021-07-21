@@ -121,7 +121,7 @@ app.get("/fuelquotes", (req, res) => {
 // create data for Profile //
 
 app.get('/profile', (req,res) => {
-    db.query("SELECT userId FROM users WHERE userId=?", )
+    
     const userId = req.body.userId;
     db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) =>{
         if(err) {
