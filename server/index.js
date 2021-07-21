@@ -17,7 +17,7 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-managment-system'
+    database: 'fuel-management-system'
 })
 
 app.post('/register', (req, res) => {
@@ -83,6 +83,7 @@ app.post('/create', (req, res) => {
 });
 
 app.get("/fuelquotes", (req, res) => {
+
     db.query("SELECT * FROM fuelquotes", (err, result) => {
       if (err) {
         console.log(err);
@@ -120,7 +121,9 @@ app.get("/fuelquotes", (req, res) => {
 // create data for Profile //
 
 app.get('/profile', (req,res) => {
-    db.query("SELECT * FROM profile WHERE userId=100010 ", (err, result) =>{
+    db.query("SELECT userId FROM users WHERE userId=?", )
+    const userId = req.body.userId;
+    db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) =>{
         if(err) {
             console.log(err)
         }else{
@@ -162,9 +165,9 @@ app.put('/edit', (req,res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100010'"
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = ?"
 
-    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode],(err, result) => {
+    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode,userId],(err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -177,9 +180,7 @@ app.put('/edit', (req,res) => {
 //profile//
 
 // check to see if the server is currently running on the port // 
-app.listen(3001, () => {
-    console.log("Cool, Your server is running on port 3001")
-})
+
 
 // exports
 

@@ -17,18 +17,75 @@ toast.configure();
 
 const Profile = () => {
  
-  // example for variables 
+  // variables 
   const [UserID, setuserId] = useState('');
   const [FullName, setFullName] = useState('');
   const [Address1, setAddress1] = useState('');
   const [Address2, setAddress2] = useState('');
   const [City, setCity] = useState('');
   const [USState, setUSState] = useState('');
-  const [ZipCode, setZipCode] = useState('');  
+  const [ZipCode, setZipCode] = useState('');
+  const [FullNameErr, setFullNameErr] = useState('');
+  const [Address1Err, setAddress1Err] = useState('');
+  const [CityErr, setCityErr] = useState('');
+  const [USStateErr, setUSStateErr] = useState('');
+  const [ZipCodeErr, setZipCodeErr] = useState('');
+  const [custProfile, setCustProfile] = useState([]);   
 
-    
+  const formValidation=()=>{
+    const fullNameErr = {};
+    const address1Err = {};
+    const cityErr = {};
+    const USStateErr = {};
+    const zipCodeErr = {};
+    let isValid = true;
 
-const [custProfile, setCustProfile] = useState([]);   
+    if(FullName === ''){
+      fullNameErr.errFullName = "Full Name is required";
+      isValid = false;
+    }
+    if(FullName.trim().length > 50){
+      fullNameErr.errFullName = "Full Name must be less than 50 characters";
+      isValid = false;
+    }
+    if(Address1 === ''){
+      address1Err.errAddress1 = "Address is required";
+      isValid = false;
+    }
+    if(Address1.trim().length > 100){
+      address1Err.errAddress1 = "Address must be less than 100 characters";
+      isValid = false;
+    }
+    if(City === ''){
+      cityErr.errCity = "City is required";
+      isValid = false;
+    }
+    if(City.trim().length > 100){
+      address1Err.errAddress1 = "Address must be less than 100 characters";
+      isValid = false;
+    }
+    if(USState === ''){
+      USStateErr.errUSState = "Please pick a state"
+      isValid = false;
+    }
+    if(ZipCode === ''){
+      zipCodeErr.errZipCode = "Zip code is required";
+      isValid = false;
+    }
+    if(ZipCode.length > 5 || ZipCode.length < 5 && ZipCode.length > 0){
+      zipCodeErr.errZipCode = "Zip code must be 5 characters";
+      isValid = false;
+    }
+   
+
+    setFullNameErr(fullNameErr);
+    setAddress1Err(address1Err);
+    setCityErr(cityErr);
+    setUSStateErr(USStateErr);
+    setZipCodeErr(zipCodeErr);
+
+    return isValid;
+  }
   
     
       //we will use edit state to determine which button to show
@@ -62,24 +119,26 @@ const [custProfile, setCustProfile] = useState([]);
 
       }
       const handleSave = (e) => {
-
-        Axios.put('http://localhost:3001/edit',{
-            userId:UserID,
-            fullName:FullName,
-            address1:Address1,
-            address2:Address2,
-            city:City,
-            USstate:USState,
-            zipCode:ZipCode,
-        }).then(() => {
-            alert("success frontend to backend");
-            //set edit to false when save is clicked
-            setEdit(false);
-            console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
-        })
-       
-        toast("Client Profile Saved Successfully!");
+        const isValid = formValidation();
         
+        if(isValid){
+          Axios.put('http://localhost:3001/edit',{
+              userId:UserID,
+              fullName:FullName,
+              address1:Address1,
+              address2:Address2,
+              city:City,
+              USstate:USState,
+              zipCode:ZipCode,
+          }).then(() => {
+              alert("success frontend to backend");
+              //set edit to false when save is clicked
+              setEdit(false);
+              console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+          })
+        
+          toast("Client Profile Saved Successfully!");
+        }
         
       };
 
@@ -115,8 +174,8 @@ const [custProfile, setCustProfile] = useState([]);
         const handleChange = (e, result) => {
           setUSState(result.value)
         }
-        useEffect(()=> getProfile(),[getProfile])
-        useEffect(()=> setProfile(),[custProfile, setProfile])
+        useEffect(()=> getProfile(),[])
+        useEffect(()=> setProfile(),[custProfile])
         
         
 return (
@@ -143,7 +202,10 @@ return (
                       name="FullName"
                       placeholder="Full Name"
                       disabled={!edit}
-                    />        
+                    />   
+                    {Object.keys(FullNameErr).map((key)=>{
+                      return <div className = "err-msg">{FullNameErr[key]}</div>
+                    })}     
                       
                     <input
                       className="form1"
@@ -157,6 +219,9 @@ return (
                       placeholder="Address line 1"
                       disabled={!edit}
                     />
+                    {Object.keys(Address1Err).map((key)=>{
+                      return <div className = "err-msg">{Address1Err[key]}</div>
+                    })} 
               
                     <input
                       className="form1"
@@ -183,6 +248,9 @@ return (
                       placeholder="City"
                       disabled={!edit}
                     />
+                    {Object.keys(CityErr).map((key)=>{
+                      return <div className = "err-msg">{CityErr[key]}</div>
+                    })} 
                             
                             <Dropdown
                               data-testid="testUSState"
@@ -196,6 +264,9 @@ return (
                               onChange={handleChange}
                               disabled={!edit}
                             />
+                            {Object.keys(USStateErr).map((key)=>{
+                      return <div className = "err-msg">{USStateErr[key]}</div>
+                    })} 
                     
                                                     
                     <input
@@ -210,12 +281,15 @@ return (
                       placeholder="ZipCode"
                       disabled={!edit}
                     />
+                    {Object.keys(ZipCodeErr).map((key)=>{
+                      return <div className = "err-msg">{ZipCodeErr[key]}</div>
+                    })} 
  
                   </div>
 
                   
                   
-                  {FullName === '' ? (
+                  {UserID === '' ? (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
