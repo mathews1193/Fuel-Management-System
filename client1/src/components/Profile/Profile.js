@@ -72,8 +72,10 @@ const Profile = () => {
       zipCodeErr.errZipCode = "Zip code is required";
       isValid = false;
     }
-    if(ZipCode.length > 5 || (ZipCode.length < 5 && ZipCode.length > 0)){
-      zipCodeErr.errZipCode = "Zip code must be 5 characters";
+  
+    
+    if(!ZipCode.match(/(^\d{5}$)|(^\d{5}-\d{4}$)/)){
+      zipCodeErr.errZipCode = "Zip code is invalid";
       isValid = false;
     }
    
