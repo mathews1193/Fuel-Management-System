@@ -1,10 +1,10 @@
 import React from 'react'
 import FuelQuote from '../components/Fuel/Fuel';
 
-function Fuel() {
+function Fuel({ isAuth, userId }) {
     return (
         <div>
-            <FuelQuote/>
+            <FuelQuote isAuth={isAuth} userId={userId} />
         </div>
     )
 }

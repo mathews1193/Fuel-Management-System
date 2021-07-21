@@ -1,10 +1,8 @@
 import React , { useState } from 'react';
-import { Redirect } from "react-router-dom";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
 import "./Dashboard.css";
-import Login from '../Login/Login';
 
 toast.configure();
 

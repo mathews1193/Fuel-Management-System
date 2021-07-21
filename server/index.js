@@ -62,6 +62,18 @@ app.post('/login', (req, res) => {
         });
 });
 
+// find userID from the username
+app.get('/userid/:username', (req,res) => {
+  const username = req.params.username;
+  db.query("SELECT userId FROM users WHERE username=?", username, (err, result) =>{
+      if(err) {
+          console.log(err)
+      }else{
+          res.send(result)
+      }
+  })}
+)
+
 //////////////////////////// Fuel History /////////////////////////////////////////////
 
 // create data from require and response of data // 
@@ -184,6 +196,20 @@ app.put('/edit', (req,res) => {
     }
     )
 })
+
+// finish this tomorrow !!!
+// find if the username exist in the db by using the userId
+app.get('/username/:userId', (req,res) => {
+  const userId = req.params.userId;
+  db.query("SELECT username FROM users WHERE userId=?", userId, (err, result) =>{
+      if(err) {
+          console.log(err)
+      }else{
+          res.send(result)
+      }
+  })}
+)
+
 
 // check to see if the server is currently running on the port
 app.listen(3001, () => {

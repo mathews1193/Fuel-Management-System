@@ -8,8 +8,8 @@ import "./Fuel.css";
 
 toast.configure();
 
-function Fuel( {isAuth} ) {
-    const [userId, setUserId] = useState(1);
+function Fuel({isAuth, userId } ) {
+
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState();
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
@@ -19,7 +19,6 @@ function Fuel( {isAuth} ) {
 
     const [orderList, setOrderList] = useState([]);
 
-    
  // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
@@ -56,6 +55,7 @@ function Fuel( {isAuth} ) {
 
     return (
         <div>
+            { isAuth === true ? (
             <div className="form">
                 <div className="img">
                     <h1 className="title">Fuel Quote Form</h1>
@@ -83,6 +83,9 @@ function Fuel( {isAuth} ) {
                     </div>
                 </div>
             </div> 
+            ) : (
+                <h1>User not Logged In!</h1>
+            )}
         </div>
     )
 }

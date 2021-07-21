@@ -1,7 +1,7 @@
- .img2{
+.img2{
     background-image: url("https://images.pexels.com/photos/373893/pexels-photo-373893.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
     background-Position: center center;
-    height:100%;
+    height:100vh;
     background-size:cover;
     background-repeat: no-repeat;
   }
