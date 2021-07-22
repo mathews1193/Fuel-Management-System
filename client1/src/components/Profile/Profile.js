@@ -32,6 +32,7 @@ const Profile = () => {
   const [ZipCodeErr, setZipCodeErr] = useState('');
   const [custProfile, setCustProfile] = useState([]);   
 
+  // valitdates inputs
   const formValidation=()=>{
     const fullNameErr = {};
     const address1Err = {};
@@ -92,8 +93,10 @@ const Profile = () => {
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(false);
+      // createData is used if user is a new user
       const [createData, setCreateData] = useState(false)
 
+      //get data from backend
       const getProfile = (e) => {
         console.log("test1")
         Axios.get("http://localhost:3001/getprofile").then((response) => {
@@ -102,6 +105,7 @@ const Profile = () => {
           
         })
       }
+      //set data gotten from backend
       const setProfile =(e) => {
         custProfile.map((val,key)=>{
           
@@ -123,6 +127,7 @@ const Profile = () => {
        
 
       }
+      //send data to backend to update table
       const handleSave = (e) => {
         const isValid = formValidation();
         
@@ -146,7 +151,8 @@ const Profile = () => {
         }
         
       };
-
+      //send data to backend to insert a new row in table
+      //only called when user is a new user
       const handleCreate = (e) => {
        
         toast("Client Profile Created Successfully!");
@@ -177,11 +183,15 @@ const Profile = () => {
         setEdit(true);
       };
       
-      
+        //set US state
         const handleChange = (e, result) => {
           setUSState(result.value)
         }
+
+        //call getProfile (to get data from backend) only once on page load
         useEffect(()=> getProfile(),[])
+        //setProfile whenever custProfile is changed. So everytime data is recieved from backend
+        //it is loaded in its respective variables
         useEffect(()=> setProfile(),[custProfile])
         
         
