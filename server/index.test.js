@@ -42,3 +42,49 @@ describe("Should perform CRUD on fuel quotes", () => {
   });
 });
 
+describe("Should perform CRUD on profile", () => {
+
+  test("create a fuel quote", async () => {
+    app.post('/insert', (req,res) => {
+      const userId = '100003';
+    const fullName = req.body.fullName;
+    const address1 = req.body.address1;
+    const address2 = req.body.address2;
+    const city = req.body.city;
+    const USstate = req.body.USstate;
+    const zipCode = req.body.zipCode;
+    const sqlInsert = 
+    "INSERT INTO profile (userId, fullName, address1, address2, city, USstate, zipCode) VALUES (?,?,?,?,?,?,?)"
+    db.query(sqlInsert,
+        [userId, fullName, address1, address2, city, USstate, zipCode])
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      });
+    });
+  });
+
+  test("check for fuel quotes stores to db", async() => {
+    const result = [];
+    app.get("/profile", (req, res) => {
+     
+      result = db.query("SELECT * FROM profile")
+      console.log(result);
+    });
+    expect(result).not.toBeNull();
+  });
+
+  test("get fuel quotes from db", async() => {
+
+    app.get("/profile", (req, res) => {
+      db.query("SELECT * FROM profile", (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      });
+    });
+  });
