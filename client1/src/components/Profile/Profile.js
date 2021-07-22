@@ -94,10 +94,11 @@ const Profile = () => {
       const [edit, setEdit] = useState(true);
 
       const getProfile = (e) => {
-        Axios.get("http://localhost:3001/profile").then((response) => {
+        console.log("test1")
+        Axios.get("http://localhost:3001/getprofile").then((response) => {
           setCustProfile(response.data);
           setProfile();
-          console.log("test")
+          console.log("test2")
         })
       }
       const setProfile =(e) => {

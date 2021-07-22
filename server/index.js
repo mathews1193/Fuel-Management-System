@@ -120,7 +120,7 @@ app.get("/fuelquotes", (req, res) => {
   });
 // create data for Profile //
 
-app.get('/profile', (req,res) => {
+app.get('/getprofile', (req,res) => {
     
     const userId = req.body.userId;
     db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) =>{
@@ -165,7 +165,7 @@ app.put('/edit', (req,res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = ?"
+    "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userId = ?"
 
     db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode,userId],(err, result) => {
         if (err) {
