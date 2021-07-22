@@ -122,7 +122,7 @@ app.get("/fuelquotes", (req, res) => {
 
 app.get('/getprofile', (req,res) => {
     
-    const userId = req.body.userId;
+    const userId = '100001';
     db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) =>{
         if(err) {
             console.log(err)
@@ -134,7 +134,7 @@ app.get('/getprofile', (req,res) => {
 
 
 app.post('/insert', (req,res) => {
-    const userId = req.body.userId;
+    const userId = '100001';
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -157,7 +157,7 @@ app.post('/insert', (req,res) => {
 })
 
 app.put('/edit', (req,res) => {
-    const userId = req.body.userId;
+    const userId = '100001';
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
