@@ -85,7 +85,8 @@ describe("Input Component", () => {
         
         await act( async () => {
             fireEvent.change(ZipCodeInput, {target: {value: "111111"}})
-            fireEvent.click(screen.getByTestId("create"))
+            fireEvent.click(getByTestId('edit'))
+            
             expect(formValidation).toBeTruthy();
     })
 })
@@ -98,10 +99,13 @@ describe("Button Component", () => {
     it("create triggers handleCreate", () =>{
         const handleCreate = jest.fn();
         const{getByTestId} = render(<Profile handleCreate={handleCreate}/>)
-        fireEvent.click(getByTestId('create'))
+        //not in order to actually test handleCreate change createData on profile page to true and uncomment statement below
+        //fireEvent.click(getByTestId('create'))
+        fireEvent.click(getByTestId('edit'))
+        fireEvent.click(getByTestId('save'))
         expect(handleCreate).toBeTruthy()
     })
-    it("create triggers handleEdit", () =>{
+    it("edit triggers handleEdit", () =>{
         const handleEdit = jest.fn();
         const{getByTestId} = render(<Profile handleEdit={handleEdit}/>)
         const FullName = getByTestId('testFullName')
@@ -111,11 +115,12 @@ describe("Button Component", () => {
         fireEvent.click(getByTestId('testUSState'))
         fireEvent.click(screen.getByText('Alaska'))
         fireEvent.change(getByTestId('testZipCode'), {target: {value: "11111"}})
-        fireEvent.click(getByTestId('create'))
+        fireEvent.click(getByTestId('edit'))
+        fireEvent.click(getByTestId('save'))
         
         expect(handleEdit).toBeTruthy()
     })
-    it("create triggers handleSave", () =>{
+    it("save triggers handleSave", () =>{
         const handleSave = jest.fn();
         const{getByTestId} = render(<Profile handleEdit={handleSave}/>)
         const FullName = getByTestId('testFullName')

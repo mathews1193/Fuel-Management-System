@@ -98,8 +98,8 @@ const Profile = () => {
         console.log("test1")
         Axios.get("http://localhost:3001/getprofile").then((response) => {
           setCustProfile(response.data);
-          setProfile();
-          console.log("test2")
+         
+          
         })
       }
       const setProfile =(e) => {
