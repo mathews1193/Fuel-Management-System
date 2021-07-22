@@ -91,7 +91,7 @@ const Profile = () => {
   
     
       //we will use edit state to determine which button to show
-      const [edit, setEdit] = useState(false);
+      const [edit, setEdit] = useState(true);
 
       const getProfile = (e) => {
         Axios.get("http://localhost:3001/profile").then((response) => {
@@ -149,7 +149,9 @@ const Profile = () => {
         toast("Client Profile Created Successfully!");
         
         console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        const isValid = formValidation();
         
+        if(isValid){
         Axios.post('http://localhost:3001/insert',{
             userId:UserID,
             fullName:FullName,
@@ -162,7 +164,7 @@ const Profile = () => {
             alert("success frontend to backend");
             //set edit to false when save is clicked
             setEdit(false);
-        })
+        })}
         
       };
       
@@ -206,7 +208,9 @@ return (
                       disabled={!edit}
                     />   
                     {Object.keys(FullNameErr).map((key)=>{
-                      return <div className = "err-msg">{FullNameErr[key]}</div>
+                      return <div 
+                      data-testid="testFN"
+                      className = "err-msg">{FullNameErr[key]}</div>
                     })}     
                       
                     <input
@@ -222,7 +226,9 @@ return (
                       disabled={!edit}
                     />
                     {Object.keys(Address1Err).map((key)=>{
-                      return <div className = "err-msg">{Address1Err[key]}</div>
+                      return <div
+                      data-testid="testA1" 
+                      className = "err-msg">{Address1Err[key]}</div>
                     })} 
               
                     <input
@@ -251,7 +257,9 @@ return (
                       disabled={!edit}
                     />
                     {Object.keys(CityErr).map((key)=>{
-                      return <div className = "err-msg">{CityErr[key]}</div>
+                      return <div 
+                      data-testid="testC"
+                      className = "err-msg">{CityErr[key]}</div>
                     })} 
                             
                             <Dropdown
@@ -267,7 +275,9 @@ return (
                               disabled={!edit}
                             />
                             {Object.keys(USStateErr).map((key)=>{
-                      return <div className = "err-msg">{USStateErr[key]}</div>
+                      return <div 
+                      data-testid="testST"
+                      className = "err-msg">{USStateErr[key]}</div>
                     })} 
                     
                                                     
@@ -284,7 +294,9 @@ return (
                       disabled={!edit}
                     />
                     {Object.keys(ZipCodeErr).map((key)=>{
-                      return <div className = "err-msg">{ZipCodeErr[key]}</div>
+                      return <div
+                      data-testid="testZC"
+                      className = "err-msg">{ZipCodeErr[key]}</div>
                     })} 
  
                   </div>
