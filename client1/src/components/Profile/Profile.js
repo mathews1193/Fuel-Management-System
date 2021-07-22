@@ -91,7 +91,8 @@ const Profile = () => {
   
     
       //we will use edit state to determine which button to show
-      const [edit, setEdit] = useState(true);
+      const [edit, setEdit] = useState(false);
+      const [createData, setCreateData] = useState(false)
 
       const getProfile = (e) => {
         console.log("test1")
@@ -165,7 +166,7 @@ const Profile = () => {
         }).then(() => {
             alert("success frontend to backend");
             //set edit to false when save is clicked
-            setEdit(false);
+            setCreateData(false);
         })}
         
       };
@@ -305,7 +306,7 @@ return (
 
                   
                   
-                  {UserID === '' ? (
+                  {createData === true ? (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
