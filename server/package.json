@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "devStart": "nodemon server.js"
+=======
+    "test": "jest --detectOpenHandles",
+    "test:watch": "npm run test -- --watch"
+>>>>>>> 8b73500f6050c6ad78ddf8c41c0cea8558ab073f
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +18,9 @@
     "express": "^4.17.1",
     "jest": "^27.0.6",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "supertest": "^6.1.3"
   }
 }
