@@ -34,24 +34,71 @@ app.post('/register', (req, res) => {
         });
 });
 
+app.post('/register/user', async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        const username = req.body.username
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        const password = { password: hashedPassword }
+
+        db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
+            [userId, username, password], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("success re");
+                    res.send("Values inserted successfully!")
+                }
+            });
+        res.status(201).send()
+        console.log('this somehow worked')
+        console.log(salt)
+    } catch {
+        res.status(500).send()
+    }
+})
+
+app.post('/login/user', async (req, res) => {
+    const user = req.body.username
+    db.query("SELECT username FROM users WHERE username = ? ", [user],
+        (err, result) => {
+
+            if (err) {
+                res.send({ err: err })
+            }
+            if (result.length > 0) {
+                res.send(result)
+                console.log("Username Exists");
+            } else {
+                res.send({ message: "Cannot find user!" });
+            }
+
+        });
+    bcrypt.compare(req.body.password, user.password, function (err, result) {
+
+    })
+
+})
 
 app.get('/users', (req, res) => {
     res.json(users)
 })
 
+// password encryption
 app.post('/users', async (req, res) => {
     try {
-
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = { name: req.body.name, password: hashedPassword }
         users.push(user)
         res.status(201).send()
+        console.log('this somehow worked')
     } catch {
         res.status(500).send()
     }
 
 })
 
+// user login using  bcrypt
 app.post('/users/login', async (req, res) => {
     const user = users.find(user => user.name = req.body.name)
     if (user == null) {
@@ -68,6 +115,7 @@ app.post('/users/login', async (req, res) => {
     }
 })
 
+// user login without encryption 
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -78,8 +126,6 @@ app.post('/login', (req, res) => {
             if (err) {
                 res.send({ err: err })
             }
-
-
             if (result.length > 0) {
                 res.send(result)
                 console.log("cool got it");
@@ -216,4 +262,3 @@ app.listen(3001, () => {
 
 // exports
 
-module.exports = index;
