@@ -199,9 +199,9 @@ app.put('/edit', (req,res) => {
 
 // finish this tomorrow !!!
 // find if the username exist in the db by using the userId
-app.get('/username/:userId', (req,res) => {
+app.get('/fullName/:userId', (req,res) => {
   const userId = req.params.userId;
-  db.query("SELECT username FROM users WHERE userId=?", userId, (err, result) =>{
+  db.query("SELECT fullName FROM profile WHERE userId=?", userId, (err, result) =>{
       if(err) {
           console.log(err)
       }else{

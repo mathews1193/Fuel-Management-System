@@ -3,15 +3,26 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
 import "./Dashboard.css";
+import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
-const Dashboard = ({ isAuth }) => {
+const Dashboard = (props) => {
+
+  const {
+    isAuth, 
+    userId
+  } = props;
   
   const [orderList, setOrderList] = useState([]);
+  const[name, setName] = useState("");
+  
+  console.log(userId);
 
-  const name = "Tony Stark";
-  console.log(isAuth);
+    // API call to fetch name from db if found 
+    Axios.get(`http://localhost:3001/fullName/${userId}`).then((response) => {
+       setName(response.data[0].fullName);
+    });
 
   // API call to fetch fuel history and store the orderlist array 
   Axios.get("http://localhost:3001/fuelquotes").then((response) => {
@@ -62,7 +73,7 @@ const Dashboard = ({ isAuth }) => {
               </div> 
             </div>
               ) : (
-                <h1>User not login</h1>
+                <ErrorPage />
               )}
         </div>
     )

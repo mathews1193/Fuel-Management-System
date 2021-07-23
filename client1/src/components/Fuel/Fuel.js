@@ -5,6 +5,7 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
 import "./Fuel.css";
+import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
@@ -84,7 +85,7 @@ function Fuel({isAuth, userId } ) {
                 </div>
             </div> 
             ) : (
-                <h1>User not Logged In!</h1>
+                <ErrorPage />
             )}
         </div>
     )

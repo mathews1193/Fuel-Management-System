@@ -25,16 +25,14 @@ export default function Login(props) {
             // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
-                console.log(response.data[0].username)
-                console.log("error");
             }
             else {
                 //user found redirect to client profile 
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
                 setIsAuth(!isAuth);
-                getUserId(username);
-                history.push("/client-profile");
+                getUserId(response.data[0].username);
+                //history.push("/client-profile");
             }
         });
     };
@@ -42,7 +40,8 @@ export default function Login(props) {
     const getUserId = (username) =>{
         // API call to fetch userId from db if found 
         Axios.get(`http://localhost:3001/userid/${username}`).then((response) => {
-           setUserId(response.data);
+           setUserId(response.data[0].userId);
+           console.log(response.data[0].userId);
         });
     }
 
