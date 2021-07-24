@@ -67,12 +67,12 @@ app.get('/userid/:username', (req,res) => {
   const username = req.params.username;
   db.query("SELECT userId FROM users WHERE username=?", username, (err, result) =>{
       if(err) {
-          console.log(err)
+          return console.log(err);
       }else{
-          res.send(result)
+          return res.send(result);
       }
-  })}
-)
+  });
+});
 
 //////////////////////////// Fuel History /////////////////////////////////////////////
 
@@ -104,9 +104,9 @@ app.post('/create', (req, res) => {
 app.get("/fuelquotes", (req, res) => {
     db.query("SELECT * FROM fuelquotes", (err, result) => {
       if (err) {
-        console.log(err);
+        return console.log(err);
       } else {
-        res.send(result);
+        return res.send(result);
       }
     });
   });
@@ -131,9 +131,9 @@ app.get("/fuelquotes", (req, res) => {
     const orderId = req.params.orderId;
     db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
       if (err) {
-        console.log(err);
+        return console.log(err);
       } else {
-        res.send(result);
+        return res.send(result);
       }
     });
   });
@@ -197,18 +197,16 @@ app.put('/edit', (req,res) => {
     )
 })
 
-// finish this tomorrow !!!
-// find if the username exist in the db by using the userId
 app.get('/fullName/:userId', (req,res) => {
   const userId = req.params.userId;
   db.query("SELECT fullName FROM profile WHERE userId=?", userId, (err, result) =>{
-      if(err) {
-          console.log(err)
-      }else{
-          res.send(result)
+      if (err) {
+          return console.log(err);
+      } else {
+          return res.send(result);
       }
-  })}
-)
+  });
+});
 
 
 // check to see if the server is currently running on the port

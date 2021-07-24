@@ -9,8 +9,9 @@ import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
-function Fuel({isAuth, userId } ) {
+function Fuel({isAuth} ) {
 
+    const [userId, setUserId] = useState();
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState();
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
@@ -23,6 +24,10 @@ function Fuel({isAuth, userId } ) {
  // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
+        };
+
+    const getUserId = (e) => {
+        setUserId(e.target.value);
         };
 
     // add a test case to test if a instance is created for fuel quote 
@@ -61,6 +66,15 @@ function Fuel({isAuth, userId } ) {
                 <div className="img">
                     <h1 className="title">Fuel Quote Form</h1>
                     <div className="fuel-form">
+                    <input 
+                        type = "text" 
+                        className="fuel"
+                        data-testid="userid"
+                        placeholder="UserID"
+                        onChange={getUserId}
+                        value={userId}
+                        autoFocus required 
+                        />
                         <input 
                         type = "text" 
                         className="fuel"

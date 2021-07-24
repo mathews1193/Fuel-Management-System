@@ -15,22 +15,20 @@ const Dashboard = (props) => {
   } = props;
   
   const [orderList, setOrderList] = useState([]);
-  const[name, setName] = useState("");
+  const[name, setName] = useState();
   
-  console.log(userId);
-
     // API call to fetch name from db if found 
     Axios.get(`http://localhost:3001/fullName/${userId}`).then((response) => {
        setName(response.data[0].fullName);
     });
 
-  // API call to fetch fuel history and store the orderlist array 
-  Axios.get("http://localhost:3001/fuelquotes").then((response) => {
-    setOrderList(response.data);
-  });
-    
-    // API call to delete an fuel quote by finding the orderID 
+    // API call to fetch fuel history and store the orderlist array 
+    Axios.get("http://localhost:3001/fuelquotes").then((response) => {
+      setOrderList(response.data);
+    });
+  
   const deleteOrder = (orderId) => {
+    // API call to delete an fuel quote by finding the orderID 
     Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
       setOrderList(
         orderList.filter((quote) => {
@@ -41,7 +39,7 @@ const Dashboard = (props) => {
     });
     toast("Fuel Order: " + orderId + " Deleted successfully!");
   };
-                        
+
     return (
         <div>
             { isAuth === true ? (
@@ -49,8 +47,8 @@ const Dashboard = (props) => {
                 <div className="form1">
                 <h1 className="title">Welcome, {name}!</h1>
                 <div className="order">
-                    <h2>Orders</h2>
-                    <h3>{orderList.length}</h3>
+                  <h2>{orderList.length}</h2>
+                  <h2>Orders</h2>
                 </div>
                 <h2 className="sub-title">Fuel History</h2>
                 <div>

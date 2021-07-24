@@ -18,8 +18,7 @@ import Footer from './components/Footer/Footer';
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState();
-  const [fullName, setFullName] = useState('');
-
+  
   return (
     <div className="App">
       <Router>
