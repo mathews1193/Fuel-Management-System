@@ -1,0 +1,52 @@
+GET http://localhost:3001/users
+
+###
+
+POST http://localhost:3001/users
+Content-Type:application/json
+
+{
+    "name": "Kyle",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:3001/users/login
+Content-Type:application/json
+
+{
+    "name": "",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:3001/login
+Content-Type:application/json
+
+{
+    "name": "Jordan",
+    "password": "Who"
+}
+
+###
+
+POST http://localhost:3001/register/user
+Content-Type:application/json
+
+{
+    "username": "Jordan",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:3001/login/user
+Content-Type:application/json
+
+{
+    "username": "Jordan",
+    "password": "passwor"
+    
+}
