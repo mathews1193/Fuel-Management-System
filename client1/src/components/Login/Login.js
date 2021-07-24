@@ -1,35 +1,51 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios'
 import './Login.css';
 
-export default function Login() {
+export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const history = useHistory();
+
+    const { 
+        setUserId,
+        isAuth,
+        setIsAuth
+    } = props;
 
     const login = () => {
         Axios.post("http://localhost:3001/login", {
         username: username, 
         password: password 
         }).then((response) => {
+            // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
             }
             else {
-                setLoginStatus(response.data[0].username)
-                console.log(response.data[0].username)
-                console.log("error");
+                //user found redirect to client profile 
+                // user is authenticated
+                setLoginStatus(response.data[0].username);
+                setIsAuth(!isAuth);
+                getUserId(response.data[0].username);
+                //history.push("/client-profile");
             }
-
         });
     };
 
+    const getUserId = (username) =>{
+        // API call to fetch userId from db if found 
+        Axios.get(`http://localhost:3001/userid/${username}`).then((response) => {
+           setUserId(response.data[0].userId);
+           console.log(response.data[0].userId);
+        });
+    }
+
     const [loginStatus, setLoginStatus] = useState("");
-
-
 
     toast.configure();
 
