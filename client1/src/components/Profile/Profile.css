@@ -13,6 +13,13 @@
     padding-top: 50px;
     
   }
+  .err-msg{
+    padding:5px 15px;
+    color: red;
+    margin-bottom: 10px;
+    background-color: rgba(255,255,255,0.5);
+  }
+
   .title{
     background-color: #313131;
     border: 2px solid whitesmoke;
