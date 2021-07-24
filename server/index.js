@@ -34,14 +34,14 @@ app.post('/register', (req, res) => {
         });
 });
 
-app.post('/register/user', async (req, res) => {
+app.post('/user/register', async (req, res) => {
     try {
         const userId = req.body.userId;
         const username = req.body.username
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const password = { password: hashedPassword }
+        const password = hashedPassword
+        db.query("INSERT INTO users (userId, username, password) VALUES ( ? , ? , ?)",
 
-        db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
             [userId, username, password], (err, result) => {
                 if (err) {
                     console.log(err);
@@ -50,32 +50,54 @@ app.post('/register/user', async (req, res) => {
                     res.send("Values inserted successfully!")
                 }
             });
-        res.status(201).send()
-        console.log('this somehow worked')
-        console.log(salt)
+        res.redirect('/login')
     } catch {
-        res.status(500).send()
+        res.redirect('/register')
+    }
+    console.log(users)
+})
+
+app.post('/user/register2', async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+        users.push({
+            username: req.body.username,
+            password: hashedPassword
+        })
+        res.redirect('/login')
+        console.log(users)
+    }
+    catch {
+        res.redirect('/register')
     }
 })
 
-app.post('/login/user', async (req, res) => {
-    const user = req.body.username
-    db.query("SELECT username FROM users WHERE username = ? ", [user],
-        (err, result) => {
 
+
+
+
+app.post('/user/login', async (req, res) => {
+    const user = req.body.username
+    db.query("SELECT 'username', 'password' FROM users WHERE username = ? ", [user],
+        (err, result) => {
             if (err) {
-                res.send({ err: err })
+                res.send({ message: "Cannot find user!" });
             }
             if (result.length > 0) {
                 res.send(result)
                 console.log("Username Exists");
             } else {
-                res.send({ message: "Cannot find user!" });
+                res.send({ err: err });
             }
 
         });
-    bcrypt.compare(req.body.password, user.password, function (err, result) {
-
+    await bcrypt.compare(req.body.password, user.password, function (err, result) {
+        if (err) {
+            res.send({ message: "Wrong Username/Password combination!" })
+        }
+        else {
+            res.redirect('/dashboard')
+        }
     })
 
 })
