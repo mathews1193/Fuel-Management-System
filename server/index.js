@@ -20,6 +20,9 @@ const db = mysql.createConnection({
     database: 'fuel-management-system'
 })
 
+//////////////////////////// User credentials /////////////////////////////////////////////
+
+// register 
 app.post('/register', (req, res) => {
 
     const userId = req.body.userId;
@@ -37,6 +40,7 @@ app.post('/register', (req, res) => {
     });
 });
 
+//login credentials
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -58,6 +62,20 @@ app.post('/login', (req, res) => {
         });
 });
 
+// find userID from the username
+app.get('/userid/:username', (req,res) => {
+  const username = req.params.username;
+  db.query("SELECT userId FROM users WHERE username=?", username, (err, result) =>{
+      if(err) {
+          return console.log(err);
+      }else{
+          return res.send(result);
+      }
+  });
+});
+
+//////////////////////////// Fuel History /////////////////////////////////////////////
+
 // create data from require and response of data // 
 app.post('/create', (req, res) => {
     const userId = req.body.userId;
@@ -69,7 +87,7 @@ app.post('/create', (req, res) => {
     const totalAmount = req.body.totalAmount;
 
 
-    // insert new data into the table (hint:table name needs to be one word!!!!!) // 
+    // insert new data into the table (hint:table name needs to be one word!!!!!)
     db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)", 
     [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
     (err, result) => {
@@ -82,13 +100,14 @@ app.post('/create', (req, res) => {
       });
 });
 
+// Get all the fuel quotes stored in the db
 app.get("/fuelquotes", (req, res) => {
 
     db.query("SELECT * FROM fuelquotes", (err, result) => {
       if (err) {
-        console.log(err);
+        return console.log(err);
       } else {
-        res.send(result);
+        return res.send(result);
       }
     });
   });
@@ -108,17 +127,17 @@ app.get("/fuelquotes", (req, res) => {
     );
   });
 
+  // delete fuel quotes from the db 
   app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;
     db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
       if (err) {
-        console.log(err);
+        return console.log(err);
       } else {
-        res.send(result);
+        return res.send(result);
       }
     });
   });
-// create data for Profile //
 
 app.get('/getprofile', (req,res) => {
     
@@ -177,11 +196,22 @@ app.put('/edit', (req,res) => {
     }
     )
 })
-//profile//
 
-// check to see if the server is currently running on the port // 
-app.listen(3001,()=>{
-  console.log("server running on port 3001")
+app.get('/fullName/:userId', (req,res) => {
+  const userId = req.params.userId;
+  db.query("SELECT fullName FROM profile WHERE userId=?", userId, (err, result) =>{
+      if (err) {
+          return console.log(err);
+      } else {
+          return res.send(result);
+      }
+  });
+});
+
+
+// check to see if the server is currently running on the port
+app.listen(3001, () => {
+    console.log("Cool, Your server is running on port 3001")
 })
 
 // exports

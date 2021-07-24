@@ -1,10 +1,10 @@
 import React from 'react'
 import Dashboard1 from '../components/Dashboard/Dashboard'
 
-function Dashboard() {
+function Dashboard( { isAuth, userId }) {
     return (
         <div>
-            <Dashboard1 />
+            <Dashboard1 isAuth={isAuth} userId={userId} />
         </div>
     )
 }

@@ -5,11 +5,13 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
 import "./Fuel.css";
+import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
-function Fuel() {
-    const [userId, setUserId] = useState(1);
+function Fuel({isAuth} ) {
+
+    const [userId, setUserId] = useState();
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState();
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
@@ -19,10 +21,13 @@ function Fuel() {
 
     const [orderList, setOrderList] = useState([]);
 
-    
  // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
+        };
+
+    const getUserId = (e) => {
+        setUserId(e.target.value);
         };
 
     // add a test case to test if a instance is created for fuel quote 
@@ -56,10 +61,20 @@ function Fuel() {
 
     return (
         <div>
+            { isAuth === true ? (
             <div className="form">
                 <div className="img">
                     <h1 className="title">Fuel Quote Form</h1>
                     <div className="fuel-form">
+                    <input 
+                        type = "text" 
+                        className="fuel"
+                        data-testid="userid"
+                        placeholder="UserID"
+                        onChange={getUserId}
+                        value={userId}
+                        autoFocus required 
+                        />
                         <input 
                         type = "text" 
                         className="fuel"
@@ -83,6 +98,9 @@ function Fuel() {
                     </div>
                 </div>
             </div> 
+            ) : (
+                <ErrorPage />
+            )}
         </div>
     )
 }

@@ -9,13 +9,9 @@ import Axios from 'axios'
 import { Dropdown } from 'semantic-ui-react'
 import options from './states.js'
 
-
-
-
 toast.configure();
 
-
-const Profile = () => {
+const Profile = ( {isAuth} ) => {
  
   // variables 
   const [UserID, setuserId] = useState('');
@@ -121,11 +117,6 @@ const Profile = () => {
             {console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)}
           </div>
         })
-        
-        
-        
-       
-
       }
       //send data to backend to update table
       const handleSave = (e) => {
@@ -176,10 +167,9 @@ const Profile = () => {
         })}
         
       };
-      
+
+      //set edit to true when edit is clicked
       const handleEdit = (e) => {
-       
-        //set edit to true when edit is clicked
         setEdit(true);
       };
       
@@ -197,10 +187,6 @@ const Profile = () => {
         
 return (
         <div>
-         
-           
-             
-            
           <div className="form"> 
              <div className = "img3">
               
@@ -236,7 +222,7 @@ return (
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
-                      disabled={!edit}
+                      
                     />
                     {Object.keys(Address1Err).map((key)=>{
                       return <div
@@ -254,7 +240,7 @@ return (
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
-                      disabled={!edit}
+                      
                     />
                           
                     <input
@@ -267,7 +253,7 @@ return (
                       type="text"
                       name="City"
                       placeholder="City"
-                      disabled={!edit}
+                     
                     />
                     {Object.keys(CityErr).map((key)=>{
                       return <div 
@@ -285,7 +271,7 @@ return (
                               type="text"
                               
                               onChange={handleChange}
-                              disabled={!edit}
+                             
                             />
                             {Object.keys(USStateErr).map((key)=>{
                       return <div 
@@ -304,7 +290,7 @@ return (
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
-                      disabled={!edit}
+                      
                     />
                     {Object.keys(ZipCodeErr).map((key)=>{
                       return <div
