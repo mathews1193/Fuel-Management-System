@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 
+var index = {};
 
 app.use(cors());
 app.use(express.json());
@@ -283,4 +284,4 @@ app.listen(3001, () => {
 })
 
 // exports
-
+module.exports = index;
