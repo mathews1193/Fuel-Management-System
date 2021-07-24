@@ -11,10 +11,10 @@ import options from './states.js'
 
 toast.configure();
 
-const Profile = ( {isAuth} ) => {
+const Profile = ( {isAuth, userId, setUserId} ) => {
  
   // variables 
-  const [UserID, setuserId] = useState('');
+  
   const [FullName, setFullName] = useState('');
   const [Address1, setAddress1] = useState('');
   const [Address2, setAddress2] = useState('');
@@ -95,7 +95,8 @@ const Profile = ( {isAuth} ) => {
       //get data from backend
       const getProfile = (e) => {
         console.log("test1")
-        Axios.get("http://localhost:3001/getprofile").then((response) => {
+        console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
+        Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
          
           
@@ -108,13 +109,13 @@ const Profile = ( {isAuth} ) => {
           return <div>
             
             {setFullName(val.fullName)}
-            {setuserId(val.userId)}
+            {setUserId(val.userId)}
             {setAddress1(val.address1)}
             {setAddress2(val.address2)}
             {setCity(val.city)}
             {setUSState(val.USstate)}
             {setZipCode(val.zipCode)}
-            {console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)}
+            {console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)}
           </div>
         })
       }
@@ -124,7 +125,7 @@ const Profile = ( {isAuth} ) => {
         
         if(isValid){
           Axios.put('http://localhost:3001/edit',{
-              userId:UserID,
+              userId:userId,
               fullName:FullName,
               address1:Address1,
               address2:Address2,
@@ -135,7 +136,7 @@ const Profile = ( {isAuth} ) => {
               alert("success frontend to backend");
               //set edit to false when save is clicked
               setEdit(false);
-              console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+              console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
           })
         
           toast("Client Profile Saved Successfully!");
@@ -148,12 +149,12 @@ const Profile = ( {isAuth} ) => {
        
         toast("Client Profile Created Successfully!");
         
-        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
         const isValid = formValidation();
         
         if(isValid){
         Axios.post('http://localhost:3001/insert',{
-            userId:UserID,
+            userId:userId,
             fullName:FullName,
             address1:Address1,
             address2:Address2,

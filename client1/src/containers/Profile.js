@@ -1,9 +1,17 @@
 import React from 'react'
 import Profile1 from '../components/Profile/Profile'
-function Profile() {
+function Profile(props) {
+    const{
+        isAuth,
+        userId,
+        setUserId
+        } = props;
+        
+    
+
     return (
         <div>
-            <Profile1/>
+            <Profile1 auth={isAuth} userId={userId} setUserId={setUserId}/>
         </div>
     )
 }

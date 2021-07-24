@@ -30,7 +30,7 @@ function App() {
           <Route path="/login-error" component={ErrorPage} />
           
           <Route path="/client-profile">
-            <Profile auth={isAuth} userId={userId} />
+            <Profile auth={isAuth} userId={userId} setUserId={setUserId} />
           </Route>
 
           <Route path="/login">
