@@ -104,6 +104,7 @@ const Profile = ( props ) => {
         console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
         Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
+          
          
           
         })
@@ -122,15 +123,13 @@ const Profile = ( props ) => {
             {setUSState(val.USstate)}
             {setZipCode(val.zipCode)}
             {console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)}
+            
           </div>
+          
         })
       }
-      const checkCreate = (e) =>{
-        if(isAuth===true&&FullName===''){
-          setCreateData(true)
-          setEdit(true)
-        }
-      }
+      
+      
       //send data to backend to update table
       const handleSave = (e) => {
         const isValid = formValidation();
@@ -196,7 +195,8 @@ const Profile = ( props ) => {
         //setProfile whenever custProfile is changed. So everytime data is recieved from backend
         //it is loaded in its respective variables
         useEffect(()=> setProfile(),[custProfile])
-        useEffect(()=> checkCreate(),[custProfile])
+        
+        
           
   
         
