@@ -11,7 +11,7 @@ function Profile(props) {
 
     return (
         <div>
-            <Profile1 auth={isAuth} userId={userId} setUserId={setUserId}/>
+            <Profile1 isAuth={isAuth} userId={userId} setUserId={setUserId}/>
         </div>
     )
 }
