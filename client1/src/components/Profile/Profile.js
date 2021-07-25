@@ -11,8 +11,13 @@ import options from './states.js'
 
 toast.configure();
 
-const Profile = ( {isAuth, userId, setUserId} ) => {
- 
+const Profile = ( props ) => {
+  const {
+    isAuth, 
+    userId,
+    setUserId
+  } = props;
+  console.log(isAuth)
   // variables 
   
   const [FullName, setFullName] = useState('');
@@ -95,6 +100,7 @@ const Profile = ( {isAuth, userId, setUserId} ) => {
       //get data from backend
       const getProfile = (e) => {
         console.log("test1")
+        
         console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
         Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
@@ -184,7 +190,11 @@ const Profile = ( {isAuth, userId, setUserId} ) => {
         //setProfile whenever custProfile is changed. So everytime data is recieved from backend
         //it is loaded in its respective variables
         useEffect(()=> setProfile(),[custProfile])
-        
+        if( isAuth===false){
+          setEdit(false)
+        }
+       
+  
         
 return (
         <div>
@@ -303,18 +313,20 @@ return (
 
                   
                   
-                  {createData === true ? (
+                  {(createData === true && isAuth === true) ?  (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
-                      ) : edit === true ? (<div className="btn-container" >
+                      ) : (edit === true && isAuth ===true) ? (<div className="btn-container" >
                       <button data-testid="save" onClick={handleSave} className="btn-save">Save Profile</button>
-                    </div>) : (
+                    </div>) : (isAuth === true)? (
                     <div className="btn-container" >
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                    )}
+                    ):(<div className = "err-msg">
+                      please login to edit profile
+                    </div>)}
 
             </div>
           </div>

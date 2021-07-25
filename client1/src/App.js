@@ -18,7 +18,7 @@ import Footer from './components/Footer/Footer';
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState();
-  
+  const [createData, setCreateData] = useState(false);
   return (
     <div className="App">
       <Router>
@@ -30,11 +30,11 @@ function App() {
           <Route path="/login-error" component={ErrorPage} />
           
           <Route path="/client-profile">
-            <Profile auth={isAuth} userId={userId} setUserId={setUserId} />
+            <Profile isAuth={isAuth} userId={userId} setUserId={setUserId} />
           </Route>
 
           <Route path="/login">
-             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId} />
+             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId}  />
           </Route>
 
           <Route path="/fuel-quote">

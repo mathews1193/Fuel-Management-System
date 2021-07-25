@@ -15,6 +15,7 @@ export default function Login(props) {
         setUserId,
         isAuth,
         setIsAuth
+        setCreateData
     } = props;
 
     const login = () => {
@@ -25,12 +26,14 @@ export default function Login(props) {
             // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
+                
             }
             else {
                 //user found redirect to client profile 
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
-                setIsAuth(!isAuth);
+                setCreateData(true);
+                setIsAuth(true);
                 getUserId(response.data[0].username);
                 //history.push("/client-profile");
             }
