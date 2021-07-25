@@ -240,10 +240,10 @@ app.put("/update", (req, res) => {
     });
   });
 
-app.get('/getprofile', (req,res) => {
+app.get('/getprofile/:userId', (req,res) => {
     
-    const userId = '100003';
-    db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) =>{
+    const userId = req.params.userId;
+    db.query("SELECT * FROM profile WHERE userId = ? ", userId, (err, result) =>{
         if(err) {
             console.log(err)
         } else {
@@ -255,7 +255,7 @@ app.get('/getprofile', (req,res) => {
 
 
 app.post('/insert', (req,res) => {
-    const userId = '100003';
+    const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -278,7 +278,7 @@ app.post('/insert', (req,res) => {
 })
 
 app.put('/edit', (req,res) => {
-    const userId = '100003';
+    const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
