@@ -5,6 +5,7 @@ const cors = require('cors');
 const crypto = require('crypto');
 
 
+var index = {};
 
 app.use(cors());
 app.use(express.json());
@@ -16,7 +17,7 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-managment-system'
+    database: 'fuel-management-system'
 })
 
 const iv = crypto.randomBytes(16);
@@ -142,6 +143,7 @@ app.post('/users/login', async (req, res) => {
 })
 
 // user login without encryption 
+//login credentials
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
@@ -162,6 +164,20 @@ app.post('/login', (req, res) => {
         });
 });
 
+// find userID from the username
+app.get('/userid/:username', (req, res) => {
+    const username = req.params.username;
+    db.query("SELECT userId FROM users WHERE username=?", username, (err, result) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            return res.send(result);
+        }
+    });
+});
+
+//////////////////////////// Fuel History /////////////////////////////////////////////
+
 // create data from require and response of data // 
 app.post('/create', (req, res) => {
     const userId = req.body.userId;
@@ -173,7 +189,7 @@ app.post('/create', (req, res) => {
     const totalAmount = req.body.totalAmount;
 
 
-    // insert new data into the table (hint:table name needs to be one word!!!!!) // 
+    // insert new data into the table (hint:table name needs to be one word!!!!!)
     db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)",
         [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
         (err, result) => {
@@ -186,12 +202,14 @@ app.post('/create', (req, res) => {
         });
 });
 
+// Get all the fuel quotes stored in the db
 app.get("/fuelquotes", (req, res) => {
+
     db.query("SELECT * FROM fuelquotes", (err, result) => {
         if (err) {
-            console.log(err);
+            return console.log(err);
         } else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
@@ -211,20 +229,22 @@ app.put("/update", (req, res) => {
     );
 });
 
+// delete fuel quotes from the db 
 app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;
     db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
         if (err) {
-            console.log(err);
+            return console.log(err);
         } else {
-            res.send(result);
+            return res.send(result);
         }
     });
 });
-// create data for Profile //
 
-app.get('/profile', (req, res) => {
-    db.query("SELECT * FROM profile WHERE userId=100010 ", (err, result) => {
+app.get('/getprofile', (req, res) => {
+
+    const userId = '100003';
+    db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) => {
         if (err) {
             console.log(err)
         } else {
@@ -236,7 +256,7 @@ app.get('/profile', (req, res) => {
 
 
 app.post('/insert', (req, res) => {
-    const userId = req.body.userId;
+    const userId = '100003';
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -259,7 +279,7 @@ app.post('/insert', (req, res) => {
 })
 
 app.put('/edit', (req, res) => {
-    const userId = req.body.userId;
+    const userId = '100003';
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -267,9 +287,9 @@ app.put('/edit', (req, res) => {
     const USstate = req.body.USstate;
     const zipCode = req.body.zipCode;
     const sqlUpdate =
-        "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userID = '100010'"
+        "UPDATE profile SET fullName=?, address1=?, address2=?, city=?, USstate=?, zipCode=? WHERE userId = ?"
 
-    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode], (err, result) => {
+    db.query(sqlUpdate, [fullName, address1, address2, city, USstate, zipCode, userId], (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -279,12 +299,23 @@ app.put('/edit', (req, res) => {
     }
     )
 })
-//profile//
 
-// check to see if the server is currently running on the port // 
+app.get('/fullName/:userId', (req, res) => {
+    const userId = req.params.userId;
+    db.query("SELECT fullName FROM profile WHERE userId=?", userId, (err, result) => {
+        if (err) {
+            return console.log(err);
+        } else {
+            return res.send(result);
+        }
+    });
+});
+
+
+// check to see if the server is currently running on the port
 app.listen(3001, () => {
     console.log("Cool, Your server is running on port 3001")
 })
 
 // exports
-
+module.exports = index;
