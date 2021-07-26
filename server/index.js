@@ -2,12 +2,14 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-const bcrypt = require('bcrypt')
+const crypto = require('crypto');
+
 
 
 app.use(cors());
 app.use(express.json());
-const users = [];
+
+
 
 // configuration of the mysql database // 
 const db = mysql.createConnection({
@@ -16,6 +18,26 @@ const db = mysql.createConnection({
     password: 'password',
     database: 'fuel-managment-system'
 })
+
+const iv = crypto.randomBytes(16);
+const salt = "foobar";
+const hash = crypto.createHash("sha1");
+
+hash.update(salt);
+let key = hash.digest().slice(0, 16);
+let secret_message = 'hello';
+
+let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
+let encrypted = cipher.update(secret_message, 'utf-8', 'hex');
+
+encrypted += cipher.final('hex')
+console.log('encrypted:' + encrypted)
+
+let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
+decrypted += decipher.final('utf-8');
+
+console.log('decrypted:' + decrypted)
 
 app.post('/register', (req, res) => {
 
@@ -40,22 +62,34 @@ app.post('/user/register', async (req, res) => {
         const username = req.body.username
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const password = hashedPassword
-        db.query("INSERT INTO users (userId, username, password) VALUES ( ? , ? , ?)",
-
-            [userId, username, password], (err, result) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("success re");
-                    res.send("Values inserted successfully!")
-                }
-            });
+        const newuser = await db.query("INSERT INTO users (userId, username, password) VALUES ( ? , ? , ?)",
+            [userId, username, password]
+        );
         res.redirect('/login')
     } catch {
         res.redirect('/register')
     }
-    console.log(users)
+
 })
+
+app.post('/user/login', async (req, res) => {
+    try {
+        const username = req.body.username
+        const password = req.body.password
+        const userLogin = db.query("SELECT password FROM users WHERE username = ?", [username]);
+        console.log(userLogin);
+        if (await bcrypt.compare(req.body.password, password)) {
+            console.log(password)
+            res.send('Success')
+        } else {
+            res.send('Not Allowed')
+        }
+    }
+    catch {
+        console.log(err.message);
+    }
+})
+
 
 app.post('/user/register2', async (req, res) => {
     try {
@@ -70,36 +104,6 @@ app.post('/user/register2', async (req, res) => {
     catch {
         res.redirect('/register')
     }
-})
-
-
-
-
-
-app.post('/user/login', async (req, res) => {
-    const user = req.body.username
-    db.query("SELECT 'username', 'password' FROM users WHERE username = ? ", [user],
-        (err, result) => {
-            if (err) {
-                res.send({ message: "Cannot find user!" });
-            }
-            if (result.length > 0) {
-                res.send(result)
-                console.log("Username Exists");
-            } else {
-                res.send({ err: err });
-            }
-
-        });
-    await bcrypt.compare(req.body.password, user.password, function (err, result) {
-        if (err) {
-            res.send({ message: "Wrong Username/Password combination!" })
-        }
-        else {
-            res.redirect('/dashboard')
-        }
-    })
-
 })
 
 app.get('/users', (req, res) => {
