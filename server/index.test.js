@@ -18,6 +18,21 @@ describe("Should perform CRUD on fuel quotes", () => {
     });
   });
 
+  test("return address", async() => {
+    app.get('/address/:userId', (req,res) => {
+    
+      const userId = req.body.userId;
+      
+      db.query("SELECT address1, city, USstate FROM profile WHERE userId=1", userId, (err, result) =>{
+          if(err) {
+              console.log(err)
+          } else {
+              res.send(result)
+          }
+      });
+  });
+})
+
   test("check for fuel quotes stores to db", async() => {
     const result = [];
     app.get("/fuelquotes", (req, res) => {

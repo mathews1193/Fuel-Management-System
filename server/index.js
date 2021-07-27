@@ -154,17 +154,18 @@ app.get('/getprofile', (req,res) => {
     })
 })
 
-app.get('/address', (req,res) => {
+app.get('/address/:userId', (req,res) => {
     
-    const userId = req.body.userId;
-    db.query("SELECT address1, city, USstate FROM profile WHERE userId=? ", userId, (err, result) =>{
+    const userId = req.params.userId;
+    
+    db.query("SELECT address1, city, USstate FROM profile WHERE userId=?", userId, (err, result) =>{
         if(err) {
-            console.log(err)
+            return console.log(err);
         } else {
-            res.send(result)
+            return res.send(result);
         }
-    })
-})
+    });
+});
 
 app.post('/insert', (req,res) => {
     const userId = '100003';

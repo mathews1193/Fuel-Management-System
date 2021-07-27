@@ -13,10 +13,11 @@ function Fuel({isAuth, userId} ) {
 
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState(0);
-    const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
+    const [USState, setUSState] = useState('');
+    const[status, setStatus] = useState(false);
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
-    const [totalAmount, setTotalAmount] = useState(2800);
+    const [suggestedPrice, setSuggestedPrice] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     const [orderList, setOrderList] = useState([]);
 
@@ -24,16 +25,13 @@ function Fuel({isAuth, userId} ) {
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
+
     const getQuote = () => {
-        setTotalAmount(suggestedPrice * gallonsRequested);
+        /*let quote = new Pricing(suggestedPrice, gallonsRequested, status, USState);
+        setSuggestedPrice(quote.getPrice());
+        setTotalAmount(quote.getAmount()); */
     };
 
-    const getAddress = () => {
-        // API call to fetch name from db if found 
-    Axios.get("http://localhost:3001/address").then((response) => {
-        setDeliveryAddress(response.data[0].address1);
-     });
-    }
     // add a test case to test if a instance is created for fuel quote 
     // API call to create a fuel quote and store it into the orderlist array
     const requestQuote = () => {
@@ -42,7 +40,6 @@ function Fuel({isAuth, userId} ) {
             userId:userId,
             orderId:orderId,
             gallonsRequested:gallonsRequested,
-            deliveryAddress:deliveryAddress,
             deliveryDate:deliveryDate.toDateString(),
             suggestedPrice: suggestedPrice,
             totalAmount: totalAmount.toString(),
@@ -53,7 +50,6 @@ function Fuel({isAuth, userId} ) {
                     userId:userId,
                     orderId:orderId,
                     gallonsRequested:gallonsRequested,
-                    deliveryAddress:deliveryAddress,
                     deliveryDate:deliveryDate.toDateString(),
                     suggestedPrice: suggestedPrice,
                     totalAmount: totalAmount.toString(),
