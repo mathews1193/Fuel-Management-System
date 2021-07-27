@@ -17,7 +17,8 @@ export default function Login(props) {
     const { 
         setUserId,
         isAuth,
-        setIsAuth
+        setIsAuth,
+        isNewUser
     } = props;
 
     const login = () => {
@@ -28,6 +29,7 @@ export default function Login(props) {
             // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
+                
             }
             else {
                 //user found redirect to client profile 
@@ -76,9 +78,10 @@ export default function Login(props) {
                         }}
                     />
                 </div>
+                {(isNewUser===true)?(
                 <div className="btn-button">
-                    <button onClick={login} className="btn-login" type="submit" >Login</button>
-                </div>
+                    <Link to= "/client-profile"><button onClick={login} className="btn-login" type="submit" >Login</button></Link> 
+                </div>):(<Link to= "/dashboard"><button onClick={login} className="btn-login" type="submit" >Login</button></Link>)}
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>
                     <h1>{loginStatus}</h1>

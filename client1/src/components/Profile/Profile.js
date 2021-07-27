@@ -11,10 +11,19 @@ import options from './states.js'
 
 toast.configure();
 
-const Profile = ( {isAuth} ) => {
- 
+const Profile = ( props ) => {
+  const {
+    isAuth, 
+    userId,
+    setUserId,
+    isNewUser,
+    setIsNewUser
+  } = props;
+  console.log(isAuth)
+  console.log(isNewUser)
+  console.log(userId)
   // variables 
-  const [UserID, setuserId] = useState('');
+  
   const [FullName, setFullName] = useState('');
   const [Address1, setAddress1] = useState('');
   const [Address2, setAddress2] = useState('');
@@ -89,14 +98,19 @@ const Profile = ( {isAuth} ) => {
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(false);
-      // createData is used if user is a new user
-      const [createData, setCreateData] = useState(false)
+      
+      
 
       //get data from backend
       const getProfile = (e) => {
-        console.log("test1")
-        Axios.get("http://localhost:3001/getprofile").then((response) => {
+        
+        if(isNewUser===true){
+          setEdit(true);
+        }
+       
+        Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
+          
          
           
         })
@@ -108,23 +122,27 @@ const Profile = ( {isAuth} ) => {
           return <div>
             
             {setFullName(val.fullName)}
-            {setuserId(val.userId)}
+            {setUserId(val.userId)}
             {setAddress1(val.address1)}
             {setAddress2(val.address2)}
             {setCity(val.city)}
             {setUSState(val.USstate)}
             {setZipCode(val.zipCode)}
-            {console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)}
+            {console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)}
+            
           </div>
+          
         })
       }
+      
+      
       //send data to backend to update table
       const handleSave = (e) => {
         const isValid = formValidation();
         
         if(isValid){
           Axios.put('http://localhost:3001/edit',{
-              userId:UserID,
+              userId:userId,
               fullName:FullName,
               address1:Address1,
               address2:Address2,
@@ -135,7 +153,7 @@ const Profile = ( {isAuth} ) => {
               alert("success frontend to backend");
               //set edit to false when save is clicked
               setEdit(false);
-              console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+             
           })
         
           toast("Client Profile Saved Successfully!");
@@ -148,12 +166,12 @@ const Profile = ( {isAuth} ) => {
        
         toast("Client Profile Created Successfully!");
         
-        console.log(UserID, FullName, Address1, Address2, City, USState, ZipCode)
+        console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
         const isValid = formValidation();
         
         if(isValid){
         Axios.post('http://localhost:3001/insert',{
-            userId:UserID,
+            userId:userId,
             fullName:FullName,
             address1:Address1,
             address2:Address2,
@@ -163,7 +181,8 @@ const Profile = ( {isAuth} ) => {
         }).then(() => {
             alert("success frontend to backend");
             //set edit to false when save is clicked
-            setCreateData(false);
+            setIsNewUser(false);
+            setEdit(false)
         })}
         
       };
@@ -184,6 +203,9 @@ const Profile = ( {isAuth} ) => {
         //it is loaded in its respective variables
         useEffect(()=> setProfile(),[custProfile])
         
+        
+          
+  
         
 return (
         <div>
@@ -222,6 +244,7 @@ return (
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
+                      disabled={!edit}
                       
                     />
                     {Object.keys(Address1Err).map((key)=>{
@@ -240,6 +263,7 @@ return (
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
+                      disabled={!edit}
                       
                     />
                           
@@ -253,6 +277,7 @@ return (
                       type="text"
                       name="City"
                       placeholder="City"
+                      disabled={!edit}
                      
                     />
                     {Object.keys(CityErr).map((key)=>{
@@ -269,6 +294,7 @@ return (
                               value={USState}
                               options={options}
                               type="text"
+                              disabled={!edit}
                               
                               onChange={handleChange}
                              
@@ -290,6 +316,7 @@ return (
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
+                      disabled={!edit}
                       
                     />
                     {Object.keys(ZipCodeErr).map((key)=>{
@@ -302,18 +329,20 @@ return (
 
                   
                   
-                  {createData === true ? (
+                  {(isNewUser === true && isAuth === true) ?  (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
                     </div>
-                      ) : edit === true ? (<div className="btn-container" >
+                      ) : (edit === true && isAuth ===true) ? (<div className="btn-container" >
                       <button data-testid="save" onClick={handleSave} className="btn-save">Save Profile</button>
-                    </div>) : (
+                    </div>) : (isAuth === true)? (
                     <div className="btn-container" >
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
-                    )}
+                    ):(<div className = "err-msg">
+                      please login to edit profile
+                    </div>)}
 
             </div>
           </div>
