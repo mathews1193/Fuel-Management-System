@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <NavBar />
+        <NavBar isAuth={isAuth} setIsAuth={setIsAuth} setIsNewUser={setIsNewUser}/>
         <div className='container'>
           <Route exact path="/" component={Home} />
           <Route path="/about-us" component={AboutUs} />
@@ -37,7 +37,7 @@ function App() {
           </Route>
 
           <Route path="/login">
-             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId}  />
+             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId}  isNewUser={isNewUser}/>
           </Route>
 
           <Route path="/fuel-quote">
