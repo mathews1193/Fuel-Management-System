@@ -9,6 +9,8 @@ export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const [loginStatus, setLoginStatus] = useState("");
+
     const history = useHistory();
 
     const { 
@@ -30,6 +32,7 @@ export default function Login(props) {
                 //user found redirect to client profile 
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
+                console.log(setLoginStatus(response.data[0].username));
                 setIsAuth(!isAuth);
                 getUserId(response.data[0].username);
                 //history.push("/client-profile");
@@ -44,8 +47,6 @@ export default function Login(props) {
            console.log(response.data[0].userId);
         });
     }
-
-    const [loginStatus, setLoginStatus] = useState("");
 
     toast.configure();
 

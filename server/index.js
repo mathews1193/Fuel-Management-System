@@ -10,13 +10,21 @@ app.use(cors());
 app.use(express.json());
 const users = [];
 
+//////////////////////////////////////////
 // configuration of the mysql database // 
 const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-management-system'
+    database: 'fuel-managment-system'
 })
+
+// check to see if the server is currently running on the port
+app.listen(3001, () => {
+    console.log("Cool, Your server is running on port 3001")
+})
+
+////////////////////////////////////////
 
 //////////////////////////// User credentials /////////////////////////////////////////////
 
@@ -38,128 +46,20 @@ app.post('/register', (req, res) => {
         });
 });
 
-app.post('/user/register', async (req, res) => {
-    try {
-        const userId = req.body.userId;
-        const username = req.body.username
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const password = hashedPassword
-        db.query("INSERT INTO users (userId, username, password) VALUES ( ? , ? , ?)",
-
-            [userId, username, password], (err, result) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("success re");
-                    res.send("Values inserted successfully!")
-                }
-            });
-        res.redirect('/login')
-    } catch {
-        res.redirect('/register')
-    }
-    console.log(users)
-})
-
-app.post('/user/register2', async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            username: req.body.username,
-            password: hashedPassword
-        })
-        res.redirect('/login')
-        console.log(users)
-    }
-    catch {
-        res.redirect('/register')
-    }
-})
-
-
-
-
-
-app.post('/user/login', async (req, res) => {
-    const user = req.body.username
-    db.query("SELECT 'username', 'password' FROM users WHERE username = ? ", [user],
-        (err, result) => {
-            if (err) {
-                res.send({ message: "Cannot find user!" });
-            }
-            if (result.length > 0) {
-                res.send(result)
-                console.log("Username Exists");
-            } else {
-                res.send({ err: err });
-            }
-
-        });
-    await bcrypt.compare(req.body.password, user.password, function (err, result) {
-        if (err) {
-            res.send({ message: "Wrong Username/Password combination!" })
-        }
-        else {
-            res.redirect('/dashboard')
-        }
-    })
-
-})
-
-app.get('/users', (req, res) => {
-    res.json(users)
-})
-
-// password encryption
-app.post('/users', async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = { name: req.body.name, password: hashedPassword }
-        users.push(user)
-        res.status(201).send()
-        console.log('this somehow worked')
-    } catch {
-        res.status(500).send()
-    }
-
-})
-
-// user login using  bcrypt
-app.post('/users/login', async (req, res) => {
-    const user = users.find(user => user.name = req.body.name)
-    if (user == null) {
-        return res.status(400).send('Cannot find user')
-    }
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send('Success')
-        } else {
-            res.send('Not Allowed')
-        }
-    } catch {
-        res.status(500).send()
-    }
-})
-
-// user login without encryption 
 //login credentials
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
-
     db.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
         (err, result) => {
-
             if (err) {
                 res.send({ err: err })
             }
             if (result.length > 0) {
                 res.send(result)
-                console.log("cool got it");
             } else {
                 res.send({ message: "Wrong Username/Password combination!" });
             }
-
         });
 });
 
@@ -240,6 +140,8 @@ app.put("/update", (req, res) => {
     });
   });
 
+//////////////////////////// Profile //////////////////////////////////////
+
 app.get('/getprofile', (req,res) => {
     
     const userId = '100003';
@@ -250,9 +152,19 @@ app.get('/getprofile', (req,res) => {
             res.send(result)
         }
     })
-}
-)
+})
 
+app.get('/address', (req,res) => {
+    
+    const userId = req.body.userId;
+    db.query("SELECT address1, city, USstate FROM profile WHERE userId=? ", userId, (err, result) =>{
+        if(err) {
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
 
 app.post('/insert', (req,res) => {
     const userId = '100003';
@@ -309,12 +221,6 @@ app.get('/fullName/:userId', (req,res) => {
       }
   });
 });
-
-
-// check to see if the server is currently running on the port
-app.listen(3001, () => {
-    console.log("Cool, Your server is running on port 3001")
-})
 
 // exports
 module.exports = index;

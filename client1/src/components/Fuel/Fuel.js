@@ -9,11 +9,10 @@ import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
-function Fuel({isAuth} ) {
+function Fuel({isAuth, userId} ) {
 
-    const [userId, setUserId] = useState();
     const [orderId, setOrderId] = useState();
-    const [gallonsRequested, setGallonsRequested] = useState();
+    const [gallonsRequested, setGallonsRequested] = useState(0);
     const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState(1.95);
@@ -25,11 +24,16 @@ function Fuel({isAuth} ) {
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
+    const getQuote = () => {
+        setTotalAmount(suggestedPrice * gallonsRequested);
+    };
 
-    const getUserId = (e) => {
-        setUserId(e.target.value);
-        };
-
+    const getAddress = () => {
+        // API call to fetch name from db if found 
+    Axios.get("http://localhost:3001/address").then((response) => {
+        setDeliveryAddress(response.data[0].address1);
+     });
+    }
     // add a test case to test if a instance is created for fuel quote 
     // API call to create a fuel quote and store it into the orderlist array
     const requestQuote = () => {
@@ -66,15 +70,6 @@ function Fuel({isAuth} ) {
                 <div className="img">
                     <h1 className="title">Fuel Quote Form</h1>
                     <div className="fuel-form">
-                    <input 
-                        type = "text" 
-                        className="fuel"
-                        data-testid="userid"
-                        placeholder="UserID"
-                        onChange={getUserId}
-                        value={userId}
-                        autoFocus required 
-                        />
                         <input 
                         type = "text" 
                         className="fuel"
@@ -92,9 +87,18 @@ function Fuel({isAuth} ) {
                         onChange={(date) => setDeliveryDate(date)} 
                         dateFormat="MMMM d, yyyy"
                         />
+                        <div className="quote">
+                            <h3>Fuel Quote based on factors involving gallons requested and location</h3>
+                            <p>Gallons Requested: {gallonsRequested} gallons</p>
+                            <p>Suggested Price: ${suggestedPrice} per gallon</p>
+                            <p>Total Amount: ${totalAmount}</p>
+                        </div>
                     </div>
                     <div className="btn-container" >
-                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button> 
+                        <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
+                    </div>
+                    <div className="btn-container" >
+                        <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
                     </div>
                 </div>
             </div> 
