@@ -4,14 +4,16 @@ function Profile(props) {
     const{
         isAuth,
         userId,
-        setUserId
+        setUserId,
+        isNewUser,
+        setIsNewUser
         } = props;
         
     
 
     return (
         <div>
-            <Profile1 isAuth={isAuth} userId={userId} setUserId={setUserId}/>
+            <Profile1 isAuth={isAuth} userId={userId} setUserId={setUserId} isNewUser={isNewUser} setIsNewUser={setIsNewUser}/>
         </div>
     )
 }

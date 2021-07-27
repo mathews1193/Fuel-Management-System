@@ -5,7 +5,13 @@ import { toast } from 'react-toastify';
 import Axios from 'axios'
 import './Register.css';
 
-export default function Register() {
+export default function Register(props) {
+    const{
+        isAuth,
+        setIsAuth,
+        isNewUser,
+        setIsNewUser
+    }=props;
     const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -21,6 +27,8 @@ export default function Register() {
             password: password, 
         }).then(() => {
             console.log("Success from fronted");
+            setIsNewUser(true)
+            
         });
         console.log(userId + " " + username + " " + password);
         toast("User Created Successfully");

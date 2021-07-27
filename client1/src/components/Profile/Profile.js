@@ -15,9 +15,13 @@ const Profile = ( props ) => {
   const {
     isAuth, 
     userId,
-    setUserId
+    setUserId,
+    isNewUser,
+    setIsNewUser
   } = props;
   console.log(isAuth)
+  console.log(isNewUser)
+  console.log(userId)
   // variables 
   
   const [FullName, setFullName] = useState('');
@@ -94,14 +98,16 @@ const Profile = ( props ) => {
     
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(false);
-      // createData is used if user is a new user
-      const [createData, setCreateData] = useState(false)
+      
+      
 
       //get data from backend
       const getProfile = (e) => {
-        console.log("test1")
         
-        console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
+        if(isNewUser===true){
+          setEdit(true);
+        }
+       
         Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
           
@@ -147,7 +153,7 @@ const Profile = ( props ) => {
               alert("success frontend to backend");
               //set edit to false when save is clicked
               setEdit(false);
-              console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
+             
           })
         
           toast("Client Profile Saved Successfully!");
@@ -175,7 +181,8 @@ const Profile = ( props ) => {
         }).then(() => {
             alert("success frontend to backend");
             //set edit to false when save is clicked
-            setCreateData(false);
+            setIsNewUser(false);
+            setEdit(false)
         })}
         
       };
@@ -237,6 +244,7 @@ return (
                       type="text"
                       name="Address1"
                       placeholder="Address line 1"
+                      disabled={!edit}
                       
                     />
                     {Object.keys(Address1Err).map((key)=>{
@@ -255,6 +263,7 @@ return (
                       type="text"
                       name="Address2"
                       placeholder="Address line 2"
+                      disabled={!edit}
                       
                     />
                           
@@ -268,6 +277,7 @@ return (
                       type="text"
                       name="City"
                       placeholder="City"
+                      disabled={!edit}
                      
                     />
                     {Object.keys(CityErr).map((key)=>{
@@ -284,6 +294,7 @@ return (
                               value={USState}
                               options={options}
                               type="text"
+                              disabled={!edit}
                               
                               onChange={handleChange}
                              
@@ -305,6 +316,7 @@ return (
                       type="text"
                       name="ZipCode"
                       placeholder="ZipCode"
+                      disabled={!edit}
                       
                     />
                     {Object.keys(ZipCodeErr).map((key)=>{
@@ -317,7 +329,7 @@ return (
 
                   
                   
-                  {(createData === true && isAuth === true) ?  (
+                  {(isNewUser === true && isAuth === true) ?  (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>
