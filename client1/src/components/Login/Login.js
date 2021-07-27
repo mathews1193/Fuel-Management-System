@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Axios from 'axios'
+import Axios from 'axios';
 import './Login.css';
+
+
 
 export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const [loginStatus, setLoginStatus] = useState("");
+    
     const history = useHistory();
-
     const { 
         setUserId,
         isAuth,
-        setIsAuth
+        setIsAuth,
+        isNewUser
     } = props;
 
     const login = () => {
@@ -25,14 +29,16 @@ export default function Login(props) {
             // user not found
             if (response.data.message) {
                 setLoginStatus(response.data.message)
+                
             }
             else {
                 //user found redirect to client profile 
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
+                console.log(setLoginStatus(response.data[0].username));
                 setIsAuth(!isAuth);
                 getUserId(response.data[0].username);
-                //history.push("/client-profile");
+                history.push('/dashboard');
             }
         });
     };
@@ -44,8 +50,6 @@ export default function Login(props) {
            console.log(response.data[0].userId);
         });
     }
-
-    const [loginStatus, setLoginStatus] = useState("");
 
     toast.configure();
 
@@ -74,9 +78,10 @@ export default function Login(props) {
                         }}
                     />
                 </div>
+                {(isNewUser===true)?(
                 <div className="btn-button">
-                    <button onClick={login} className="btn-login" type="submit" >Login</button>
-                </div>
+                    <Link to= "/client-profile"><button onClick={login} className="btn-login" type="submit" >Login</button></Link> 
+                </div>):(<Link to= "/dashboard"><button onClick={login} className="btn-login" type="submit" >Login</button></Link>)}
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>
                     <h1>{loginStatus}</h1>

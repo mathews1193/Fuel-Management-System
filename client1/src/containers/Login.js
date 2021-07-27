@@ -6,12 +6,13 @@ function Login(props) {
     const { 
         setUserId,
         isAuth,
-        setIsAuth
+        setIsAuth,
+        isNewUser
     } = props;
 
     return (
         <div>
-            <Login1 isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId} />
+            <Login1 isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId} isNewUser={isNewUser}/>
         </div>
     )
 }

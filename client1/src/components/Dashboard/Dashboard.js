@@ -16,6 +16,9 @@ const Dashboard = (props) => {
   
   const [orderList, setOrderList] = useState([]);
   const[name, setName] = useState();
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [USState, setUSState] = useState('');
   
     // API call to fetch name from db if found 
     Axios.get(`http://localhost:3001/fullName/${userId}`).then((response) => {
@@ -26,14 +29,20 @@ const Dashboard = (props) => {
     Axios.get("http://localhost:3001/fuelquotes").then((response) => {
       setOrderList(response.data);
     });
-  
+
+    // API call to fetch address, city, and state from db
+    Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
+      setDeliveryAddress(response.data[0].address1);
+      setCity(response.data[0].city);
+      setUSState(response.data[0].USstate);
+   });
+
+  // API call to delete an fuel quote by finding the orderID 
   const deleteOrder = (orderId) => {
-    // API call to delete an fuel quote by finding the orderID 
     Axios.delete(`http://localhost:3001/delete/${orderId}`).then((response) => {
       setOrderList(
         orderList.filter((quote) => {
-          return quote.orderId !== orderId;
-            
+          return quote.orderId !== orderId; 
         }) 
       );
     });
@@ -57,7 +66,9 @@ const Dashboard = (props) => {
                   <div className="fuel-history">
                     <p>Order Number: {quote.orderId}</p>
                     <p>Gallons Requested: {quote.gallonsRequested}</p>
-                    <p>Delivery Address: {quote.deliveryAddress}</p>
+                    <p>Delivery Address: {deliveryAddress}</p>
+                    <p>City: {city}</p>
+                    <p>State: {USState}</p>
                     <p>Delivery Date: {quote.deliveryDate}</p>
                     <p>Suggested Price: ${quote.suggestedPrice} per gallon</p>
                     <p>Total Amout Due: ${quote.totalAmount}</p>
