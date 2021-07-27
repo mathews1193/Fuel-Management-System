@@ -1,16 +1,15 @@
-class pricing {
-    constructor(suggestedPrice, totalAmount, gallonsRequested, customerStatus, state) 
-    {
-      this.customerStatus = customerStatus;
+class Pricing {
+    constructor(suggestedPrice, gallonsRequested, status, state) 
+    { 
       this.suggestedPrice = suggestedPrice;
-      this.totalAmount = totalAmount;
       this.gallonsRequested = gallonsRequested;
+      this.status = status;
       this.state = state; 
     }
     
     // calculate total amount using gallons requested and setprice per gallon
     getAmount(){ 
-      totalAmount = (gallonsRequested * getPrice());
+      var totalAmount = (this.gallonsRequested * this.suggestedPrice);
       return totalAmount;
     }
 
@@ -18,7 +17,7 @@ class pricing {
     getRateHistory(){
       var rateHistory;
 
-      if (customerStatus == true)
+      if (this.status === true)
       {
         rateHistory = 0.01;
       } else {
@@ -31,7 +30,7 @@ class pricing {
     getLocationFactor(){ 
       var locationFactor;
 
-      if (state == "TX")
+      if (this.state === "TX")
       {
          locationFactor = 0.02;
       } else{
@@ -44,7 +43,7 @@ class pricing {
     getGallonFactor(){
       var gallonFactor;
 
-      if (gallonsRequested > 1000)
+      if (this.gallonsRequested > 1000)
       {
           gallonFactor = 0.02;
       } else {
@@ -58,8 +57,10 @@ class pricing {
       var currentPrice = 1.50;
       var companyProfit = 0.10;
 
-      suggestedPrice = (currentPrice * getLocationFactor() - companyProfit + getGallonFactor() + getRateHistory());
-      return suggestedPrice;
+      this.suggestedPrice = (currentPrice * getLocationFactor() - 
+      companyProfit + getGallonFactor() + getRateHistory());
+
+      return this.suggestedPrice;
     }
 
   }
