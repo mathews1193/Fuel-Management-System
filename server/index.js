@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
-const crypto = require('crypto');
 
 //bcrypt
 const bcrypt = require('bcrypt')
@@ -21,22 +20,6 @@ const db = mysql.createConnection({
     password: 'password',
     database: 'fuel-management-system'
 })
-
-//// Using crypto.js
-//const iv = crypto.randomBytes(16);
-//const salt = "foobar";
-//const hash = crypto.createHash("sha1");
-//hash.update(salt);
-//let key = hash.digest().slice(0, 16);
-////encrypting
-//let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
-//let encrypted = cipher.update(password, 'utf-8', 'hex');
-//encrypted += cipher.final('hex')
-////decrypting
-//let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-//let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
-//decrypted += decipher.final('utf-8');
-//console.log('decrypted:' + decrypted)
 
 app.post('/register', (req, res) => {
 
