@@ -20,7 +20,7 @@ const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-managment-system'
+    database: 'fuel-management-system'
 })
 
 // check to see if the server is currently running on the port
