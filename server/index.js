@@ -6,6 +6,7 @@ const cors = require('cors');
 //bcrypt
 const bcrypt = require('bcrypt')
 const saltRounds = 10
+
 var index = {};
 
 app.use(cors());
@@ -13,14 +14,25 @@ app.use(express.json());
 
 
 
+//////////////////////////////////////////
 // configuration of the mysql database // 
 const db = mysql.createConnection({
     user: 'root',
     host: 'localhost',
     password: 'password',
-    database: 'fuel-management-system'
+    database: 'fuel-managment-system'
 })
 
+// check to see if the server is currently running on the port
+app.listen(3001, () => {
+    console.log("Cool, Your server is running on port 3001")
+})
+
+////////////////////////////////////////
+
+//////////////////////////// User credentials /////////////////////////////////////////////
+
+// register 
 app.post('/register', (req, res) => {
 
     const userId = req.body.userId;
@@ -68,7 +80,6 @@ app.post('/login', (req, res) => {
             } else {
                 res.send({ message: "User doesn't exist" });
             }
-
         });
 });
 
@@ -122,23 +133,8 @@ app.get("/fuelquotes", (req, res) => {
     });
 });
 
-app.put("/update", (req, res) => {
-    const orderId = req.body.orderId;
-    const gallonsRequested = req.body.gallonsRequested;
-    db.query("UPDATE fuelquotes SET gallonsRequested = ? WHERE orderId = ?",
-        [gallonsRequested, orderId],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(result);
-            }
-        }
-    );
-});
-
-// delete fuel quotes from the db 
-app.delete("/delete/:orderId", (req, res) => {
+  // delete fuel quotes from the db 
+  app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;
     db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
         if (err) {
@@ -149,22 +145,33 @@ app.delete("/delete/:orderId", (req, res) => {
     });
 });
 
-app.get('/getprofile', (req, res) => {
-
-    const userId = '100003';
-    db.query("SELECT * FROM profile WHERE userId=? ", userId, (err, result) => {
-        if (err) {
+app.get('/getprofile/:userId', (req,res) => {
+    
+    const userId = req.params.userId;
+    db.query("SELECT * FROM profile WHERE userId = ? ", userId, (err, result) =>{
+        if(err) {
             console.log(err)
         } else {
             res.send(result)
         }
     })
-}
-)
+})
 
+app.get('/address/:userId', (req,res) => {
+    
+    const userId = req.params.userId;
+    
+    db.query("SELECT address1, city, USstate FROM profile WHERE userId=?", userId, (err, result) =>{
+        if(err) {
+            return console.log(err);
+        } else {
+            return res.send(result);
+        }
+    });
+});
 
-app.post('/insert', (req, res) => {
-    const userId = '100003';
+app.post('/insert', (req,res) => {
+    const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -186,8 +193,8 @@ app.post('/insert', (req, res) => {
     )
 })
 
-app.put('/edit', (req, res) => {
-    const userId = '100003';
+app.put('/edit', (req,res) => {
+    const userId = req.body.userId;
     const fullName = req.body.fullName;
     const address1 = req.body.address1;
     const address2 = req.body.address2;
@@ -218,12 +225,6 @@ app.get('/fullName/:userId', (req, res) => {
         }
     });
 });
-
-
-// check to see if the server is currently running on the port
-app.listen(3001, () => {
-    console.log("Cool, Your server is running on port 3001")
-})
 
 // exports
 module.exports = index;

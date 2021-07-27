@@ -9,15 +9,15 @@ import ErrorPage from '../../containers/ErrorPage';
 
 toast.configure();
 
-function Fuel({isAuth} ) {
+function Fuel({isAuth, userId} ) {
 
-    const [userId, setUserId] = useState();
     const [orderId, setOrderId] = useState();
-    const [gallonsRequested, setGallonsRequested] = useState();
-    const [deliveryAddress, setDeliveryAddress] = useState("988 Low Lane");
+    const [gallonsRequested, setGallonsRequested] = useState(0);
+    const [USState, setUSState] = useState('');
+    const[status, setStatus] = useState(false);
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState(1.95);
-    const [totalAmount, setTotalAmount] = useState(2800);
+    const [suggestedPrice, setSuggestedPrice] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
 
     const [orderList, setOrderList] = useState([]);
 
@@ -26,9 +26,11 @@ function Fuel({isAuth} ) {
         setGallonsRequested(e.target.value);
         };
 
-    const getUserId = (e) => {
-        setUserId(e.target.value);
-        };
+    const getQuote = () => {
+        /*let quote = new Pricing(suggestedPrice, gallonsRequested, status, USState);
+        setSuggestedPrice(quote.getPrice());
+        setTotalAmount(quote.getAmount()); */
+    };
 
     // add a test case to test if a instance is created for fuel quote 
     // API call to create a fuel quote and store it into the orderlist array
@@ -38,7 +40,6 @@ function Fuel({isAuth} ) {
             userId:userId,
             orderId:orderId,
             gallonsRequested:gallonsRequested,
-            deliveryAddress:deliveryAddress,
             deliveryDate:deliveryDate.toDateString(),
             suggestedPrice: suggestedPrice,
             totalAmount: totalAmount.toString(),
@@ -49,7 +50,6 @@ function Fuel({isAuth} ) {
                     userId:userId,
                     orderId:orderId,
                     gallonsRequested:gallonsRequested,
-                    deliveryAddress:deliveryAddress,
                     deliveryDate:deliveryDate.toDateString(),
                     suggestedPrice: suggestedPrice,
                     totalAmount: totalAmount.toString(),
@@ -66,15 +66,6 @@ function Fuel({isAuth} ) {
                 <div className="img">
                     <h1 className="title">Fuel Quote Form</h1>
                     <div className="fuel-form">
-                    <input 
-                        type = "text" 
-                        className="fuel"
-                        data-testid="userid"
-                        placeholder="UserID"
-                        onChange={getUserId}
-                        value={userId}
-                        autoFocus required 
-                        />
                         <input 
                         type = "text" 
                         className="fuel"
@@ -92,9 +83,18 @@ function Fuel({isAuth} ) {
                         onChange={(date) => setDeliveryDate(date)} 
                         dateFormat="MMMM d, yyyy"
                         />
+                        <div className="quote">
+                            <h3>Fuel Quote based on factors involving gallons requested and location</h3>
+                            <p>Gallons Requested: {gallonsRequested} gallons</p>
+                            <p>Suggested Price: ${suggestedPrice} per gallon</p>
+                            <p>Total Amount: ${totalAmount}</p>
+                        </div>
                     </div>
                     <div className="btn-container" >
-                        <button onClick={requestQuote} className="btn-fuel">Request A Fuel Quote</button> 
+                        <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
+                    </div>
+                    <div className="btn-container" >
+                        <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
                     </div>
                 </div>
             </div> 
