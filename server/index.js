@@ -26,28 +26,26 @@ const hash = crypto.createHash("sha1");
 
 hash.update(salt);
 let key = hash.digest().slice(0, 16);
-let secret_message = 'hello';
 
 let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
-let encrypted = cipher.update(secret_message, 'utf-8', 'hex');
 
-encrypted += cipher.final('hex')
-console.log('encrypted:' + encrypted)
+//let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+//let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
+//decrypted += decipher.final('utf-8');
 
-let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
-let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
-decrypted += decipher.final('utf-8');
-
-console.log('decrypted:' + decrypted)
+//console.log('decrypted:' + decrypted)
 
 app.post('/register', (req, res) => {
 
     const userId = req.body.userId;
     const username = req.body.username
     const password = req.body.password
+    let encrypted = cipher.update(password, 'utf-8', 'hex');
+    encrypted += cipher.final('hex')
+    console.log('encrypted:' + encrypted)
 
     db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
-        [userId, username, password], (err, result) => {
+        [userId, username, encrypted], (err, result) => {
             if (err) {
                 console.log(err);
             } else {
@@ -56,91 +54,6 @@ app.post('/register', (req, res) => {
             }
         });
 });
-
-app.post('/user/register', async (req, res) => {
-    try {
-        const userId = req.body.userId;
-        const username = req.body.username
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const password = hashedPassword
-        const newuser = await db.query("INSERT INTO users (userId, username, password) VALUES ( ? , ? , ?)",
-            [userId, username, password]
-        );
-        res.redirect('/login')
-    } catch {
-        res.redirect('/register')
-    }
-
-})
-
-app.post('/user/login', async (req, res) => {
-    try {
-        const username = req.body.username
-        const password = req.body.password
-        const userLogin = db.query("SELECT password FROM users WHERE username = ?", [username]);
-        console.log(userLogin);
-        if (await bcrypt.compare(req.body.password, password)) {
-            console.log(password)
-            res.send('Success')
-        } else {
-            res.send('Not Allowed')
-        }
-    }
-    catch {
-        console.log(err.message);
-    }
-})
-
-
-app.post('/user/register2', async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        users.push({
-            username: req.body.username,
-            password: hashedPassword
-        })
-        res.redirect('/login')
-        console.log(users)
-    }
-    catch {
-        res.redirect('/register')
-    }
-})
-
-app.get('/users', (req, res) => {
-    res.json(users)
-})
-
-// password encryption
-app.post('/users', async (req, res) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        const user = { name: req.body.name, password: hashedPassword }
-        users.push(user)
-        res.status(201).send()
-        console.log('this somehow worked')
-    } catch {
-        res.status(500).send()
-    }
-
-})
-
-// user login using  bcrypt
-app.post('/users/login', async (req, res) => {
-    const user = users.find(user => user.name = req.body.name)
-    if (user == null) {
-        return res.status(400).send('Cannot find user')
-    }
-    try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.send('Success')
-        } else {
-            res.send('Not Allowed')
-        }
-    } catch {
-        res.status(500).send()
-    }
-})
 
 // user login without encryption 
 //login credentials
