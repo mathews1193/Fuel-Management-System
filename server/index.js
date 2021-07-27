@@ -113,21 +113,6 @@ app.get("/fuelquotes", (req, res) => {
     });
 });
 
-app.put("/update", (req, res) => {
-    const orderId = req.body.orderId;
-    const gallonsRequested = req.body.gallonsRequested;
-    db.query("UPDATE fuelquotes SET gallonsRequested = ? WHERE orderId = ?",
-        [gallonsRequested, orderId],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(result);
-            }
-        }
-    );
-});
-
   // delete fuel quotes from the db 
   app.delete("/delete/:orderId", (req, res) => {
     const orderId = req.params.orderId;

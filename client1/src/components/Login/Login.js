@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from "../Dashboard";
 import Axios from 'axios';
 import './Login.css';
+
+
 
 export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const [loginStatus, setLoginStatus] = useState("");
-
+    
+    const history = useHistory();
     const { 
         setUserId,
         isAuth,
@@ -34,6 +36,7 @@ export default function Login(props) {
                 console.log(setLoginStatus(response.data[0].username));
                 setIsAuth(!isAuth);
                 getUserId(response.data[0].username);
+                history.push('/dashboard');
             }
         });
     };
