@@ -4,7 +4,9 @@ const mysql = require('mysql');
 const cors = require('cors');
 const crypto = require('crypto');
 
-
+//bcrypt
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 var index = {};
 
 app.use(cors());
@@ -20,19 +22,20 @@ const db = mysql.createConnection({
     database: 'fuel-management-system'
 })
 
-const iv = crypto.randomBytes(16);
-const salt = "foobar";
-const hash = crypto.createHash("sha1");
-
-hash.update(salt);
-let key = hash.digest().slice(0, 16);
-
-let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
-
+//// Using crypto.js
+//const iv = crypto.randomBytes(16);
+//const salt = "foobar";
+//const hash = crypto.createHash("sha1");
+//hash.update(salt);
+//let key = hash.digest().slice(0, 16);
+////encrypting
+//let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
+//let encrypted = cipher.update(password, 'utf-8', 'hex');
+//encrypted += cipher.final('hex')
+////decrypting
 //let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
 //let decrypted = decipher.update(encrypted, 'hex', 'utf-8');
 //decrypted += decipher.final('utf-8');
-
 //console.log('decrypted:' + decrypted)
 
 app.post('/register', (req, res) => {
@@ -40,38 +43,47 @@ app.post('/register', (req, res) => {
     const userId = req.body.userId;
     const username = req.body.username
     const password = req.body.password
-    let encrypted = cipher.update(password, 'utf-8', 'hex');
-    encrypted += cipher.final('hex')
-    console.log('encrypted:' + encrypted)
 
-    db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
-        [userId, username, encrypted], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log("success re");
-                res.send("Values inserted successfully!")
-            }
-        });
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+
+        if (err) {
+            console.log(err);
+        }
+        db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
+            [userId, username, hash], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("success re");
+                    res.send("Values inserted successfully!")
+                }
+            });
+    })
+
 });
 
-// user login without encryption 
 //login credentials
 app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
 
-    db.query("SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
+    db.query("SELECT * FROM users WHERE username = ?",
+        username,
         (err, result) => {
-
             if (err) {
                 res.send({ err: err })
             }
             if (result.length > 0) {
-                res.send(result)
-                console.log("cool got it");
+                bcrypt.compare(password, result[0].password, (error, response) => {
+                    if (response) {
+                        res.send("You have sucessfully logged in")
+                    } else {
+                        res.send({ message: "Wrong Username/Password combination!" })
+                    }
+                })
+
             } else {
-                res.send({ message: "Wrong Username/Password combination!" });
+                res.send({ message: "User doesn't exist" });
             }
 
         });
