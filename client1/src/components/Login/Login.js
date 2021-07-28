@@ -78,7 +78,10 @@ export default function Login(props) {
                 </div>
                 
                 <div className="btn-button">
-                    <button onClick={login} className="btn-login" type="submit" >Login</button>
+                {(isNewUser === true)?(
+                    <Link to="client-profile"><button onClick={login} className="btn-login" type="submit" >Login</button></Link>):
+                    (<Link to="/fuel-quote"><button onClick={login} className="btn-login" type="submit" >Login</button></Link>)
+                    }
                 </div>
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>

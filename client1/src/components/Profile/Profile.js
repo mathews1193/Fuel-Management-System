@@ -117,6 +117,10 @@ const Profile = ( props ) => {
       }
       //set data gotten from backend
       const setProfile =(e) => {
+        if(isAuth===false){
+          resetPage();
+        }
+        else{
         custProfile.map((val,key)=>{
           
           return <div>
@@ -133,8 +137,16 @@ const Profile = ( props ) => {
           </div>
           
         })
+      }}
+      const resetPage =(e)=>{
+        setFullName('')
+        setUserId('')
+        setAddress1('')
+        setAddress2('')
+        setCity('')
+        setUSState('')
+        setZipCode('')
       }
-      
       
       //send data to backend to update table
       const handleSave = (e) => {
@@ -150,7 +162,7 @@ const Profile = ( props ) => {
               USstate:USState,
               zipCode:ZipCode,
           }).then(() => {
-              alert("success frontend to backend");
+              alert("Profile saved");
               //set edit to false when save is clicked
               setEdit(false);
              
@@ -179,7 +191,7 @@ const Profile = ( props ) => {
             USstate:USState,
             zipCode:ZipCode,
         }).then(() => {
-            alert("success frontend to backend");
+            alert("Profile created successfully");
             //set edit to false when save is clicked
             setIsNewUser(false);
             setEdit(false)
