@@ -20,6 +20,7 @@ const Dashboard = (props) => {
   const [city, setCity] = useState('');
   const [USState, setUSState] = useState('');
   
+  console.log(userId);
     // API call to fetch name from db if found 
     Axios.get(`http://localhost:3001/fullName/${userId}`).then((response) => {
        setName(response.data[0].fullName);
