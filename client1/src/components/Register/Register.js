@@ -30,10 +30,6 @@ export default function Register(props) {
             console.log("Success from fronted");
             setIsNewUser(true)
             
-                
-            
-           
-            
         });
         
     
