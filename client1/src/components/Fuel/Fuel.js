@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios';
 import "./Fuel.css";
 import ErrorPage from '../../containers/ErrorPage';
+import Pricing from './Pricing';
 
 toast.configure();
 
@@ -13,7 +14,7 @@ function Fuel({isAuth, userId} ) {
 
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState(0);
-    const [USState, setUSState] = useState('');
+    const [USState, setUSState] = useState('TX');
     const[status, setStatus] = useState(false);
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState(0);
@@ -27,9 +28,15 @@ function Fuel({isAuth, userId} ) {
         };
 
     const getQuote = () => {
-        /*let quote = new Pricing(suggestedPrice, gallonsRequested, status, USState);
+        if (orderList.length > 0){
+            
+            setStatus(false);
+        } else {
+            setStatus(true);
+        }
+        const quote = new Pricing(gallonsRequested, status, USState);
         setSuggestedPrice(quote.getPrice());
-        setTotalAmount(quote.getAmount()); */
+        setTotalAmount(quote.getAmount());
     };
 
     // add a test case to test if a instance is created for fuel quote 
@@ -85,6 +92,7 @@ function Fuel({isAuth, userId} ) {
                         />
                         <div className="quote">
                             <h3>Fuel Quote based on factors involving gallons requested and location</h3>
+                            <h4>(Press Get Quote twice!)</h4>
                             <p>Gallons Requested: {gallonsRequested} gallons</p>
                             <p>Suggested Price: ${suggestedPrice} per gallon</p>
                             <p>Total Amount: ${totalAmount}</p>
