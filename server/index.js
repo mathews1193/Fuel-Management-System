@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 
 //bcrypt
-const bcrypt = require('bcrypt')
+ const bcrypt = require('bcrypt')
 const saltRounds = 10
 
 var index = {};
@@ -62,8 +62,7 @@ app.post('/login', (req, res) => {
     const username = req.body.username
     const password = req.body.password
 
-    db.query("SELECT * FROM users WHERE username = ?",
-        username,
+    db.query("SELECT * FROM users WHERE username = ?", username,
         (err, result) => {
             if (err) {
                 res.send({ err: err })
@@ -71,7 +70,7 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(password, result[0].password, (error, response) => {
                     if (response) {
-                        res.send("You have sucessfully logged in")
+                        return res.send(result);
                     } else {
                         res.send({ message: "Wrong Username/Password combination!" })
                     }
@@ -103,14 +102,13 @@ app.post('/create', (req, res) => {
     const orderId = req.body.orderId;
     const gallonsRequested = req.body.gallonsRequested;
     const deliveryDate = req.body.deliveryDate;
-    const deliveryAddress = req.body.deliveryAddress;
     const suggestedPrice = req.body.suggestedPrice;
     const totalAmount = req.body.totalAmount;
 
 
     // insert new data into the table (hint:table name needs to be one word!!!!!)
-    db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)",
-        [orderId, userId, gallonsRequested, deliveryDate, deliveryAddress, suggestedPrice, totalAmount],
+    db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)",
+        [orderId, userId, gallonsRequested, deliveryDate, suggestedPrice, totalAmount],
         (err, result) => {
             if (err) {
                 console.log(err);
