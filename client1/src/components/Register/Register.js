@@ -6,34 +6,34 @@ import Axios from 'axios'
 import './Register.css';
 
 export default function Register(props) {
-    const{
+    const {
         isAuth,
         setIsAuth,
         isNewUser,
         setIsNewUser,
-        
-    }=props;
+
+    } = props;
     const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    
+
 
     toast.configure();
 
     const register = () => {
-        
-        Axios.post('http://localhost:3001/register',{ 
-            userId:userId, 
-            username: username, 
-            password: password, 
+
+        Axios.post('http://localhost:3001/register', {
+            userId: userId,
+            username: username,
+            password: password,
         }).then((response) => {
             console.log("Success from fronted");
             setIsNewUser(true)
-            
+
         });
-        
-    
-        
+
+
+
         console.log(userId + " " + username + " " + password);
         toast("User Created Successfully");
     };
@@ -58,15 +58,16 @@ export default function Register(props) {
                     <input
                         className="input-style2"
                         placeholder="Enter Password"
-                        type="text"
+                        type="password"
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
                     />
                     <div className="register-loc">
-                        <h1>{username}</h1>
-                        <h1>{password}</h1>
-                        <Link to="/login"><button onClick={register} className="register-btn" type="submit" >Register</button></Link>
+                        <Link to="/login"><button onClick={register} className="register-btn" type="submit" >Sign Up</button></Link>
+                    </div>
+                    <div className="butt-loc">
+                        <Link to="/login"><button className="acct-butt" type="submit" >Already have an account?</button></Link>
                     </div>
                 </div>
             </div>
