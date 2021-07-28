@@ -26,7 +26,7 @@ function NavBar(props) {
                     <Link to="/client-profile" className="nav">Profile</Link>
                     <Link to="/about-us" className="nav">About Us</Link>
                     {(isAuth === true)?(
-                        <button className="btn-signin" onClick={handleSignOut}>Sign Out</button>
+                        <Link to="/login"><button className="btn-signin" onClick={handleSignOut}>Sign Out</button></Link>
                     ): (
                         <div>
                     <Link to="/login"> <button className="btn-signin">Sign In</button> </Link>
