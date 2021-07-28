@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import Axios from 'axios';
@@ -21,6 +21,10 @@ const Dashboard = (props) => {
   const [USState, setUSState] = useState('');
   
   console.log(userId);
+
+  const handleLoad = (e) => {
+    if(isAuth===true)
+    {
     // API call to fetch name from db if found 
     Axios.get(`http://localhost:3001/fullName/${userId}`).then((response) => {
        setName(response.data[0].fullName);
@@ -36,7 +40,7 @@ const Dashboard = (props) => {
       setDeliveryAddress(response.data[0].address1);
       setCity(response.data[0].city);
       setUSState(response.data[0].USstate);
-   });
+   });}}
 
   // API call to delete an fuel quote by finding the orderID 
   const deleteOrder = (orderId) => {
@@ -49,6 +53,7 @@ const Dashboard = (props) => {
     });
     toast("Fuel Order: " + orderId + " Deleted successfully!");
   };
+  useEffect(()=> handleLoad(),[])
     console.log(isAuth);
     return (
         <div>
