@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory} from "react-router-dom";
+import { Link} from "react-router-dom";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios';
@@ -12,8 +12,7 @@ export default function Login(props) {
     const [password, setPassword] = useState("");
 
     const [loginStatus, setLoginStatus] = useState("");
-    
-    const history = useHistory();
+
     const { 
         setUserId,
         isAuth,
@@ -36,9 +35,8 @@ export default function Login(props) {
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
                 console.log(setLoginStatus(response.data[0].username));
-                setIsAuth(!isAuth);
+                setIsAuth(true);
                 getUserId(response.data[0].username);
-                history.push('/dashboard');
             }
         });
     };
@@ -78,10 +76,10 @@ export default function Login(props) {
                         }}
                     />
                 </div>
-                {(isNewUser===true)?(
+                
                 <div className="btn-button">
-                    <Link to= "/client-profile"><button onClick={login} className="btn-login" type="submit" >Login</button></Link> 
-                </div>):(<Link to= "/dashboard"><button onClick={login} className="btn-login" type="submit" >Login</button></Link>)}
+                    <button onClick={login} className="btn-login" type="submit" >Login</button>
+                </div>
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>
                     <h1>{loginStatus}</h1>
