@@ -107,7 +107,7 @@ app.post('/create', (req, res) => {
 
 
     // insert new data into the table (hint:table name needs to be one word!!!!!)
-    db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?,?)",
+    db.query("INSERT INTO fuelquotes (orderId, userId, gallonsRequested, deliveryDate, suggestedPrice, totalAmount) VALUES (?,?,?,?,?,?)",
         [orderId, userId, gallonsRequested, deliveryDate, suggestedPrice, totalAmount],
         (err, result) => {
             if (err) {
