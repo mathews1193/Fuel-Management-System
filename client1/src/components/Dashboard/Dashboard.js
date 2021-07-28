@@ -48,7 +48,7 @@ const Dashboard = (props) => {
     });
     toast("Fuel Order: " + orderId + " Deleted successfully!");
   };
-
+    console.log(isAuth);
     return (
         <div>
             { isAuth === true ? (
