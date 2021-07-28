@@ -120,9 +120,10 @@ app.post('/create', (req, res) => {
 });
 
 // Get all the fuel quotes stored in the db
-app.get("/fuelquotes", (req, res) => {
+app.get("/fuelquotes/:userId", (req, res) => {
+    const userId=req.params.userId
 
-    db.query("SELECT * FROM fuelquotes", (err, result) => {
+    db.query("SELECT * FROM fuelquotes WHERE userId = ? ", userId, (err, result) => {
         if (err) {
             return console.log(err);
         } else {

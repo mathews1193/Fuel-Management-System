@@ -31,7 +31,7 @@ const Dashboard = (props) => {
     });
 
     // API call to fetch fuel history and store the orderlist array 
-    Axios.get("http://localhost:3001/fuelquotes").then((response) => {
+    Axios.get(`http://localhost:3001/fuelquotes/${userId}`).then((response) => {
       setOrderList(response.data);
     });
 
