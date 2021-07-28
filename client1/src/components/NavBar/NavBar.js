@@ -4,13 +4,13 @@ import "./NavBar.css";
 import Logo from "../../assets/img/logo.png";
 
 function NavBar(props) {
-    const{
+    const {
         isAuth,
         setIsAuth,
         setIsNewUser
     } = props;
 
-    const handleSignOut = (e) =>{
+    const handleSignOut = (e) => {
         setIsAuth(false)
         setIsNewUser(false)
     }
@@ -25,13 +25,13 @@ function NavBar(props) {
                     <Link to="/fuel-quote" className="nav">Fuel Quotes</Link>
                     <Link to="/client-profile" className="nav">Profile</Link>
                     <Link to="/about-us" className="nav">About Us</Link>
-                    {(isAuth === true)?(
+                    {(isAuth === true) ? (
                         <Link to="/login"><button className="btn-signin" onClick={handleSignOut}>Sign Out</button></Link>
-                    ): (
+                    ) : (
                         <div>
-                    <Link to="/login"> <button className="btn-signin">Sign In</button> </Link>
-                    <Link to="/register"> <button className="btn-register">Registration</button> </Link>
-                    </div>
+                            <Link to="/login"> <button className="btn-signin">Sign In</button> </Link>
+                            <Link to="/register"> <button className="btn-register">Sign Up</button> </Link>
+                        </div>
                     )}
                 </ul>
             </nav>
