@@ -1,15 +1,22 @@
 
-
+import { Link } from "react-router-dom"
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
 import Axios from 'axios'
 import './Register.css';
 
-export default function Register() {
+export default function Register(props) {
+    const{
+        isAuth,
+        setIsAuth,
+        isNewUser,
+        setIsNewUser,
+        
+    }=props;
     const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    
 
     toast.configure();
 
@@ -19,9 +26,14 @@ export default function Register() {
             userId:userId, 
             username: username, 
             password: password, 
-        }).then(() => {
+        }).then((response) => {
             console.log("Success from fronted");
+            setIsNewUser(true)
+            
         });
+        
+    
+        
         console.log(userId + " " + username + " " + password);
         toast("User Created Successfully");
     };
@@ -54,7 +66,7 @@ export default function Register() {
                     <div className="register-loc">
                         <h1>{username}</h1>
                         <h1>{password}</h1>
-                        <button onClick={register} className="register-btn" type="submit" >Register</button>
+                        <Link to="/login"><button onClick={register} className="register-btn" type="submit" >Register</button></Link>
                     </div>
                 </div>
             </div>

@@ -18,23 +18,26 @@ import Footer from './components/Footer/Footer';
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState();
-  
+  const [isNewUser, setIsNewUser] = useState(false);
   return (
     <div className="App">
       <Router>
-        <NavBar />
+        <NavBar isAuth={isAuth} setIsAuth={setIsAuth} setIsNewUser={setIsNewUser}/>
         <div className='container'>
           <Route exact path="/" component={Home} />
-          <Route path="/register" component={Register} />  
           <Route path="/about-us" component={AboutUs} />
           <Route path="/login-error" component={ErrorPage} />
+
+          <Route path = "/register">
+            <Register isAuth={isAuth} setIsAuth={setIsAuth} isNewUser={isNewUser} setIsNewUser={setIsNewUser}/>
+          </Route>
           
           <Route path="/client-profile">
-            <Profile auth={isAuth} userId={userId} />
+            <Profile isAuth={isAuth} userId={userId} setUserId={setUserId} isNewUser={isNewUser} setIsNewUser={setIsNewUser} />
           </Route>
 
           <Route path="/login">
-             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId} />
+             <Login isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId}  isNewUser={isNewUser}/>
           </Route>
 
           <Route path="/fuel-quote">
