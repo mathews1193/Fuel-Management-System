@@ -14,7 +14,7 @@ function Fuel({isAuth, userId} ) {
 
     const [orderId, setOrderId] = useState();
     const [gallonsRequested, setGallonsRequested] = useState(0);
-    const [USState, setUSState] = useState('TX');
+    const [USState, setUSState] = useState('');
     const[status, setStatus] = useState(false);
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState(0);
@@ -26,13 +26,20 @@ function Fuel({isAuth, userId} ) {
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
-
+// API call to fetch address, city, and state from db
+Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
+    setUSState(response.data[0].USstate);
+ });
+ // API call to fetch fuel history and store the orderlist array 
+ Axios.get(`http://localhost:3001/fuelquotes/${userId}`).then((response) => {
+    setOrderList(response.data);
+  });
     const getQuote = () => {
         if (orderList.length > 0){
             
-            setStatus(false);
-        } else {
             setStatus(true);
+        } else {
+            setStatus(false);
         }
         const quote = new Pricing(gallonsRequested, status, USState);
         setSuggestedPrice(quote.getPrice());
