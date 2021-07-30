@@ -16,11 +16,10 @@ const Profile = ( props ) => {
     isAuth, 
     userId,
     setUserId,
-    isNewUser,
-    setIsNewUser
+    
   } = props;
   console.log(isAuth)
-  console.log(isNewUser)
+  
   console.log(userId)
   // variables 
   
@@ -36,7 +35,7 @@ const Profile = ( props ) => {
   const [USStateErr, setUSStateErr] = useState('');
   const [ZipCodeErr, setZipCodeErr] = useState('');
   const [custProfile, setCustProfile] = useState([]);   
-
+  const [isNewUser, setIsNewUser] = useState(false)
   // valitdates inputs
   const formValidation=()=>{
     const fullNameErr = {};
@@ -99,7 +98,12 @@ const Profile = ( props ) => {
       //we will use edit state to determine which button to show
       const [edit, setEdit] = useState(false);
       
-      
+      //get isNewUser from backend
+      //left off here (don't use getisnewuser just add isnew user to getprofile)
+
+      const getIsNewUser = (e) => {
+        Axios.get(`http://localhost:3001/getisnewuser/${userId}`).then((response) =>)
+      }
 
       //get data from backend
       const getProfile = (e) => {

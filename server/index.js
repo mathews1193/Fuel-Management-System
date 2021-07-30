@@ -38,14 +38,15 @@ app.post('/register', (req, res) => {
     const userId = req.body.userId;
     const username = req.body.username
     const password = req.body.password
+    const isNewUser = req.body.isNewUser
 
     bcrypt.hash(password, saltRounds, (err, hash) => {
 
         if (err) {
             console.log(err);
         }
-        db.query("INSERT INTO users (userId, username, password) VALUES (?,?,?)",
-            [userId, username, hash], (err, result) => {
+        db.query("INSERT INTO users (userId, username, password, isNewUser) VALUES (?,?,?,?)",
+            [userId, username, hash, isNewUser], (err, result) => {
                 if (err) {
                     console.log(err);
                 } else {
