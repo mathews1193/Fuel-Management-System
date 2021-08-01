@@ -144,6 +144,17 @@ app.get("/fuelquotes/:userId", (req, res) => {
         }
     });
 });
+app.get('/getisnewuser/:userId', (req,res) => {
+    
+    const userId = req.params.userId;
+    db.query("SELECT isNewUser FROM users WHERE userId = ? ", userId, (err, result) =>{
+        if(err) {
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+})
 
 app.get('/getprofile/:userId', (req,res) => {
     
@@ -192,7 +203,18 @@ app.post('/insert', (req,res) => {
         }
     )
 })
-
+app.put('/changeisnewuser', (req,res)=>{
+    const userId = req.body.userId;
+    
+    db.query("UPDATE users SET isNewUser=? WHERE userId=?", [0, userId], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("success u");
+            res.send("Values updated successfully!")
+        } 
+    })
+})
 app.put('/edit', (req,res) => {
     const userId = req.body.userId;
     const fullName = req.body.fullName;

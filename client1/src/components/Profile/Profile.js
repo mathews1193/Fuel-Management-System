@@ -35,7 +35,8 @@ const Profile = ( props ) => {
   const [USStateErr, setUSStateErr] = useState('');
   const [ZipCodeErr, setZipCodeErr] = useState('');
   const [custProfile, setCustProfile] = useState([]);   
-  const [isNewUser, setIsNewUser] = useState(false)
+  const [isNewUser, setIsNewUser] = useState('')
+  const [isNewUser1, setIsNewUser1] = useState([])
   // valitdates inputs
   const formValidation=()=>{
     const fullNameErr = {};
@@ -102,22 +103,29 @@ const Profile = ( props ) => {
       //left off here (don't use getisnewuser just add isnew user to getprofile)
 
       const getIsNewUser = (e) => {
-        Axios.get(`http://localhost:3001/getisnewuser/${userId}`).then((response) =>)
-      }
+        if (isAuth===true){
+        Axios.get(`http://localhost:3001/getisnewuser/${userId}`).then((response) =>{
+          setIsNewUser(response.data[0].isNewUser)
+      })}}
 
       //get data from backend
       const getProfile = (e) => {
         
-        if(isNewUser===true){
+        if(isNewUser===1){
           setEdit(true);
-        }
+        
        
         Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
           setCustProfile(response.data);
-          
+        })}
+        else{
+          Axios.get(`http://localhost:3001/getprofile/${userId}`).then((response) => {
+          setCustProfile(response.data);
+        })
+        } 
          
           
-        })
+        
       }
       //set data gotten from backend
       const setProfile =(e) => {
@@ -125,6 +133,16 @@ const Profile = ( props ) => {
           resetPage();
         }
         else{
+        isNewUser1.map((val,key)=>{
+
+          return <div>
+
+            {setIsNewUser(val.isNewUser)}
+            {console.log(isNewUser)}
+
+          </div>
+
+        })  
         custProfile.map((val,key)=>{
           
           return <div>
@@ -178,6 +196,16 @@ const Profile = ( props ) => {
       };
       //send data to backend to insert a new row in table
       //only called when user is a new user
+      const changeIsNewUser= (e) =>{
+        setIsNewUser(0)
+        Axios.put('http://localhost:3001/changeisnewuser',{
+          userId:userId,  
+          
+
+    }).then(() =>{
+      alert("New user changed")
+    })
+      }
       const handleCreate = (e) => {
        
         toast("Client Profile Created Successfully!");
@@ -186,6 +214,8 @@ const Profile = ( props ) => {
         const isValid = formValidation();
         
         if(isValid){
+       
+          changeIsNewUser();
         Axios.post('http://localhost:3001/insert',{
             userId:userId,
             fullName:FullName,
@@ -197,11 +227,14 @@ const Profile = ( props ) => {
         }).then(() => {
             alert("Profile created successfully");
             //set edit to false when save is clicked
-            setIsNewUser(false);
+            
             setEdit(false)
-        })}
+          })
+       
         
-      };
+        
+        
+      }};
 
       //set edit to true when edit is clicked
       const handleEdit = (e) => {
@@ -214,11 +247,12 @@ const Profile = ( props ) => {
         }
 
         //call getProfile (to get data from backend) only once on page load
-        useEffect(()=> getProfile(),[])
+        useEffect(()=> getIsNewUser(),[])
         //setProfile whenever custProfile is changed. So everytime data is recieved from backend
         //it is loaded in its respective variables
+        useEffect(()=> getProfile(),[isNewUser])
         useEffect(()=> setProfile(),[custProfile])
-        
+        console.log(isNewUser)
         
           
   
@@ -345,7 +379,7 @@ return (
 
                   
                   
-                  {(isNewUser === true && isAuth === true) ?  (
+                  {(isNewUser === 1 && isAuth === true) ?  (
                     
                     <div className="btn-container" >
                       <button data-testid="create" onClick={handleCreate} className="btn-save">Create Profile</button>

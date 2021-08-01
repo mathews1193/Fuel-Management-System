@@ -10,19 +10,22 @@ export default function Register() {
     const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isNewUser, setIsNewUser] = useState(false)
+    const [isNewUser, setIsNewUser] = useState(0)
 
     toast.configure();
 
+    
+
     const register = () => {
-            setIsNewUser(true)
+           
         Axios.post('http://localhost:3001/register', {
-            isNewUser:isNewUser,
+            isNewUser:1,
             userId: userId,
             username: username,
             password: password,
         }).then((response) => {
             console.log("Success from fronted");
+            console.log(isNewUser)
             
 
         });
