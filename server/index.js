@@ -3,16 +3,14 @@ const app = express();
 const mysql = require('mysql');
 const cors = require('cors');
 
-//bcrypt
- const bcrypt = require('bcrypt')
-const saltRounds = 10
-
 var index = {};
 
 app.use(cors());
 app.use(express.json());
 
-
+//bcrypt
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 //////////////////////////////////////////
 // configuration of the mysql database // 
@@ -22,12 +20,10 @@ const db = mysql.createConnection({
     password: 'password',
     database: 'fuel-management-system'
 })
-
 // check to see if the server is currently running on the port
 app.listen(3001, () => {
     console.log("Cool, Your server is running on port 3001")
 })
-
 ////////////////////////////////////////
 
 //////////////////////////// User credentials /////////////////////////////////////////////
@@ -121,7 +117,7 @@ app.post('/create', (req, res) => {
 
 // Get all the fuel quotes stored in the db
 app.get("/fuelquotes/:userId", (req, res) => {
-    const userId=req.params.userId
+    const userId = req.params.userId
 
     db.query("SELECT * FROM fuelquotes WHERE userId = ? ", userId, (err, result) => {
         if (err) {

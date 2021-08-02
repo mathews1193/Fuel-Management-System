@@ -13,7 +13,7 @@ toast.configure();
 function Fuel({isAuth, userId} ) {
 
     const [orderId, setOrderId] = useState();
-    const [gallonsRequested, setGallonsRequested] = useState(0);
+    const [gallonsRequested, setGallonsRequested] = useState();
     const [USState, setUSState] = useState('');
     const[status, setStatus] = useState(false);
     const [deliveryDate, setDeliveryDate] = useState(new Date());
@@ -108,9 +108,16 @@ Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
                     <div className="btn-container" >
                         <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
                     </div>
-                    <div className="btn-container" >
-                        <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
+                    {(gallonsRequested === "") ? (
+                        <div className="btn-container" >
+                        <button onClick={requestQuote} disabled className="btn-fuel">Submit A Fuel Quote</button> 
                     </div>
+                    ) : (
+                        <div className="btn-container" >
+                            <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
+                        </div>
+                    )}
+                    
                 </div>
             </div> 
             ) : (

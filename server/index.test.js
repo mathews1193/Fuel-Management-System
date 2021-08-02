@@ -1,13 +1,22 @@
 const { db } = require("./index");
-const supertest = require("supertest");
 const express = require('express');
 const app = express();
+
+describe("Server running properly", async () => {
+
+  test("Server connect and listening", async () => {
+
+    app.listen(3001, () => {
+    console.log("Cool, Your server is running on port 3001")
+})
+  });
+})
 
 describe("Should perform CRUD on fuel quotes", () => {
 
   test("delete a fuel quote", async () => {
     app.delete("/delete/:orderId", (req, res) => {
-      const orderId = req.params.orderId;
+      const orderId = 1;
       db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
         if (err) {
           console.log(err);
