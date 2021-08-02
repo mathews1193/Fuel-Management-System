@@ -191,7 +191,6 @@ const Profile = ( props ) => {
             USstate:USState,
             zipCode:ZipCode,
         }).then(() => {
-            alert("Profile created successfully");
             //set edit to false when save is clicked
             setIsNewUser(false);
             setEdit(false)

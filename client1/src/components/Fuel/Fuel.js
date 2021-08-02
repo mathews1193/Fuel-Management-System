@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {toast} from 'react-toastify';
@@ -26,14 +26,18 @@ function Fuel({isAuth, userId} ) {
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
-// API call to fetch address, city, and state from db
-Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
-    setUSState(response.data[0].USstate);
- });
- // API call to fetch fuel history and store the orderlist array 
- Axios.get(`http://localhost:3001/fuelquotes/${userId}`).then((response) => {
-    setOrderList(response.data);
-  });
+    
+    const handlePricing = (e) => {
+        // API call to fetch address, city, and state from db
+        Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
+            setUSState(response.data[0].USstate);
+        });
+        // API call to fetch fuel history and store the orderlist array 
+        Axios.get(`http://localhost:3001/fuelquotes/${userId}`).then((response) => {
+            setOrderList(response.data);
+        });
+    };
+
     const getQuote = () => {
         if (orderList.length > 0){
             
@@ -72,7 +76,7 @@ Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
             });
             toast("Fuel Order Placed Successfully!");
           };
-
+          useEffect(()=> handlePricing(),[])
     return (
         <div>
             { isAuth === true ? (
@@ -108,9 +112,9 @@ Axios.get(`http://localhost:3001/address/${userId}`).then((response) => {
                     <div className="btn-container" >
                         <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
                     </div>
-                    {(gallonsRequested === "") ? (
+                    {(gallonsRequested === undefined) ? (
                         <div className="btn-container" >
-                        <button onClick={requestQuote} disabled className="btn-fuel">Submit A Fuel Quote</button> 
+                        <button onClick={requestQuote} disabled className="btn-fuel">Not available</button> 
                     </div>
                     ) : (
                         <div className="btn-container" >
