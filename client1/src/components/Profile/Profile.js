@@ -352,7 +352,7 @@ return (
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
                     ):(<div className = "err-msg">
-                      please login to edit profile
+                      Please Login to Edit Profile
                     </div>)}
 
             </div>
