@@ -16,6 +16,7 @@ function Fuel({isAuth, userId} ) {
     const [gallonsRequested, setGallonsRequested] = useState();
     const [USState, setUSState] = useState('');
     const[status, setStatus] = useState(false);
+    const [customerStatus, setCustomerStatus] = useState("");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
     const [suggestedPrice, setSuggestedPrice] = useState(0);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -34,15 +35,17 @@ function Fuel({isAuth, userId} ) {
         });
         // API call to fetch fuel history and store the orderlist array 
         Axios.get(`http://localhost:3001/fuelquotes/${userId}`).then((response) => {
+            console.log(response.data);
             setOrderList(response.data);
         });
     };
 
     const getQuote = () => {
         if (orderList.length > 0){
-            
+            setCustomerStatus("Returning Customer");
             setStatus(true);
         } else {
+            setCustomerStatus("New Customer");
             setStatus(false);
         }
         const quote = new Pricing(gallonsRequested, status, USState);
@@ -103,7 +106,8 @@ function Fuel({isAuth, userId} ) {
                         />
                         <div className="quote">
                             <h3>Fuel Quote based on factors involving gallons requested and location</h3>
-                            <h4>(Press Get Quote twice!)</h4>
+                            <h3>(Press Get Quote twice!)</h3>
+                            <h3>{customerStatus}</h3>
                             <p>Gallons Requested: {gallonsRequested} gallons</p>
                             <p>Suggested Price: ${suggestedPrice} per gallon</p>
                             <p>Total Amount: ${totalAmount}</p>
