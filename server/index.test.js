@@ -2,16 +2,6 @@ const { db } = require("./index");
 const express = require('express');
 const app = express();
 
-describe("Server running properly", async () => {
-
-  test("Server connect and listening", async () => {
-
-    app.listen(3001, () => {
-    console.log("Cool, Your server is running on port 3001")
-})
-  });
-})
-
 describe("Should perform CRUD on fuel quotes", () => {
 
   test("delete a fuel quote", async () => {
@@ -23,6 +13,22 @@ describe("Should perform CRUD on fuel quotes", () => {
         } else {
           res.send(result);
         }
+      });
+    });
+  });
+
+  describe("Find user information", () => {
+
+    test("find userId by using username", async () => {
+      app.get('/userid/:username', (req, res) => {
+        const username = req.params.username;
+        db.query("SELECT userId FROM users WHERE username=?", username, (err, result) => {
+            if (err) {
+                return console.log(err);
+            } else {
+                return res.send(result);
+            }  
+        });
       });
     });
   });
