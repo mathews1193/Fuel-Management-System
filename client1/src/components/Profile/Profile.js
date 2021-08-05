@@ -19,9 +19,7 @@ const Profile = ( props ) => {
     isNewUser,
     setIsNewUser
   } = props;
-  console.log(isAuth)
-  console.log(isNewUser)
-  console.log(userId)
+  
   // variables 
   
   const [FullName, setFullName] = useState('');
@@ -132,7 +130,7 @@ const Profile = ( props ) => {
             {setCity(val.city)}
             {setUSState(val.USstate)}
             {setZipCode(val.zipCode)}
-            {console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)}
+            
             
           </div>
           
@@ -178,7 +176,7 @@ const Profile = ( props ) => {
        
         toast("Client Profile Created Successfully!");
         
-        console.log(userId, FullName, Address1, Address2, City, USState, ZipCode)
+        
         const isValid = formValidation();
         
         if(isValid){
