@@ -18,8 +18,8 @@ function Fuel({isAuth, userId} ) {
     const[status, setStatus] = useState(false);
     const [customerStatus, setCustomerStatus] = useState("");
     const [deliveryDate, setDeliveryDate] = useState(new Date());
-    const [suggestedPrice, setSuggestedPrice] = useState(0);
-    const [totalAmount, setTotalAmount] = useState(0);
+    const [suggestedPrice, setSuggestedPrice] = useState();
+    const [totalAmount, setTotalAmount] = useState();
 
     const [orderList, setOrderList] = useState([]);
 
@@ -116,13 +116,14 @@ function Fuel({isAuth, userId} ) {
                     <div className="btn-container" >
                         <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
                     </div>
-                    {(gallonsRequested === undefined) ? (
-                        <div className="btn-container" >
-                        <button onClick={requestQuote} disabled className="btn-fuel">Not available</button> 
-                    </div>
-                    ) : (
+                    {(gallonsRequested > 0) ? (
                         <div className="btn-container" >
                             <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
+                        </div>
+                    ) : (
+                        <div className="btn-container" >
+                            <p className="error-msg">Please Enter A Number for Gallons Requested Greater Than Zero!</p>
+                            <button className="btn-fuel-grey">Sumbit A Fuel Quote</button> 
                         </div>
                     )}
                     

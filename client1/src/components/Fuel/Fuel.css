@@ -75,6 +75,23 @@
     border-radius: 20%;
     padding:20px 5px;
   }
+  .error-msg{
+    color:red;
+    margin:auto;
+    margin-bottom: 15px;
+    width:40%;
+    background-color: rgba(255,255,255,0.5);
+    font-size: 22px;
+  }
+  .btn-fuel-grey{
+    width:40%;
+    color:whitesmoke;
+    font-size:17px;
+    font-weight:600;
+    background-color:rgb(114, 112, 112);
+    border-radius: 20%;
+    padding:20px 5px;
+  }
 
 .fuel-history{
   display: flex;
