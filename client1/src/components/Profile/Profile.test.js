@@ -85,7 +85,7 @@ describe("Input Component", () => {
         
         await act( async () => {
             fireEvent.change(ZipCodeInput, {target: {value: "111111"}})
-            fireEvent.click(getByTestId('edit'))
+            
             
             expect(formValidation).toBeTruthy();
     })
@@ -99,10 +99,7 @@ describe("Button Component", () => {
     it("create triggers handleCreate", () =>{
         const handleCreate = jest.fn();
         const{getByTestId} = render(<Profile handleCreate={handleCreate}/>)
-        //not in order to actually test handleCreate change createData on profile page to true and uncomment statement below
-        //fireEvent.click(getByTestId('create'))
-        fireEvent.click(getByTestId('edit'))
-        fireEvent.click(getByTestId('save'))
+        
         expect(handleCreate).toBeTruthy()
     })
     it("edit triggers handleEdit", () =>{
@@ -115,8 +112,7 @@ describe("Button Component", () => {
         fireEvent.click(getByTestId('testUSState'))
         fireEvent.click(screen.getByText('Alaska'))
         fireEvent.change(getByTestId('testZipCode'), {target: {value: "11111"}})
-        fireEvent.click(getByTestId('edit'))
-        fireEvent.click(getByTestId('save'))
+        
         
         expect(handleEdit).toBeTruthy()
     })
