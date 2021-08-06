@@ -23,7 +23,6 @@ function Fuel({isAuth, userId} ) {
 
     const [orderList, setOrderList] = useState([]);
 
- // add a test case to test this function 
     const getGallons = (e) => {
         setGallonsRequested(e.target.value);
         };
@@ -79,7 +78,8 @@ function Fuel({isAuth, userId} ) {
             });
             toast("Fuel Order Placed Successfully!");
           };
-          useEffect(()=> handlePricing(),[])
+          useEffect(()=> handlePricing(),[]);
+          useEffect(()=> getQuote(),[]);
     return (
         <div>
             { isAuth === true ? (
