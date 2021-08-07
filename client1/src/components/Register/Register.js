@@ -5,30 +5,28 @@ import { toast } from 'react-toastify';
 import Axios from 'axios'
 import './Register.css';
 
-export default function Register(props) {
-    const {
-        isAuth,
-        setIsAuth,
-        isNewUser,
-        setIsNewUser,
-
-    } = props;
+export default function Register() {
+    
     const [userId, setUserId] = useState();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [isNewUser, setIsNewUser] = useState(0)
 
     toast.configure();
 
-    const register = () => {
+    
 
+    const register = () => {
+           
         Axios.post('http://localhost:3001/register', {
+            isNewUser:1,
             userId: userId,
             username: username,
             password: password,
         }).then((response) => {
             console.log("Success from fronted");
-            setIsNewUser(true)
+            console.log(isNewUser)
+            
 
         });
 
