@@ -99,7 +99,7 @@ describe("Button Component", () => {
     it("create triggers handleCreate", () =>{
         const handleCreate = jest.fn();
         const{getByTestId} = render(<Profile handleCreate={handleCreate}/>)
-       
+        
         expect(handleCreate).toBeTruthy()
     })
     it("edit triggers handleEdit", () =>{
