@@ -1,19 +1,35 @@
 const { db } = require("./index");
-const supertest = require("supertest");
 const express = require('express');
+const request = require("supertest");
 const app = express();
 
 describe("Should perform CRUD on fuel quotes", () => {
 
   test("delete a fuel quote", async () => {
     app.delete("/delete/:orderId", (req, res) => {
-      const orderId = req.params.orderId;
+      const orderId = 1;
       db.query("DELETE FROM fuelquotes WHERE orderId = ?", orderId, (err, result) => {
         if (err) {
           console.log(err);
         } else {
           res.send(result);
         }
+      });
+    });
+  });
+
+  describe("Find user information", () => {
+
+    test("find userId by using username", async () => {
+      app.get('/userid/:username', (req, res) => {
+        const username = req.params.username;
+        db.query("SELECT userId FROM users WHERE username=?", username, (err, result) => {
+            if (err) {
+                return console.log(err);
+            } else {
+                return res.send(result);
+            }  
+        });
       });
     });
   });
@@ -59,47 +75,30 @@ describe("Should perform CRUD on fuel quotes", () => {
 
 describe("Should perform CRUD on profile", () => {
 
-  test("create a fuel quote", async () => {
-    app.post('/insert', (req,res) => {
-      const userId = '100003';
-    const fullName = req.body.fullName;
-    const address1 = req.body.address1;
-    const address2 = req.body.address2;
-    const city = req.body.city;
-    const USstate = req.body.USstate;
-    const zipCode = req.body.zipCode;
-    const sqlInsert = 
-    "INSERT INTO profile (userId, fullName, address1, address2, city, USstate, zipCode) VALUES (?,?,?,?,?,?,?)"
-    db.query(sqlInsert,
-        [userId, fullName, address1, address2, city, USstate, zipCode])
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-        }
-      });
+  test("create a profile for user", async () => {
+    const newProfile = await request(app)
+    .post("/insert")
+    .send({
+      userId: 1,
+      fullName: "Bruce Wayne",
+      address1: "623 Alfred Way",
+      address2: "",
+      city: "Gotham City",
+      USstate:"New York",
+      zipCode: "99099",
     });
   });
+});
 
   test("check for fuel quotes stores to db", async() => {
-    const result = [];
-    app.get("/profile", (req, res) => {
-     
-      result = db.query("SELECT * FROM profile")
-      console.log(result);
-    });
-    expect(result).not.toBeNull();
-  });
-
-  test("get fuel quotes from db", async() => {
-
-    app.get("/profile", (req, res) => {
-      db.query("SELECT * FROM profile", (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.send(result);
-        }
-      });
+    const newQuote = await request(app)
+    .post("/create")
+    .send({
+      userId: 1,
+      orderId: 1,
+      gallonsRequested: 1500,
+      deliveryDate: "Mon Aug 02 2021",
+      suggestedPrice: 1.695,
+      totalAmount: 2450
     });
   });

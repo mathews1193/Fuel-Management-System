@@ -223,7 +223,6 @@ const Profile = ( props ) => {
             USstate:USState,
             zipCode:ZipCode,
         }).then(() => {
-            alert("Profile created successfully");
             //set edit to false when save is clicked
             
             setEdit(false)
@@ -389,7 +388,7 @@ return (
                       <button data-testid="edit" onClick={handleEdit} className="btn-edit">Edit Profile</button>
                     </div>
                     ):(<div className = "err-msg">
-                      please login to edit profile
+                      Please Login to Edit Profile
                     </div>)}
 
             </div>

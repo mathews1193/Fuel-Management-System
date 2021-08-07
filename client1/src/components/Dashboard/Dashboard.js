@@ -40,7 +40,8 @@ const Dashboard = (props) => {
       setDeliveryAddress(response.data[0].address1);
       setCity(response.data[0].city);
       setUSState(response.data[0].USstate);
-   });}}
+   });
+  }}
 
   // API call to delete an fuel quote by finding the orderID 
   const deleteOrder = (orderId) => {
