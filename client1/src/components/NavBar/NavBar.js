@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import "./NavBar.css";
 import Logo from "../../assets/img/logo.png";
 
 function NavBar(props) {
+
+    toast.configure();
+
     const {
         isAuth,
         setIsAuth,
@@ -11,6 +16,7 @@ function NavBar(props) {
     } = props;
 
     const handleSignOut = (e) => {
+        toast("Logging Out.......");
         setIsAuth(false)
         setIsNewUser(false)
     }

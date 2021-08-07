@@ -4,6 +4,7 @@ import Login1 from '../components/Login/Login';
 function Login(props) {
 
     const { 
+        userId,
         setUserId,
         isAuth,
         setIsAuth,
@@ -12,7 +13,7 @@ function Login(props) {
 
     return (
         <div>
-            <Login1 isAuth={isAuth} setIsAuth={setIsAuth} setUserId={setUserId} isNewUser={isNewUser}/>
+            <Login1 isAuth={isAuth} setIsAuth={setIsAuth} userId= {userId} setUserId={setUserId} isNewUser={isNewUser}/>
         </div>
     )
 }
