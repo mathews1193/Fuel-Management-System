@@ -12,7 +12,7 @@ export default function Login(props) {
     const [password, setPassword] = useState("");
     const [isNewUser, setIsNewUser] = useState('')
     const [loginStatus, setLoginStatus] = useState("");
-    let history = useHistory();
+    const history = useHistory();
     const {
         
         setUserId,
@@ -35,7 +35,6 @@ export default function Login(props) {
                 //user found redirect to client profile 
                 // user is authenticated
                 setLoginStatus(response.data[0].username);
-                
                 setIsAuth(true);
                 getUserId(response.data[0].username);
             }
@@ -55,9 +54,6 @@ export default function Login(props) {
         
         Axios.get(`http://localhost:3001/getisnewuser/${userId}`).then((response) =>{
           setIsNewUser(response.data[0].isNewUser)
-          
-          
-          
 
       })}
       useEffect(() => {pageRedirect()}, [isNewUser])
@@ -73,8 +69,7 @@ export default function Login(props) {
            history.push('/fuel-quote')
         }
     }
-      
-      
+       
     toast.configure();
 
     return (
@@ -104,8 +99,7 @@ export default function Login(props) {
                 </div>
                 
                 <div className="btn-button">
-                <button onClick={login} className="btn-login" type="submit" >Login</button>
-                    
+                <button onClick={login} className="btn-login" type="submit" >Login</button>    
                 </div>
                 <div className="btn-button2">
                     <Link to="/register"> <button className="btn-create" type="submit">Create an Account</button> </Link>

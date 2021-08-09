@@ -113,17 +113,25 @@ function Fuel({isAuth, userId} ) {
                             <p>Total Amount: ${totalAmount}</p>
                         </div>
                     </div>
-                    <div className="btn-container" >
-                        <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
-                    </div>
-                    {(gallonsRequested > 0) ? (
-                        <div className="btn-container" >
-                            <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
+                   
+                    {(gallonsRequested > 0) ? ( 
+                        <div>
+                            <div className="btn-container" >
+                                <button onClick={getQuote} className="btn-fuel">Get Quote</button> 
+                            </div>
+                            <div className="btn-container" >
+                                <button onClick={requestQuote} className="btn-fuel">Submit A Fuel Quote</button> 
+                            </div>
                         </div>
                     ) : (
-                        <div className="btn-container" >
+                        <div>
                             <p className="error-msg">Please Enter A Number for Gallons Requested Greater Than Zero!</p>
-                            <button className="btn-fuel-grey">Sumbit A Fuel Quote</button> 
+                            <div className="btn-container" >
+                                <button className="btn-fuel-grey">Get Quote</button> 
+                            </div>
+                            <div className="btn-container" >
+                                <button className="btn-fuel-grey">Sumbit A Fuel Quote</button> 
+                            </div>
                         </div>
                     )}
                     
